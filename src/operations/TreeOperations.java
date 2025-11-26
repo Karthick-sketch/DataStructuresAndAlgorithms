@@ -3,7 +3,6 @@ package operations;
 import datastructures.nonlinear.binarytree.binarysearchtree.BinarySearchTree;
 
 public class TreeOperations {
-
   public static void operations() {
     int[] values = { 8, 4, 2, 6, 1, 5, 3, 7, 10, 9, 11 };
     BinarySearchTree bst = new BinarySearchTree(values);

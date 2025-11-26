@@ -5,7 +5,6 @@ import datastructures.linear.LinkedList;
 import datastructures.linear.SinglyLinkedList;
 
 public class LinkedListOperations {
-
   public static void operations() {
     System.out.println("Singly Linked List");
     operations(new SinglyLinkedList<>());
