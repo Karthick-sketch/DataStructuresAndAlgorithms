@@ -1,6 +1,6 @@
 package operations;
 
-import datastructures.nonlinear.binarytree.binarysearchtree.BinarySearchTree;
+import datastructures.nonlinear.tree.binarytree.BinarySearchTree;
 
 public class TreeOperations {
   public static void operations() {

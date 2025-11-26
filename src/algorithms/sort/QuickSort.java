@@ -6,7 +6,7 @@ public class QuickSort implements Sort {
     quickSort(array, 0, array.length - 1);
   }
 
-  private static void quickSort(int[] array, int start, int end) {
+  private void quickSort(int[] array, int start, int end) {
     if (end <= start) {
       return;
     }
@@ -15,7 +15,7 @@ public class QuickSort implements Sort {
     quickSort(array, pivot + 1, end);
   }
 
-  private static int partition(int[] array, int start, int end) {
+  private int partition(int[] array, int start, int end) {
     int pivot = array[end];
     int i = start - 1;
     for (int j = start; j < end; j++) {

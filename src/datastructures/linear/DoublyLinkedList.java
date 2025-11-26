@@ -1,8 +1,7 @@
 package datastructures.linear;
 
 public class DoublyLinkedList<L> implements LinkedList<L> {
-
-  private Node<L> head;
+  private DoublyNode<L> head;
   private int length;
 
   @Override
@@ -13,27 +12,27 @@ public class DoublyLinkedList<L> implements LinkedList<L> {
   @Override
   public L get(int index) {
     if (index >= 0 && index < length) {
-      Node<L> node = head;
+      DoublyNode<L> node = head;
       for (int i = 0; i < index; i++) {
-        node = node.next;
+        node = node.getNext();
       }
-      return node.value;
+      return node.getValue();
     }
     throw new IndexOutOfBoundsException(index);
   }
 
   @Override
   public void add(L value) {
-    Node<L> node = new Node<>(value);
+    DoublyNode<L> node = new DoublyNode<>(value);
     if (head == null) {
       head = node;
     } else {
-      Node<L> temp = head;
-      while (temp.next != null) {
-        temp = temp.next;
+      DoublyNode<L> temp = head;
+      while (temp.getNext() != null) {
+        temp = temp.getNext();
       }
-      temp.next = node;
-      node.previous = temp;
+      temp.setNext(node);
+      node.setPrevious(temp);
     }
     length++;
   }
@@ -41,22 +40,22 @@ public class DoublyLinkedList<L> implements LinkedList<L> {
   @Override
   public void insert(L value, int index) {
     if (index >= 0 && index <= length) {
-      Node<L> node = new Node<>(value);
+      DoublyNode<L> node = new DoublyNode<>(value);
       if (index == 0) {
-        node.next = head;
-        head.previous = node;
+        node.setNext(head);
+        head.setPrevious(node);
         head = node;
       } else {
-        Node<L> temp = head;
+        DoublyNode<L> temp = head;
         for (int i = 1; i < index; i++) {
-          temp = temp.next;
+          temp = temp.getNext();
         }
-        if (temp.next != null) {
-          node.next = temp.next;
-          temp.next.previous = node;
+        if (temp.getNext() != null) {
+          node.setNext(temp.getNext());
+          temp.getNext().setPrevious(node);
         }
-        temp.next = node;
-        node.previous = temp;
+        temp.setNext(node);
+        node.setPrevious(temp);
       }
       length++;
     } else {
@@ -67,11 +66,11 @@ public class DoublyLinkedList<L> implements LinkedList<L> {
   @Override
   public void update(L value, int index) {
     if (index >= 0 && index < length) {
-      Node<L> temp = head;
+      DoublyNode<L> temp = head;
       for (int i = 1; i <= index; i++) {
-        temp = temp.next;
+        temp = temp.getNext();
       }
-      temp.value = value;
+      temp.setValue(value);
     } else {
       throw new IndexOutOfBoundsException(index);
     }
@@ -80,43 +79,30 @@ public class DoublyLinkedList<L> implements LinkedList<L> {
   @Override
   public L delete(int index) {
     if (index >= 0 && index < length) {
-      Node<L> temp = head;
+      DoublyNode<L> temp = head;
       if (index == 0) {
-        head = head.next;
-        head.previous = null;
+        head = head.getNext();
+        head.setPrevious(null);
       } else {
         for (int i = 1; i <= index; i++) {
-          temp = temp.next;
+          temp = temp.getNext();
         }
-        temp.previous.next = temp.next;
+        temp.getPrevious().setNext(temp.getNext());
       }
       length--;
-      return temp.value;
+      return temp.getValue();
     }
     throw new IndexOutOfBoundsException(index);
   }
 
   @Override
   public String toString() {
-    String values = "[";
-    Node<L> temp = head;
-    while (temp.next != null) {
-      values += temp.value + ", ";
-      temp = temp.next;
+    StringBuilder values = new StringBuilder("[");
+    DoublyNode<L> temp = head;
+    while (temp.getNext() != null) {
+      values.append(temp.getNext()).append(", ");
+      temp = temp.getNext();
     }
-    return values + temp.value + "]";
-  }
-
-  class Node<T> {
-
-    private T value;
-    private Node<T> previous;
-    private Node<T> next;
-
-    Node(T value) {
-      this.value = value;
-      this.previous = null;
-      this.next = null;
-    }
+    return values.toString() + temp.getNext() + "]";
   }
 }

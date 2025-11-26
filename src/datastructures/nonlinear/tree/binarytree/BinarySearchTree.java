@@ -1,13 +1,11 @@
-package datastructures.nonlinear.binarytree.binarysearchtree;
+package datastructures.nonlinear.tree.binarytree;
 
-import datastructures.nonlinear.binarytree.BinaryTreeNode;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Stack;
 
 public class BinarySearchTree {
-
-  protected BinaryTreeNode root;
+  protected BinaryTreeNode<Integer> root;
 
   public BinarySearchTree(int[] values) {
     insert(values);
@@ -20,11 +18,11 @@ public class BinarySearchTree {
   }
 
   public void insert(int value) {
-    BinaryTreeNode node = new BinaryTreeNode(value);
+    BinaryTreeNode<Integer> node = new BinaryTreeNode<Integer>(value);
     if (root == null) {
       root = node;
     } else {
-      BinaryTreeNode current = root;
+      BinaryTreeNode<Integer> current = root;
       while (true) {
         if (value < current.getValue()) {
           if (current.getLeft() == null) {
@@ -45,24 +43,8 @@ public class BinarySearchTree {
     }
   }
 
-  public void insertRecursive(int value) {
-    root = insertRecursive(root, value);
-  }
-
-  private BinaryTreeNode insertRecursive(BinaryTreeNode current, int value) {
-    if (current == null) {
-      return new BinaryTreeNode(value);
-    }
-    if (value < current.getValue()) {
-      current.setLeft(insertRecursive(current.getLeft(), value));
-    } else if (value > current.getValue()) {
-      current.setRight(insertRecursive(current.getRight(), value));
-    }
-    return current;
-  }
-
   public boolean search(int value) {
-    BinaryTreeNode current = root;
+    BinaryTreeNode<Integer> current = root;
     while (current != null) {
       if (value == current.getValue()) {
         return true;
@@ -77,8 +59,8 @@ public class BinarySearchTree {
 
   public List<Integer> get() {
     List<Integer> list = new ArrayList<>();
-    Stack<BinaryTreeNode> stack = new Stack<>();
-    BinaryTreeNode current = root;
+    Stack<BinaryTreeNode<Integer>> stack = new Stack<>();
+    BinaryTreeNode<Integer> current = root;
     while (current != null || !stack.isEmpty()) {
       while (current != null) {
         stack.push(current);
@@ -97,7 +79,7 @@ public class BinarySearchTree {
     return list;
   }
 
-  private void inOrder(BinaryTreeNode current, List<Integer> list) {
+  private void inOrder(BinaryTreeNode<Integer> current, List<Integer> list) {
     if (current != null) {
       inOrder(current.getLeft(), list);
       list.add(current.getValue());
@@ -111,7 +93,7 @@ public class BinarySearchTree {
     return list;
   }
 
-  private void preOrder(BinaryTreeNode current, List<Integer> list) {
+  private void preOrder(BinaryTreeNode<Integer> current, List<Integer> list) {
     if (current != null) {
       list.add(current.getValue());
       preOrder(current.getLeft(), list);
@@ -125,7 +107,7 @@ public class BinarySearchTree {
     return list;
   }
 
-  private void postOrder(BinaryTreeNode current, List<Integer> list) {
+  private void postOrder(BinaryTreeNode<Integer> current, List<Integer> list) {
     if (current != null) {
       postOrder(current.getLeft(), list);
       postOrder(current.getRight(), list);
@@ -134,11 +116,11 @@ public class BinarySearchTree {
   }
 
   public boolean delete(int value) {
-    BinaryTreeNode child = root, parent = root;
+    BinaryTreeNode<Integer> child = root, parent = root;
     while (child != null) {
       if (value == child.getValue()) {
         if (child.getLeft() != null && child.getRight() != null) {
-          BinaryTreeNode current = child.getLeft(), previous = null;
+          BinaryTreeNode<Integer> current = child.getLeft(), previous = null;
           while (current.getRight() != null) {
             previous = current;
             current = current.getRight();
@@ -150,7 +132,7 @@ public class BinarySearchTree {
             previous.setRight(null);
           }
         } else {
-          BinaryTreeNode current = null;
+          BinaryTreeNode<Integer> current = null;
           if (child.getLeft() != null) {
             current = child.getLeft();
           } else if (child.getRight() != null) {
@@ -174,7 +156,7 @@ public class BinarySearchTree {
   }
 
   public int maximum() {
-    BinaryTreeNode current = root;
+    BinaryTreeNode<Integer> current = root;
     while (current.getRight() != null) {
       current = current.getRight();
     }
@@ -182,7 +164,7 @@ public class BinarySearchTree {
   }
 
   public int minimum() {
-    BinaryTreeNode current = root;
+    BinaryTreeNode<Integer> current = root;
     while (current.getLeft() != null) {
       current = current.getLeft();
     }

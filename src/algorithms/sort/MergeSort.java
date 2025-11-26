@@ -26,7 +26,7 @@ public class MergeSort implements Sort {
     merge(left, right, array);
   }
 
-  private static void merge(int[] left, int[] right, int[] array) {
+  private void merge(int[] left, int[] right, int[] array) {
     int lSize = array.length / 2;
     int rSize = array.length - lSize;
     int i = 0, l = 0, r = 0;

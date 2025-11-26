@@ -1,7 +1,6 @@
 package datastructures.linear;
 
 public class SinglyLinkedList<L> implements LinkedList<L> {
-
   private Node<L> head;
   private int length;
 
@@ -15,9 +14,9 @@ public class SinglyLinkedList<L> implements LinkedList<L> {
     if (index >= 0 && index < length) {
       Node<L> node = head;
       for (int i = 0; i < index; i++) {
-        node = node.next;
+        node = node.getNext();
       }
-      return node.value;
+      return node.getValue();
     }
     throw new IndexOutOfBoundsException(index);
   }
@@ -29,10 +28,10 @@ public class SinglyLinkedList<L> implements LinkedList<L> {
       head = node;
     } else {
       Node<L> temp = head;
-      while (temp.next != null) {
-        temp = temp.next;
+      while (temp.getNext() != null) {
+        temp = temp.getNext();
       }
-      temp.next = node;
+      temp.setNext(node);
     }
     length++;
   }
@@ -42,15 +41,15 @@ public class SinglyLinkedList<L> implements LinkedList<L> {
     if (index >= 0 && index <= length) {
       Node<L> node = new Node<>(value);
       if (index == 0) {
-        node.next = head;
+        node.setNext(head);
         head = node;
       } else {
         Node<L> temp = head;
         for (int i = 1; i < index; i++) {
-          temp = temp.next;
+          temp = temp.getNext();
         }
-        node.next = temp.next;
-        temp.next = node;
+        node.setNext(temp.getNext());
+        temp.setNext(node);
       }
       length++;
     } else {
@@ -63,9 +62,9 @@ public class SinglyLinkedList<L> implements LinkedList<L> {
     if (index >= 0 && index < length) {
       Node<L> temp = head;
       for (int i = 1; i <= index; i++) {
-        temp = temp.next;
+        temp = temp.getNext();
       }
-      temp.value = value;
+      temp.setValue(value);
     } else {
       throw new IndexOutOfBoundsException(index);
     }
@@ -76,40 +75,29 @@ public class SinglyLinkedList<L> implements LinkedList<L> {
     if (index >= 0 && index < length) {
       Node<L> node = head;
       if (index == 0) {
-        head = head.next;
+        head = head.getNext();
       } else {
         Node<L> temp = head;
         for (int i = 1; i < index; i++) {
-          temp = temp.next;
+          temp = temp.getNext();
         }
-        node = temp.next;
-        temp.next = node.next;
+        node = temp.getNext();
+        temp.setNext(node.getNext());
       }
       length--;
-      return node.value;
+      return node.getValue();
     }
     throw new IndexOutOfBoundsException(index);
   }
 
   @Override
   public String toString() {
-    String values = "[";
+    StringBuilder values = new StringBuilder("[");
     Node<L> temp = head;
-    while (temp.next != null) {
-      values += temp.value + ", ";
-      temp = temp.next;
+    while (temp.getNext() != null) {
+      values.append(temp.getNext()).append(", ");
+      temp = temp.getNext();
     }
-    return values + temp.value + "]";
-  }
-
-  class Node<T> {
-
-    private T value;
-    private Node<T> next;
-
-    Node(T value) {
-      this.value = value;
-      this.next = null;
-    }
+    return values.toString() + temp.getNext() + "]";
   }
 }

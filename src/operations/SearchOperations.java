@@ -1,6 +1,7 @@
 package operations;
 
 import algorithms.search.*;
+import algorithms.sort.InsertionSort;
 import algorithms.sort.Sort;
 
 import java.util.Arrays;
@@ -22,7 +23,8 @@ public class SearchOperations {
       if (ip == 1) {
         search = new LinearSearch();
       } else {
-        Sort.insertionSort(arr);
+        Sort sort = new InsertionSort();
+        sort.sort(arr);
         if (ip == 2) {
           search = new JumpSearch();
         } else {

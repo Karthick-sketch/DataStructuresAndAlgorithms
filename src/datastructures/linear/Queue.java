@@ -1,7 +1,6 @@
 package datastructures.linear;
 
 public class Queue<Q> {
-
   private Node<Q> first;
   private Node<Q> last;
 
@@ -10,28 +9,17 @@ public class Queue<Q> {
     if (first == null) {
       first = node;
     } else {
-      last.next = node;
+      last.setNext(node);
     }
     last = node;
   }
 
   public Q dequeue() {
     Node<Q> temp = first;
-    first = first.next;
+    first = first.getNext();
     if (first == null) {
       last = null;
     }
-    return temp.value;
-  }
-
-  class Node<T> {
-
-    private T value;
-    private Node<T> next;
-
-    Node(T value) {
-      this.value = value;
-      this.next = null;
-    }
+    return temp.getValue();
   }
 }
