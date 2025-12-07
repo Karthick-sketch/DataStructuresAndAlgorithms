@@ -1,10 +1,11 @@
 package operations;
 
-import datastructures.linear.DoublyLinkedList;
-import datastructures.linear.LinkedList;
-import datastructures.linear.SinglyLinkedList;
+import datastructures.linear.linkedlist.DoublyLinkedList;
+import datastructures.linear.linkedlist.LinkedList;
+import datastructures.linear.linkedlist.SinglyLinkedList;
 
 public class LinkedListOperations {
+
   public static void operations() {
     System.out.println("Singly Linked List");
     operations(new SinglyLinkedList<>());

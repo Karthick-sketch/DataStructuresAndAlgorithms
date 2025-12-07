@@ -1,6 +1,7 @@
-package datastructures.linear;
+package datastructures.linear.node;
 
 public class DoublyNode<D> {
+
   private D value;
   private DoublyNode<D> previous;
   private DoublyNode<D> next;

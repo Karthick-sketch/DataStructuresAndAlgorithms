@@ -1,10 +1,11 @@
-package datastructures.linear;
+package datastructures.linear.node;
 
 public class Node<N> {
+
   private N value;
   private Node<N> next;
 
-  Node(N value) {
+  public Node(N value) {
     this.value = value;
     this.next = null;
   }

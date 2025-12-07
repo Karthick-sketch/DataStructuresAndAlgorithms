@@ -1,4 +1,4 @@
-package datastructures.linear;
+package datastructures.linear.linkedlist;
 
 public interface LinkedList<L> {
   int size();

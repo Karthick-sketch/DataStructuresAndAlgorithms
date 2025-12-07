@@ -1,6 +1,9 @@
 package datastructures.linear;
 
+import datastructures.linear.node.Node;
+
 public class Queue<Q> {
+
   private Node<Q> first;
   private Node<Q> last;
 
