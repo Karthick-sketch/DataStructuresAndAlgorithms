@@ -2,7 +2,8 @@ package operations;
 
 import datastructures.nonlinear.tree.binarytree.BinarySearchTree;
 
-public class TreeOperations {
+public class BinarySearchTreeOperations {
+
   public static void operations() {
     int[] values = { 8, 4, 2, 6, 1, 5, 3, 7, 10, 9, 11 };
     BinarySearchTree bst = new BinarySearchTree(values);
