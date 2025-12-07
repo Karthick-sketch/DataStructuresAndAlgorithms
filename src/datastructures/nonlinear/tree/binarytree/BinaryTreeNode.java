@@ -1,6 +1,7 @@
 package datastructures.nonlinear.tree.binarytree;
 
 public class BinaryTreeNode<BT> {
+
   private BT value;
   private BinaryTreeNode<BT> left;
   private BinaryTreeNode<BT> right;

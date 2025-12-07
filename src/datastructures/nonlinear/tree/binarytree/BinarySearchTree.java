@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Stack;
 
 public class BinarySearchTree {
+
   protected BinaryTreeNode<Integer> root;
 
   public BinarySearchTree(int[] values) {

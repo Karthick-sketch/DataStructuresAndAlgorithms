@@ -1,10 +1,10 @@
 package operations;
 
 import algorithms.sort.*;
-
 import java.util.Arrays;
 
 public class SortOperations {
+
   public static void operations() {
     int[] arr = Randomize.randomizeArray(10);
     System.out.println("Unsorted:\t" + Arrays.toString(arr));
@@ -18,6 +18,6 @@ public class SortOperations {
   private static void operations(int[] arr, Sort sort, String name) {
     int[] copy = Arrays.copyOf(arr, arr.length);
     sort.sort(copy);
-    System.out.printf("%s Sort:\t%s", name, Arrays.toString(copy));
+    System.out.printf("%s Sort:\t%s\n", name, Arrays.toString(copy));
   }
 }

@@ -3,6 +3,7 @@ package operations;
 import java.util.Random;
 
 class Randomize {
+
   static int[] randomizeArray(int length) {
     Random random = new Random();
     int[] array = new int[length];

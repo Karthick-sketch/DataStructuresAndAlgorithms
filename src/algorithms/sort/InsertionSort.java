@@ -1,6 +1,7 @@
 package algorithms.sort;
 
 public class InsertionSort implements Sort {
+
   @Override
   public void sort(int[] array) {
     for (int i = 1; i < array.length; i++) {

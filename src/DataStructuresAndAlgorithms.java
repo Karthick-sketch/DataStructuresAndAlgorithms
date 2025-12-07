@@ -3,41 +3,74 @@ import operations.*;
 
 public class DataStructuresAndAlgorithms {
 
+  private static Scanner scanner = new Scanner(System.in);
+  private static int input;
+
   public static void main(String[] args) {
-    Scanner scanner = new Scanner(System.in);
-    int ip;
-    do {
-      System.out.println("0. Exit\n1. Search\n2. Sort");
-      System.out.println("3. Linked List\n4. Stack\n5. Queue");
-      System.out.println("6. Heap\n7. Binary Tree\n8. Binary Search Tree");
-      System.out.print("> ");
-      ip = scanner.nextInt();
-      switch (ip) {
-        case 1:
-          SearchOperations.operations();
-          break;
-        case 2:
-          SortOperations.operations();
-          break;
-        case 3:
-          LinkedListOperations.operations();
-          break;
-        case 4:
-          StackOperations.operations();
-          break;
-        case 5:
-          QueueOperations.operations();
-          break;
-        case 6:
-          HeapOperations.operations();
-          break;
-        case 7:
-          BinaryTreeOperations.operations();
-          break;
-        case 8:
-          BinarySearchTreeOperations.operations();
+    start();
+  }
+
+  private static void start() {
+    System.out.println("0. Exit\n1. Algorithms\n2. Data Structures");
+    System.out.print("> ");
+    input = scanner.nextInt();
+    switch (input) {
+      case 0:
+        exit();
+        break;
+      case 1:
+        algorithms();
+        break;
+      case 2:
+        dataStructures();
+        break;
+      default:
+        start();
+    }
+  }
+
+  private static void algorithms() {
+    System.out.println("0. Back\n1. Search\n2. Sort");
+    System.out.print("> ");
+    input = scanner.nextInt();
+    if (input == 0) {
+      start();
+    } else {
+      if (input == 1) {
+        SearchOperations.operations(scanner);
+      } else if (input == 2) {
+        SortOperations.operations();
       }
-    } while (ip != 0);
+      algorithms();
+    }
+  }
+
+  private static void dataStructures() {
+    System.out.println("0. Back\n1. Linked List\n2. Stack\n3. Queue");
+    System.out.println("4. Heap\n5. Binary Tree\n6. Binary Search Tree");
+    System.out.print("> ");
+    input = scanner.nextInt();
+    if (input == 0) {
+      start();
+    } else {
+      if (input == 1) {
+        LinkedListOperations.operations();
+      } else if (input == 2) {
+        StackOperations.operations();
+      } else if (input == 3) {
+        QueueOperations.operations();
+      } else if (input == 4) {
+        HeapOperations.operations();
+      } else if (input == 5) {
+        BinaryTreeOperations.operations();
+      } else if (input == 6) {
+        BinarySearchTreeOperations.operations();
+      }
+      dataStructures();
+    }
+  }
+
+  private static void exit() {
     scanner.close();
   }
 }

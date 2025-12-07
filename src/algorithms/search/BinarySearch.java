@@ -1,6 +1,7 @@
 package algorithms.search;
 
 public class BinarySearch implements Search {
+
   @Override
   public int search(int[] array, int value) {
     int left = 0, right = array.length - 1;

@@ -1,6 +1,7 @@
 package algorithms.search;
 
 public class JumpSearch implements Search {
+
   @Override
   public int search(int[] array, int value) {
     int len = array.length;

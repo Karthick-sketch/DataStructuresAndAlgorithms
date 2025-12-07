@@ -1,6 +1,7 @@
 package operations;
 
 import datastructures.nonlinear.tree.binarytree.BinarySearchTree;
+import java.util.Arrays;
 
 public class BinarySearchTreeOperations {
 
@@ -8,6 +9,7 @@ public class BinarySearchTreeOperations {
     int[] values = { 8, 4, 2, 6, 1, 5, 3, 7, 10, 9, 11 };
     BinarySearchTree bst = new BinarySearchTree(values);
 
+    System.out.println("Array : " + Arrays.toString(values));
     System.out.println("Iterative : " + bst.get());
     System.out.println("In-order : " + bst.getInOrder());
     System.out.println("Pre-order : " + bst.getPreOrder());
