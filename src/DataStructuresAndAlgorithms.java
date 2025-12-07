@@ -9,7 +9,7 @@ public class DataStructuresAndAlgorithms {
     do {
       System.out.println("0. Exit\n1. Search\n2. Sort");
       System.out.println("3. Linked List\n4. Stack\n5. Queue");
-      System.out.println("6. Binary Tree\n7. Binary Search Tree");
+      System.out.println("6. Heap\n7. Binary Tree\n8. Binary Search Tree");
       System.out.print("> ");
       ip = scanner.nextInt();
       switch (ip) {
@@ -29,9 +29,12 @@ public class DataStructuresAndAlgorithms {
           QueueOperations.operations();
           break;
         case 6:
-          BinaryTreeOperations.operations();
+          HeapOperations.operations();
           break;
         case 7:
+          BinaryTreeOperations.operations();
+          break;
+        case 8:
           BinarySearchTreeOperations.operations();
       }
     } while (ip != 0);
