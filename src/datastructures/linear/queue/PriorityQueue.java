@@ -5,25 +5,25 @@ import datastructures.nonlinear.heap.Heap;
 public class PriorityQueue {
 
   private Heap heap;
-  private Integer[] array;
+  private int[] array;
   private int length;
   private boolean isHighPriority;
 
   public PriorityQueue(boolean isHighPriority) {
     this.heap = new Heap();
-    this.array = new Integer[10];
+    this.array = new int[10];
     this.length = -1;
     this.isHighPriority = isHighPriority;
   }
 
-  public PriorityQueue(Integer[] array, boolean isHighPriority) {
+  public PriorityQueue(int[] array, boolean isHighPriority) {
     this.heap = new Heap();
     this.array = array;
     this.length = array.length;
     this.isHighPriority = isHighPriority;
   }
 
-  public void enqueue(Integer value) {
+  public void enqueue(int value) {
     if (array.length == length) {
       extendArray();
     }
@@ -32,16 +32,16 @@ public class PriorityQueue {
     heapify();
   }
 
-  public Integer dequeue() {
-    Integer value = array[0];
+  public int dequeue() {
+    int value = array[0];
     adjustArray();
     heapify();
     return value;
   }
 
   private void extendArray() {
-    Integer[] temp = array;
-    array = new Integer[temp.length + 10];
+    int[] temp = array;
+    array = new int[temp.length + 10];
     for (int i = 0; i < temp.length; i++) {
       array[i] = temp[i];
     }
@@ -49,7 +49,7 @@ public class PriorityQueue {
 
   private void adjustArray() {
     array[0] = array[length];
-    array[length] = null;
+    array[length] = 0;
     length--;
   }
 

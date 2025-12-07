@@ -2,29 +2,29 @@ package datastructures.nonlinear.heap;
 
 public class Heap {
 
-  public void maxHeap(Integer[] array) {
+  public void maxHeap(int[] array) {
     maxHeap(array, array.length);
   }
 
-  public void minHeap(Integer[] array) {
+  public void minHeap(int[] array) {
     minHeap(array, array.length);
   }
 
-  public void maxHeap(Integer[] array, int length) {
+  public void maxHeap(int[] array, int length) {
     for (int i = length - 1; i > 0; i--) {
       maxHeapify(array, i);
       swap(array, 0, i);
     }
   }
 
-  public void minHeap(Integer[] array, int length) {
+  public void minHeap(int[] array, int length) {
     for (int i = length - 1; i > 0; i--) {
       minHeapify(array, i);
       swap(array, 0, i);
     }
   }
 
-  private void maxHeapify(Integer[] array, int length) {
+  private void maxHeapify(int[] array, int length) {
     for (int i = length; i > 0; i--) {
       int j = (int) ((i - 1) / 2.0);
       if (array[i] > array[j]) {
@@ -33,7 +33,7 @@ public class Heap {
     }
   }
 
-  private void minHeapify(Integer[] array, int length) {
+  private void minHeapify(int[] array, int length) {
     for (int i = length; i > 0; i--) {
       int j = (int) ((i - 1) / 2.0);
       if (array[i] < array[j]) {
@@ -42,7 +42,7 @@ public class Heap {
     }
   }
 
-  private void swap(Integer[] array, int a, int b) {
+  private void swap(int[] array, int a, int b) {
     int temp = array[a];
     array[a] = array[b];
     array[b] = temp;
