@@ -13,6 +13,7 @@ public class SortOperations {
     operations(arr, new InsertionSort(), "Insertion");
     operations(arr, new MergeSort(), "Merge");
     operations(arr, new QuickSort(), "Quick");
+    operations(arr, new HeapSort(), "Heap");
   }
 
   private static void operations(int[] arr, Sort sort, String name) {
