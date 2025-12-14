@@ -1,12 +1,16 @@
 package datastructures.nonlinear.tree.binarytree;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Stack;
+import datastructures.linear.Stack;
+import datastructures.linear.linkedlist.LinkedList;
+import datastructures.linear.linkedlist.SinglyLinkedList;
 
 public class BinarySearchTree {
 
   protected BinaryTreeNode<Integer> root;
+
+  public BinarySearchTree() {
+    root = null;
+  }
 
   public BinarySearchTree(int[] values) {
     insert(values);
@@ -58,8 +62,8 @@ public class BinarySearchTree {
     return false;
   }
 
-  public List<Integer> get() {
-    List<Integer> list = new ArrayList<>();
+  public LinkedList<Integer> get() {
+    LinkedList<Integer> list = new SinglyLinkedList<>();
     Stack<BinaryTreeNode<Integer>> stack = new Stack<>();
     BinaryTreeNode<Integer> current = root;
     while (current != null || !stack.isEmpty()) {
@@ -74,46 +78,58 @@ public class BinarySearchTree {
     return list;
   }
 
-  public List<Integer> getInOrder() {
-    List<Integer> list = new ArrayList<>();
+  public LinkedList<Integer> getInOrder() {
+    LinkedList<Integer> list = new SinglyLinkedList<>();
     inOrder(root, list);
     return list;
   }
 
-  private void inOrder(BinaryTreeNode<Integer> current, List<Integer> list) {
-    if (current != null) {
-      inOrder(current.getLeft(), list);
-      list.add(current.getValue());
-      inOrder(current.getRight(), list);
+  private void inOrder(
+    BinaryTreeNode<Integer> current,
+    LinkedList<Integer> list
+  ) {
+    if (current == null) {
+      return;
     }
+    inOrder(current.getLeft(), list);
+    list.add(current.getValue());
+    inOrder(current.getRight(), list);
   }
 
-  public List<Integer> getPreOrder() {
-    List<Integer> list = new ArrayList<>();
+  public LinkedList<Integer> getPreOrder() {
+    LinkedList<Integer> list = new SinglyLinkedList<>();
     preOrder(root, list);
     return list;
   }
 
-  private void preOrder(BinaryTreeNode<Integer> current, List<Integer> list) {
-    if (current != null) {
-      list.add(current.getValue());
-      preOrder(current.getLeft(), list);
-      preOrder(current.getRight(), list);
+  private void preOrder(
+    BinaryTreeNode<Integer> current,
+    LinkedList<Integer> list
+  ) {
+    if (current == null) {
+      return;
     }
+    list.add(current.getValue());
+    preOrder(current.getLeft(), list);
+    preOrder(current.getRight(), list);
   }
 
-  public List<Integer> getPostOrder() {
-    List<Integer> list = new ArrayList<>();
+  public LinkedList<Integer> getPostOrder() {
+    LinkedList<Integer> list = new SinglyLinkedList<>();
     postOrder(root, list);
     return list;
   }
 
-  private void postOrder(BinaryTreeNode<Integer> current, List<Integer> list) {
-    if (current != null) {
-      postOrder(current.getLeft(), list);
-      postOrder(current.getRight(), list);
-      list.add(current.getValue());
+  private void postOrder(
+    BinaryTreeNode<Integer> current,
+    LinkedList<Integer> list
+  ) {
+    if (current == null) {
+      return;
     }
+    postOrder(current.getLeft(), list);
+    postOrder(current.getRight(), list);
+    list.add(current.getValue());
   }
 
   public boolean delete(int value) {
