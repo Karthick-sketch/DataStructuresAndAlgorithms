@@ -4,7 +4,7 @@ import datastructures.linear.Stack;
 import datastructures.linear.linkedlist.LinkedList;
 import datastructures.linear.linkedlist.SinglyLinkedList;
 
-public class BinarySearchTree {
+public class BinarySearchTree extends BinaryTree<Integer> {
 
   protected BinaryTreeNode<Integer> root;
 

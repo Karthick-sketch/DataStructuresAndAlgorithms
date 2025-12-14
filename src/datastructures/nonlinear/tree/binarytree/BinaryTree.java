@@ -44,10 +44,11 @@ public class BinaryTree<B> {
   }
 
   private void print(BinaryTreeNode<B> node) {
-    if (node != null) {
-      print(node.getLeft());
-      System.out.println(node.getValue());
-      print(node.getRight());
+    if (node == null) {
+      return;
     }
+    print(node.getLeft());
+    System.out.println(node.getValue());
+    print(node.getRight());
   }
 }
