@@ -18,11 +18,18 @@ public class Queue<Q> {
   }
 
   public Q dequeue() {
+    if (isEmpty()) {
+      throw new RuntimeException("Queue is empty");
+    }
     Node<Q> temp = first;
     first = first.getNext();
     if (first == null) {
       last = null;
     }
     return temp.getValue();
+  }
+
+  public boolean isEmpty() {
+    return first == null;
   }
 }

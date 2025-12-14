@@ -33,10 +33,17 @@ public class PriorityQueue {
   }
 
   public int dequeue() {
+    if (isEmpty()) {
+      throw new RuntimeException("Queue is empty");
+    }
     int value = array[0];
     adjustArray();
     heapify();
     return value;
+  }
+
+  public boolean isEmpty() {
+    return length < 0;
   }
 
   private void extendArray() {
