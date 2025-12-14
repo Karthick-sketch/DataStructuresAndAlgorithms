@@ -95,12 +95,15 @@ public class SinglyLinkedList<L> implements LinkedList<L> {
 
   @Override
   public String toString() {
+    if (head == null) {
+      return "[]";
+    }
     StringBuilder values = new StringBuilder("[");
     Node<L> temp = head;
     while (temp.getNext() != null) {
-      values.append(temp.getNext()).append(", ");
+      values.append(temp.getValue()).append(", ");
       temp = temp.getNext();
     }
-    return values.toString() + temp.getNext() + "]";
+    return values.toString() + temp.getValue() + "]";
   }
 }
