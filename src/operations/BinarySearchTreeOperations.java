@@ -6,21 +6,22 @@ import java.util.Arrays;
 public class BinarySearchTreeOperations {
 
   public static void operations() {
-    int[] values = { 8, 4, 2, 6, 1, 5, 3, 7, 10, 9, 11 };
+    int[] values = Randomize.randomizeArray(12);
     BinarySearchTree bst = new BinarySearchTree(values);
 
-    System.out.println("Array : " + Arrays.toString(values));
-    System.out.println("Iterative : " + bst.get());
-    System.out.println("In-order : " + bst.getInOrder());
-    System.out.println("Pre-order : " + bst.getPreOrder());
-    System.out.println("Post-order : " + bst.getPostOrder());
+    System.out.println("Array: " + Arrays.toString(values));
+    System.out.println("Iterative: " + bst.get());
+    System.out.println("In-order: " + bst.getInOrder());
+    System.out.println("Pre-order: " + bst.getPreOrder());
+    System.out.println("Post-order: " + bst.getPostOrder());
 
-    System.out.println("Search 5 : " + bst.search(5));
-    System.out.println("Delete 8 : " + bst.delete(8));
+    System.out.printf("Search %d: %b\n", values[5], bst.search(values[5]));
+    System.out.printf("Delete %d: %b\n", values[8], bst.delete(values[8]));
     System.out.println(bst.get());
 
-    System.out.println("Maximum : " + bst.maximum());
-    System.out.println("Minimum : " + bst.minimum());
+    System.out.println("Maximum: " + bst.maximum());
+    System.out.println("Minimum: " + bst.minimum());
+    System.out.println("Max Height: " + bst.findHeight());
 
     bst.clear();
     System.out.println(bst.get());

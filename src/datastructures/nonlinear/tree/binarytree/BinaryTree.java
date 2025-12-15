@@ -2,7 +2,7 @@ package datastructures.nonlinear.tree.binarytree;
 
 public class BinaryTree<B> {
 
-  private BinaryTreeNode<B> root;
+  protected BinaryTreeNode<B> root;
 
   // input: [4, 2, 6, 1, 3, 5, 7]
   // output: [1, 2, 5, 4, 3, 6, 7]
@@ -32,11 +32,20 @@ public class BinaryTree<B> {
     }
   }
 
-  public int findHeight(BinaryTreeNode<B> node) {
+  public int findHeight() {
+    return findHeight(root);
+  }
+
+  protected int findHeight(BinaryTreeNode<B> node) {
     if (node == null) {
       return 0;
+    } else if (node.getLeft() == null && node.getRight() == null) {
+      return 1;
+    } else {
+      int lh = findHeight(node.getLeft());
+      int rh = findHeight(node.getRight());
+      return 1 + Math.max(lh, rh);
     }
-    return 1 + findHeight(node.getLeft()) - findHeight(node.getRight());
   }
 
   public void print() {

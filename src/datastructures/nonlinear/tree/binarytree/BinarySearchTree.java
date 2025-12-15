@@ -6,13 +6,12 @@ import datastructures.linear.linkedlist.SinglyLinkedList;
 
 public class BinarySearchTree extends BinaryTree<Integer> {
 
-  protected BinaryTreeNode<Integer> root;
-
   public BinarySearchTree() {
-    root = null;
+    super();
   }
 
   public BinarySearchTree(int[] values) {
+    super();
     insert(values);
   }
 
