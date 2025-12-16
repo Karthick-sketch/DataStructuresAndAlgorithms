@@ -1,34 +1,73 @@
 package datastructures.nonlinear.tree.binarytree;
 
+import datastructures.linear.Stack;
+
 public class BinaryTree<B> {
 
   protected BinaryTreeNode<B> root;
 
-  // input: [4, 2, 6, 1, 3, 5, 7]
-  // output: [1, 2, 5, 4, 3, 6, 7]
+  private Stack<BinaryTreeNode<B>> stack;
+
+  public BinaryTree() {
+    this.root = null;
+    this.stack = new Stack<>();
+  }
+
+  public BinaryTree(B[] values) {
+    this();
+    insert(values);
+  }
+
+  public void insert(B[] values) {
+    for (B value : values) {
+      insert(value);
+    }
+  }
 
   public void insert(B value) {
-    BinaryTreeNode<B> node = new BinaryTreeNode<>(value);
+    insert(new BinaryTreeNode<>(value));
+  }
+
+  // input           : [63, 0, 48, 17, 58, 15, 76, 73, 61, 82, 35, 88]
+  // actual output   : [88, 73, 17, 61, 0, 82, 58, 35, 63, 15, 48, 76]
+  // expected output : [73, 17, 61, 0, 82, 58, 35, 63, 88, 15, 48, 76]
+
+  private void insert(BinaryTreeNode<B> node) {
     if (root == null) {
       root = node;
+      stack.push(root);
     } else {
-      BinaryTreeNode<B> temp = root;
-      int leftHeight, rightHeight;
-      while (temp != null) {
-        leftHeight = findHeight(temp.getLeft());
-        rightHeight = findHeight(temp.getRight());
-        if (leftHeight == 0) {
-          temp.setLeft(node);
-          break;
-        } else if (rightHeight == 0) {
-          temp.setRight(node);
-          break;
-        } else if (leftHeight == rightHeight) {
-          temp = temp.getLeft();
+      BinaryTreeNode<B> temp = stack.peek();
+      if (temp.getLeft() == null) {
+        temp.setLeft(node);
+      } else if (temp.getRight() == null) {
+        temp.setRight(node);
+      } else {
+        BinaryTreeNode<B> nd = stack.pop();
+        if (stack.isEmpty()) {
+          fillStack();
+          stack.peek().setLeft(node);
         } else {
-          temp = temp.getRight();
+          while (!stack.isEmpty() && stack.peek().getRight() == nd) {
+            nd = stack.pop();
+          }
+          if (stack.isEmpty()) {
+            fillStack();
+            stack.peek().setLeft(node);
+          } else {
+            stack.push(stack.peek().getRight());
+            insert(node);
+          }
         }
       }
+    }
+  }
+
+  private void fillStack() {
+    BinaryTreeNode<B> temp = root;
+    while (temp != null) {
+      stack.push(temp);
+      temp = temp.getLeft();
     }
   }
 
@@ -49,7 +88,9 @@ public class BinaryTree<B> {
   }
 
   public void print() {
+    System.out.print("[ ");
     print(root);
+    System.out.println("]");
   }
 
   private void print(BinaryTreeNode<B> node) {
@@ -57,7 +98,7 @@ public class BinaryTree<B> {
       return;
     }
     print(node.getLeft());
-    System.out.println(node.getValue());
+    System.out.print(node.getValue() + " ");
     print(node.getRight());
   }
 }

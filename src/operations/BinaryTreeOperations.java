@@ -1,15 +1,18 @@
 package operations;
 
 import datastructures.nonlinear.tree.binarytree.BinaryTree;
+import java.util.Arrays;
 
 public class BinaryTreeOperations {
 
   public static void operations() {
     BinaryTree<Integer> bt = new BinaryTree<>();
-    int[] arr = { 4, 2, 6, 1, 3, 5, 7 };
-    for (int i = 0; i < arr.length; i++) {
-      bt.insert(arr[i]);
+    int[] values = Randomize.randomizeArray(12);
+    for (int value : values) {
+      bt.insert(value);
     }
+    System.out.println("Array: " + Arrays.toString(values));
+    System.out.print("Binary Tree: ");
     bt.print();
   }
 }
