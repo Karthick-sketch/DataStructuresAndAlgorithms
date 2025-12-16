@@ -13,15 +13,24 @@ public class Stack<S> {
   }
 
   public S pop() {
-    if (isEmpty()) {
-      throw new RuntimeException("Stack is empty");
-    }
+    checkStackIsEmpty();
     Node<S> node = top;
     top = top.getNext();
     return node.getValue();
   }
 
+  public S peek() {
+    checkStackIsEmpty();
+    return top.getValue();
+  }
+
   public boolean isEmpty() {
     return top == null;
+  }
+
+  private void checkStackIsEmpty() {
+    if (isEmpty()) {
+      throw new RuntimeException("Stack is empty");
+    }
   }
 }
