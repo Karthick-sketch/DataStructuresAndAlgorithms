@@ -8,7 +8,7 @@ public class BinaryTree<B> {
 
   protected BinaryTreeNode<B> root;
 
-  private Stack<BinaryTreeNode<B>> stack;
+  private final Stack<BinaryTreeNode<B>> stack;
 
   public BinaryTree() {
     this.root = null;
@@ -50,17 +50,13 @@ public class BinaryTree<B> {
           }
           stack.pop();
         }
-        fillStack(stack.isEmpty() ? root : stack.peek().getRight());
+        temp = stack.isEmpty() ? root : stack.peek().getRight();
+        while (temp != null) {
+          stack.push(temp);
+          temp = temp.getLeft();
+        }
         stack.peek().setLeft(node);
       }
-    }
-  }
-
-  private void fillStack(BinaryTreeNode<B> node) {
-    BinaryTreeNode<B> temp = node;
-    while (temp != null) {
-      stack.push(temp);
-      temp = temp.getLeft();
     }
   }
 

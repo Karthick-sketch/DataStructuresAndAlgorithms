@@ -3,7 +3,7 @@ import operations.*;
 
 public class DataStructuresAndAlgorithms {
 
-  private static Scanner scanner = new Scanner(System.in);
+  private static final Scanner scanner = new Scanner(System.in);
   private static int input;
 
   public static void main(String[] args) {

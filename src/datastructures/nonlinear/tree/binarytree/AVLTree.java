@@ -21,38 +21,69 @@ public class AVLTree extends BinarySearchTree {
   @Override
   public void insert(int value) {
     super.insert(value);
-    selfBalance(root);
+    selfBalance(root, null);
   }
 
-  private void selfBalance(BinaryTreeNode<Integer> node) {
+  @Override
+  public boolean delete(int value) {
+    boolean result = super.delete(value);
+    if (result) {
+      selfBalance(root, null);
+    }
+    return result;
+  }
+
+  // [95, 84, 38, 99, 3, 86, 30, 57, 76, 52]
+  private void selfBalance(
+    BinaryTreeNode<Integer> node,
+    BinaryTreeNode<Integer> parent
+  ) {
     if (node == null) {
       return;
     }
-    selfBalance(node.getLeft());
-    selfBalance(node.getRight());
+    selfBalance(node.getLeft(), node);
+    selfBalance(node.getRight(), node);
     int bf = balanceFactor(node);
     if (bf > 1) {
       BinaryTreeNode<Integer> left = node.getLeft();
+      // LR rotation
+      if (balanceFactor(left) == -1) {
+        BinaryTreeNode<Integer> lRight = left.getRight();
+        node.setLeft(lRight);
+        left.setRight(lRight.getLeft());
+        lRight.setLeft(left);
+        left = node.getLeft();
+      }
+      // LL rotation
       node.setLeft(left.getRight());
       left.setRight(node);
       if (node == root) {
         root = left;
+      } else {
+        parent.setLeft(left);
       }
     } else if (bf < -1) {
       BinaryTreeNode<Integer> right = node.getRight();
+      // RL rotation
+      if (balanceFactor(right) == 1) {
+        BinaryTreeNode<Integer> rLeft = right.getLeft();
+        node.setRight(rLeft);
+        right.setLeft(rLeft.getRight());
+        rLeft.setRight(right);
+        right = node.getRight();
+      }
+      // RR rotation
       node.setRight(right.getLeft());
       right.setLeft(node);
       if (node == root) {
         root = right;
+      } else {
+        parent.setRight(right);
       }
     }
   }
 
   private int balanceFactor(BinaryTreeNode<Integer> node) {
-    if (node == null) {
-      return 0;
-    } else {
-      return findMaxHeight(node.getLeft()) - findMaxHeight(node.getRight());
-    }
+    return findMaxHeight(node.getLeft()) - findMaxHeight(node.getRight());
   }
 }
