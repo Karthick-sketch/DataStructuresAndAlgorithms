@@ -21,7 +21,8 @@ public class BinarySearchTreeOperations {
 
     System.out.println("Maximum: " + bst.maximum());
     System.out.println("Minimum: " + bst.minimum());
-    System.out.println("Max Height: " + bst.findHeight());
+    System.out.println("Max Height: " + bst.findMaxHeight());
+    System.out.println("Min Height: " + bst.findMinHeight());
 
     bst.clear();
     System.out.println(bst.get());

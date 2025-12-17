@@ -1,6 +1,8 @@
 package datastructures.nonlinear.tree.binarytree;
 
 import datastructures.linear.Stack;
+import datastructures.linear.linkedlist.LinkedList;
+import datastructures.linear.linkedlist.SinglyLinkedList;
 
 public class BinaryTree<B> {
 
@@ -25,14 +27,7 @@ public class BinaryTree<B> {
   }
 
   public void insert(B value) {
-    insert(new BinaryTreeNode<>(value));
-  }
-
-  // input           : [63, 0, 48, 17, 58, 15, 76, 73, 61, 82, 35, 88]
-  // actual output   : [88, 73, 17, 61, 0, 82, 58, 35, 63, 15, 48, 76]
-  // expected output : [73, 17, 61, 0, 82, 58, 35, 63, 88, 15, 48, 76]
-
-  private void insert(BinaryTreeNode<B> node) {
+    BinaryTreeNode<B> node = new BinaryTreeNode<>(value);
     if (root == null) {
       root = node;
       stack.push(root);
@@ -43,62 +38,126 @@ public class BinaryTree<B> {
       } else if (temp.getRight() == null) {
         temp.setRight(node);
       } else {
-        BinaryTreeNode<B> nd = stack.pop();
-        if (stack.isEmpty()) {
-          fillStack();
-          stack.peek().setLeft(node);
-        } else {
-          while (!stack.isEmpty() && stack.peek().getRight() == nd) {
-            nd = stack.pop();
+        stack.pop();
+        int lMin, lMax, rMin, rMax;
+        while (!stack.isEmpty()) {
+          lMin = findMinHeight(stack.peek().getLeft());
+          rMin = findMinHeight(stack.peek().getRight());
+          lMax = findMaxHeight(stack.peek().getLeft());
+          rMax = findMaxHeight(stack.peek().getRight());
+          if (lMin != rMin && lMax != rMax) {
+            break;
           }
-          if (stack.isEmpty()) {
-            fillStack();
-            stack.peek().setLeft(node);
-          } else {
-            stack.push(stack.peek().getRight());
-            insert(node);
-          }
+          stack.pop();
         }
+        fillStack(stack.isEmpty() ? root : stack.peek().getRight());
+        stack.peek().setLeft(node);
       }
     }
   }
 
-  private void fillStack() {
-    BinaryTreeNode<B> temp = root;
+  private void fillStack(BinaryTreeNode<B> node) {
+    BinaryTreeNode<B> temp = node;
     while (temp != null) {
       stack.push(temp);
       temp = temp.getLeft();
     }
   }
 
-  public int findHeight() {
-    return findHeight(root);
+  public int findMaxHeight() {
+    return findMaxHeight(root);
   }
 
-  protected int findHeight(BinaryTreeNode<B> node) {
+  public int findMinHeight() {
+    return findMinHeight(root);
+  }
+
+  protected int findMaxHeight(BinaryTreeNode<B> node) {
     if (node == null) {
       return 0;
     } else if (node.getLeft() == null && node.getRight() == null) {
       return 1;
     } else {
-      int lh = findHeight(node.getLeft());
-      int rh = findHeight(node.getRight());
+      int lh = findMaxHeight(node.getLeft());
+      int rh = findMaxHeight(node.getRight());
       return 1 + Math.max(lh, rh);
     }
   }
 
-  public void print() {
-    System.out.print("[ ");
-    print(root);
-    System.out.println("]");
+  protected int findMinHeight(BinaryTreeNode<B> node) {
+    if (node == null) {
+      return 0;
+    } else if (node.getLeft() == null && node.getRight() == null) {
+      return 1;
+    } else {
+      int lh = findMinHeight(node.getLeft());
+      int rh = findMinHeight(node.getRight());
+      return 1 + Math.min(lh, rh);
+    }
   }
 
-  private void print(BinaryTreeNode<B> node) {
-    if (node == null) {
+  public LinkedList<B> get() {
+    LinkedList<B> list = new SinglyLinkedList<>();
+    Stack<BinaryTreeNode<B>> stack = new Stack<>();
+    BinaryTreeNode<B> current = root;
+    while (current != null || !stack.isEmpty()) {
+      while (current != null) {
+        stack.push(current);
+        current = current.getLeft();
+      }
+      current = stack.pop();
+      list.add(current.getValue());
+      current = current.getRight();
+    }
+    return list;
+  }
+
+  public LinkedList<B> getInOrder() {
+    LinkedList<B> list = new SinglyLinkedList<>();
+    inOrder(root, list);
+    return list;
+  }
+
+  private void inOrder(BinaryTreeNode<B> current, LinkedList<B> list) {
+    if (current == null) {
       return;
     }
-    print(node.getLeft());
-    System.out.print(node.getValue() + " ");
-    print(node.getRight());
+    inOrder(current.getLeft(), list);
+    list.add(current.getValue());
+    inOrder(current.getRight(), list);
+  }
+
+  public LinkedList<B> getPreOrder() {
+    LinkedList<B> list = new SinglyLinkedList<>();
+    preOrder(root, list);
+    return list;
+  }
+
+  private void preOrder(BinaryTreeNode<B> current, LinkedList<B> list) {
+    if (current == null) {
+      return;
+    }
+    list.add(current.getValue());
+    preOrder(current.getLeft(), list);
+    preOrder(current.getRight(), list);
+  }
+
+  public LinkedList<B> getPostOrder() {
+    LinkedList<B> list = new SinglyLinkedList<>();
+    postOrder(root, list);
+    return list;
+  }
+
+  private void postOrder(BinaryTreeNode<B> current, LinkedList<B> list) {
+    if (current == null) {
+      return;
+    }
+    postOrder(current.getLeft(), list);
+    postOrder(current.getRight(), list);
+    list.add(current.getValue());
+  }
+
+  public void clear() {
+    root = null;
   }
 }

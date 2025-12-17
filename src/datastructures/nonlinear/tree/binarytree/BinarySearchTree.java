@@ -1,9 +1,5 @@
 package datastructures.nonlinear.tree.binarytree;
 
-import datastructures.linear.Stack;
-import datastructures.linear.linkedlist.LinkedList;
-import datastructures.linear.linkedlist.SinglyLinkedList;
-
 public class BinarySearchTree extends BinaryTree<Integer> {
 
   public BinarySearchTree() {
@@ -61,76 +57,6 @@ public class BinarySearchTree extends BinaryTree<Integer> {
     return false;
   }
 
-  public LinkedList<Integer> get() {
-    LinkedList<Integer> list = new SinglyLinkedList<>();
-    Stack<BinaryTreeNode<Integer>> stack = new Stack<>();
-    BinaryTreeNode<Integer> current = root;
-    while (current != null || !stack.isEmpty()) {
-      while (current != null) {
-        stack.push(current);
-        current = current.getLeft();
-      }
-      current = stack.pop();
-      list.add(current.getValue());
-      current = current.getRight();
-    }
-    return list;
-  }
-
-  public LinkedList<Integer> getInOrder() {
-    LinkedList<Integer> list = new SinglyLinkedList<>();
-    inOrder(root, list);
-    return list;
-  }
-
-  private void inOrder(
-    BinaryTreeNode<Integer> current,
-    LinkedList<Integer> list
-  ) {
-    if (current == null) {
-      return;
-    }
-    inOrder(current.getLeft(), list);
-    list.add(current.getValue());
-    inOrder(current.getRight(), list);
-  }
-
-  public LinkedList<Integer> getPreOrder() {
-    LinkedList<Integer> list = new SinglyLinkedList<>();
-    preOrder(root, list);
-    return list;
-  }
-
-  private void preOrder(
-    BinaryTreeNode<Integer> current,
-    LinkedList<Integer> list
-  ) {
-    if (current == null) {
-      return;
-    }
-    list.add(current.getValue());
-    preOrder(current.getLeft(), list);
-    preOrder(current.getRight(), list);
-  }
-
-  public LinkedList<Integer> getPostOrder() {
-    LinkedList<Integer> list = new SinglyLinkedList<>();
-    postOrder(root, list);
-    return list;
-  }
-
-  private void postOrder(
-    BinaryTreeNode<Integer> current,
-    LinkedList<Integer> list
-  ) {
-    if (current == null) {
-      return;
-    }
-    postOrder(current.getLeft(), list);
-    postOrder(current.getRight(), list);
-    list.add(current.getValue());
-  }
-
   public boolean delete(int value) {
     BinaryTreeNode<Integer> child = root, parent = root;
     while (child != null) {
@@ -185,9 +111,5 @@ public class BinarySearchTree extends BinaryTree<Integer> {
       current = current.getLeft();
     }
     return current.getValue();
-  }
-
-  public void clear() {
-    root = null;
   }
 }

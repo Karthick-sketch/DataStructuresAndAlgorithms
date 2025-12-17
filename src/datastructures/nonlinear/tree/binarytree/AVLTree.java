@@ -52,7 +52,7 @@ public class AVLTree extends BinarySearchTree {
     if (node == null) {
       return 0;
     } else {
-      return findHeight(node.getLeft()) - findHeight(node.getRight());
+      return findMaxHeight(node.getLeft()) - findMaxHeight(node.getRight());
     }
   }
 }

@@ -1,5 +1,6 @@
 package operations;
 
+import java.util.Arrays;
 import java.util.Random;
 
 class Randomize {
@@ -11,5 +12,11 @@ class Randomize {
       array[i] = random.nextInt(100);
     }
     return array;
+  }
+
+  static Integer[] randomizeIntegerArray(int length) {
+    return Arrays.stream(randomizeArray(length))
+      .boxed()
+      .toArray(Integer[]::new);
   }
 }

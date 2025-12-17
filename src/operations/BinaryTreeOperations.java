@@ -6,13 +6,19 @@ import java.util.Arrays;
 public class BinaryTreeOperations {
 
   public static void operations() {
-    BinaryTree<Integer> bt = new BinaryTree<>();
-    int[] values = Randomize.randomizeArray(12);
-    for (int value : values) {
-      bt.insert(value);
-    }
+    Integer[] values = Randomize.randomizeIntegerArray(12);
+    BinaryTree<Integer> bst = new BinaryTree<>(values);
+
     System.out.println("Array: " + Arrays.toString(values));
-    System.out.print("Binary Tree: ");
-    bt.print();
+    System.out.println("Iterative: " + bst.get());
+    System.out.println("In-order: " + bst.getInOrder());
+    System.out.println("Pre-order: " + bst.getPreOrder());
+    System.out.println("Post-order: " + bst.getPostOrder());
+
+    System.out.println("Max Height: " + bst.findMaxHeight());
+    System.out.println("Min Height: " + bst.findMinHeight());
+
+    bst.clear();
+    System.out.println(bst.get());
   }
 }
