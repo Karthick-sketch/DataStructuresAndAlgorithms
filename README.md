@@ -24,7 +24,7 @@
   - Binary Tree
   - Binary Search Tree
   - AVL Tree
-  - Red-Black Tree
+  - <span style="color: #f55">Red</span>-<span style="color: #666">Black </span>Tree
 
 # Algorithms
 
