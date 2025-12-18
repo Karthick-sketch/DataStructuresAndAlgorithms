@@ -33,7 +33,6 @@ public class AVLTree extends BinarySearchTree {
     return result;
   }
 
-  // [95, 84, 38, 99, 3, 86, 30, 57, 76, 52]
   private void selfBalance(
     BinaryTreeNode<Integer> node,
     BinaryTreeNode<Integer> parent
@@ -57,13 +56,7 @@ public class AVLTree extends BinarySearchTree {
       // LL rotation
       node.setLeft(left.getRight());
       left.setRight(node);
-      if (node == root) {
-        root = left;
-      } else if (parent.getLeft() == node) {
-        parent.setLeft(left);
-      } else {
-        parent.setRight(left);
-      }
+      setConnection(node, parent, left);
     } else if (bf < -1) {
       BinaryTreeNode<Integer> right = node.getRight();
       // RL rotation
@@ -77,13 +70,21 @@ public class AVLTree extends BinarySearchTree {
       // RR rotation
       node.setRight(right.getLeft());
       right.setLeft(node);
-      if (node == root) {
-        root = right;
-      } else if (parent.getLeft() == node) {
-        parent.setLeft(right);
-      } else {
-        parent.setRight(right);
-      }
+      setConnection(node, parent, right);
+    }
+  }
+
+  private void setConnection(
+    BinaryTreeNode<Integer> node,
+    BinaryTreeNode<Integer> parent,
+    BinaryTreeNode<Integer> child
+  ) {
+    if (node == root) {
+      root = child;
+    } else if (parent.getLeft() == node) {
+      parent.setLeft(child);
+    } else {
+      parent.setRight(child);
     }
   }
 

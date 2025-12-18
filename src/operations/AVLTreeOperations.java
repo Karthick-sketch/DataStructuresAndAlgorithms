@@ -6,7 +6,7 @@ import java.util.Arrays;
 public class AVLTreeOperations {
 
   public static void operations() {
-    int[] values = Randomize.randomizeArray(12);
+    int[] values = Randomize.randomizeArray(15);
 
     AVLTree avl = new AVLTree(values);
     System.out.println("Array:      " + Arrays.toString(values));
@@ -15,6 +15,9 @@ public class AVLTreeOperations {
     System.out.println("In-order:   " + avl.getInOrder());
     System.out.println("Pre-order:  " + avl.getPreOrder());
     System.out.println("Post-order: " + avl.getPostOrder());
+
+    System.out.println("Max Height: " + avl.findMaxHeight());
+    System.out.println("Min Height: " + avl.findMinHeight());
 
     System.out.printf("Search %d: %b\n", values[5], avl.search(values[5]));
     System.out.printf("Delete %d: %b\n", values[8], avl.delete(values[8]));
