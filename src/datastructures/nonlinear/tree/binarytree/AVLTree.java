@@ -59,8 +59,10 @@ public class AVLTree extends BinarySearchTree {
       left.setRight(node);
       if (node == root) {
         root = left;
-      } else {
+      } else if (parent.getLeft() == node) {
         parent.setLeft(left);
+      } else {
+        parent.setRight(left);
       }
     } else if (bf < -1) {
       BinaryTreeNode<Integer> right = node.getRight();
@@ -77,6 +79,8 @@ public class AVLTree extends BinarySearchTree {
       right.setLeft(node);
       if (node == root) {
         root = right;
+      } else if (parent.getLeft() == node) {
+        parent.setLeft(right);
       } else {
         parent.setRight(right);
       }
