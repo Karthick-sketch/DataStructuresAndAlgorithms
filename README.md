@@ -24,20 +24,21 @@
   - Binary Tree
   - Binary Search Tree
   - AVL Tree
+  - Red-Black Tree
 
 # Algorithms
 
 - Sort
 
-  - Bubble sort
-  - Selection sort
-  - Insertion sort
-  - Merge sort
-  - Quick sort
-  - Heap sort
+  - Bubble Sort
+  - Selection Sort
+  - Insertion Sort
+  - Merge Sort
+  - Quick Sort
+  - Heap Sort
 
 - Search
 
-  - Linear search
-  - Jump search
-  - Binary search
+  - Linear Search
+  - Jump Search
+  - Binary Search
