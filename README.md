@@ -1,29 +1,29 @@
 # Data Structures
 
-- Linear Data Structures
+## Linear Data Structures
 
-  - Linked List
+- Linked List
 
-    - Singly Linked List
-    - Doubly Linked List
+  - Singly Linked List
+  - Doubly Linked List
 
-  - Stack
+- Stack
 
+- Queue
   - Queue
-    - Queue
-    - Priority Queue
+  - Priority Queue
 
-- Non-linear Data Structures
+## Non-linear Data Structures
 
-  - Heap
+- Heap
 
-    - Max Heap
-    - Min Heap
+  - Max Heap
+  - Min Heap
 
-  - Trees
-    - Binary Tree
-    - Binary Search Tree
-    - AVL Tree
+- Trees
+  - Binary Tree
+  - Binary Search Tree
+  - AVL Tree
 
 # Algorithms
 
