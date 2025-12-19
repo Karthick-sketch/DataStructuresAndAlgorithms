@@ -18,19 +18,22 @@ public class BinarySearchTree extends BinaryTree<Integer> {
   }
 
   public void insert(int value) {
-    BinaryTreeNode<Integer> node = new BinaryTreeNode<Integer>(value);
+    insert(new BinaryTreeNode<>(value));
+  }
+
+  protected void insert(BinaryTreeNode<Integer> node) {
     if (root == null) {
       root = node;
     } else {
       BinaryTreeNode<Integer> current = root;
       while (true) {
-        if (value < current.getValue()) {
+        if (node.getValue() < current.getValue()) {
           if (current.getLeft() == null) {
             current.setLeft(node);
             break;
           }
           current = current.getLeft();
-        } else if (value > current.getValue()) {
+        } else if (node.getValue() > current.getValue()) {
           if (current.getRight() == null) {
             current.setRight(node);
             break;

@@ -1,6 +1,6 @@
 package datastructures.nonlinear.tree.binarytree;
 
-class RedBlackTreeNode extends TreeNode<Integer, RedBlackTreeNode> {
+class RedBlackTreeNode extends BinaryTreeNode<Integer> {
 
   private boolean red;
 
