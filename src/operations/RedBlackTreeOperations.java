@@ -8,9 +8,9 @@ public class RedBlackTreeOperations {
   public static void operations() {
     // int[] values = { 10, 20, 30, 50, 40, 60, 70, 80, 4, 8 }; // max
     // int[] values = { 60, 50, 40, 20, 30, 10, 8, 4, 80, 70 }; // min
-    int[] values = { 10, 20, 30, 50, 40, 60 };
+    int[] values = { 10, 20, 30, 50 };
     RedBlackTree rbt = new RedBlackTree(values);
-    rbt.insert(70);
+    rbt.insert(40);
     System.out.println("Array:          " + Arrays.toString(values));
     System.out.println("Red-Black Tree: " + rbt.get());
   }

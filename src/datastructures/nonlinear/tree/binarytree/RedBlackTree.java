@@ -2,8 +2,6 @@ package datastructures.nonlinear.tree.binarytree;
 
 public class RedBlackTree extends AVLTree {
 
-  private RedBlackTreeNode root;
-
   public RedBlackTree() {
     super();
   }
@@ -23,10 +21,8 @@ public class RedBlackTree extends AVLTree {
   @Override
   public void insert(int value) {
     insert(new RedBlackTreeNode(value));
-    selfBalance(root, null, null, null);
-    if (root.isRed()) {
-      root.setRed(false);
-    }
+    selfBalance((RedBlackTreeNode) root, null, null, null);
+    setRootBlack();
   }
 
   private void selfBalance(
@@ -62,9 +58,6 @@ public class RedBlackTree extends AVLTree {
         if (gLeft == null || !gLeft.isRed()) {
           if (parent.getLeft() == child) {
             // RL rotation
-            grand.setRight(child);
-            parent.setLeft(child.getRight());
-            child.setRight(parent);
             rotationRL(child, parent, grand);
             parent = child;
           }
@@ -84,5 +77,13 @@ public class RedBlackTree extends AVLTree {
     node.setRed(isRecolor);
     ((RedBlackTreeNode) node.getLeft()).setRed(!isRecolor);
     ((RedBlackTreeNode) node.getRight()).setRed(!isRecolor);
+    setRootBlack();
+  }
+
+  private void setRootBlack() {
+    RedBlackTreeNode root = (RedBlackTreeNode) super.root;
+    if (root.isRed()) {
+      root.setRed(false);
+    }
   }
 }
