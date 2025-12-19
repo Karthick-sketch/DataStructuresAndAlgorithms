@@ -24,14 +24,15 @@ public class RedBlackTree {
 
   public void insert(int value) {
     insert(new RedBlackTreeNode(value));
-    selfBalance(root.getLeft(), root);
-    selfBalance(root.getRight(), root);
+    selfBalance(root, null, null, null);
+    if (root.isRed()) {
+      root.setRed(false);
+    }
   }
 
   private void insert(RedBlackTreeNode node) {
     if (root == null) {
       root = node;
-      root.setRed(false);
     } else {
       RedBlackTreeNode current = root;
       while (true) {
@@ -54,19 +55,88 @@ public class RedBlackTree {
     }
   }
 
-  private void selfBalance(RedBlackTreeNode node, RedBlackTreeNode parent) {
-    if (node == null) {
-      return;
+  private boolean selfBalance(
+    RedBlackTreeNode child,
+    RedBlackTreeNode parent,
+    RedBlackTreeNode grand,
+    RedBlackTreeNode great
+  ) {
+    if (child == null) {
+      return false;
     }
-    selfBalance((RedBlackTreeNode) node.getLeft(), node);
-    selfBalance((RedBlackTreeNode) node.getRight(), node);
-    if (node.isRed() && parent.isRed()) {
-      if (parent.getLeft() == null || !parent.getLeft().isRed()) {
-        // perform rotation
+    boolean left = selfBalance(child.getLeft(), child, parent, grand);
+    boolean right = !left
+      ? selfBalance(child.getRight(), child, parent, grand)
+      : false;
+    if (left || right) {
+      return selfBalance(root, null, null, null);
+    } else if (grand != null && parent.isRed() && child.isRed()) {
+      if (grand.getLeft() == parent) {
+        if (grand.getRight() == null || !grand.getRight().isRed()) {
+          if (parent.getRight() == child) {
+            // LR rotation
+            grand.setLeft(child);
+            parent.setRight(child.getLeft());
+            child.setLeft(parent);
+            parent = child;
+          }
+          // LL rotation
+          grand.setRight(parent.getLeft());
+          parent.setLeft(grand);
+          linkNodes(parent, grand, great);
+          colorRotation(parent);
+        } else {
+          // recolor
+          recolor(grand);
+        }
       } else {
-        // change color
+        if (grand.getLeft() == null || !grand.getLeft().isRed()) {
+          if (parent.getLeft() == child) {
+            // RL rotation
+            grand.setRight(child);
+            parent.setLeft(child.getRight());
+            child.setRight(parent);
+            parent = child;
+          }
+          // RR rotation
+          grand.setRight(parent.getLeft());
+          parent.setLeft(grand);
+          linkNodes(parent, grand, great);
+          colorRotation(parent);
+        } else {
+          // recolor
+          recolor(grand);
+        }
       }
+      return true;
     }
+    return false;
+  }
+
+  private void linkNodes(
+    RedBlackTreeNode child,
+    RedBlackTreeNode parent,
+    RedBlackTreeNode grand
+  ) {
+    if (parent == root) {
+      root = child;
+    } else if (grand.getLeft() == parent) {
+      grand.setLeft(child);
+    } else {
+      grand.setRight(child);
+    }
+  }
+
+  private void recolor(RedBlackTreeNode node) {
+    node.setRed(true);
+    node.getLeft().setRed(false);
+    node.getRight().setRed(false);
+  }
+
+  private void colorRotation(RedBlackTreeNode node) {
+    node.setRed(false);
+    node.getLeft().setRed(true);
+    node.getRight().setRed(true);
   }
 
   public LinkedList<Integer> get() {
