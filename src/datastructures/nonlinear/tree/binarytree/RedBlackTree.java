@@ -11,6 +11,18 @@ public class RedBlackTree extends AVLTree {
     insert(values);
   }
 
+  private RedBlackTreeNode getRoot() {
+    return (RedBlackTreeNode) super.root;
+  }
+
+  private RedBlackTreeNode getLeft(BinaryTreeNode<Integer> node) {
+    return (RedBlackTreeNode) node.getLeft();
+  }
+
+  private RedBlackTreeNode getRight(BinaryTreeNode<Integer> node) {
+    return (RedBlackTreeNode) node.getRight();
+  }
+
   @Override
   public void insert(int[] values) {
     for (int value : values) {
@@ -34,8 +46,11 @@ public class RedBlackTree extends AVLTree {
   }
 
   private void selfBalance() {
-    selfBalance((RedBlackTreeNode) root, null, null, null);
-    setRootBlack();
+    selfBalance(getRoot(), null, null, null);
+    colorRootBlack();
+    if (!validateBlackNodes()) {
+      throw new RuntimeException("Black nodes mismatch");
+    }
   }
 
   private void selfBalance(
@@ -50,7 +65,7 @@ public class RedBlackTree extends AVLTree {
     boolean adjusted = false;
     if (grand != null && parent.isRed() && child.isRed()) {
       if (grand.getLeft() == parent) {
-        RedBlackTreeNode gRight = (RedBlackTreeNode) grand.getRight();
+        RedBlackTreeNode gRight = getRight(grand);
         if (gRight == null || !gRight.isRed()) {
           if (parent.getRight() == child) {
             // LR rotation
@@ -66,7 +81,7 @@ public class RedBlackTree extends AVLTree {
           color(grand, true);
         }
       } else {
-        RedBlackTreeNode gLeft = (RedBlackTreeNode) grand.getLeft();
+        RedBlackTreeNode gLeft = getLeft(grand);
         if (gLeft == null || !gLeft.isRed()) {
           if (parent.getLeft() == child) {
             // RL rotation
@@ -87,22 +102,39 @@ public class RedBlackTree extends AVLTree {
     if (adjusted) {
       selfBalance();
     } else {
-      selfBalance((RedBlackTreeNode) child.getLeft(), child, parent, grand);
-      selfBalance((RedBlackTreeNode) child.getRight(), child, parent, grand);
+      selfBalance(getLeft(child), child, parent, grand);
+      selfBalance(getRight(child), child, parent, grand);
     }
   }
 
   private void color(RedBlackTreeNode node, boolean isRecolor) {
     node.setRed(isRecolor);
-    ((RedBlackTreeNode) node.getLeft()).setRed(!isRecolor);
-    ((RedBlackTreeNode) node.getRight()).setRed(!isRecolor);
-    setRootBlack();
+    getLeft(node).setRed(!isRecolor);
+    getRight(node).setRed(!isRecolor);
+    colorRootBlack();
   }
 
-  private void setRootBlack() {
-    RedBlackTreeNode root = (RedBlackTreeNode) super.root;
+  private void colorRootBlack() {
+    RedBlackTreeNode root = getRoot();
     if (root.isRed()) {
       root.setRed(false);
+    }
+  }
+
+  private boolean validateBlackNodes() {
+    RedBlackTreeNode root = getRoot();
+    return root == null
+      ? true
+      : (countBlackNodes(getLeft(root)) == countBlackNodes(getRight(root)));
+  }
+
+  private int countBlackNodes(RedBlackTreeNode node) {
+    if (node == null) {
+      return 1;
+    } else {
+      int lb = countBlackNodes(getLeft(node));
+      int rb = countBlackNodes(getRight(node));
+      return Math.min(lb, rb) + (node.isRed() ? 0 : 1);
     }
   }
 }
