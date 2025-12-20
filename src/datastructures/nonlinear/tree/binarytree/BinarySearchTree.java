@@ -91,12 +91,9 @@ public class BinarySearchTree extends BinaryTree<Integer> {
         previous.setRight(null);
       }
     } else {
-      BinaryTreeNode<Integer> current = null;
-      if (child.getLeft() != null) {
-        current = child.getLeft();
-      } else if (child.getRight() != null) {
-        current = child.getRight();
-      }
+      BinaryTreeNode<Integer> current = child.getLeft() != null
+        ? child.getLeft()
+        : child.getRight();
       if (child == root) {
         root = current;
       } else if (child == parent.getLeft()) {
