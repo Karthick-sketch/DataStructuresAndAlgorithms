@@ -38,11 +38,76 @@ public class RedBlackTree extends AVLTree {
 
   @Override
   public boolean delete(int value) {
-    boolean result = deleteBST(value);
-    if (result) {
-      selfBalance();
+    RedBlackTreeNode child = getRoot(), parent = null, grand = null;
+    while (child != null) {
+      if (value == child.getValue()) {
+        delete(child, parent, grand);
+        return true;
+      } else {
+        grand = parent;
+        parent = child;
+        child = value < child.getValue() ? getLeft(child) : getRight(child);
+      }
     }
-    return result;
+    return false;
+  }
+
+  private void delete(
+    RedBlackTreeNode child,
+    RedBlackTreeNode parent,
+    RedBlackTreeNode grand
+  ) {
+    if (child.getLeft() == null && child.getRight() == null) {
+      if (child.isRed()) {
+        if (getLeft(parent) == child) {
+          parent.setLeft(null);
+        } else {
+          parent.setRight(null);
+        }
+      } else {
+        //
+      }
+    } else if (child.getLeft() != null && child.getRight() != null) {
+      RedBlackTreeNode node = findPredecessor(child);
+      if (!node.isRed()) {
+        node = findSuccessor(child);
+      }
+      if (node.isRed()) {
+        int temp = child.getValue();
+        child.setValue(node.getValue());
+        node.setValue(temp);
+        delete(temp);
+      } else {
+        //
+      }
+    } else {
+      if (child.isRed()) {
+        RedBlackTreeNode node = getLeft(child) != null
+          ? getLeft(child)
+          : getRight(child);
+        if (getLeft(parent) == child) {
+          parent.setLeft(node);
+        } else {
+          parent.setRight(node);
+        }
+      }
+    }
+  }
+
+  private RedBlackTreeNode findPredecessor(RedBlackTreeNode node) {
+    RedBlackTreeNode current = getLeft(node);
+    while (current.getRight() != null) {
+      current = getRight(current);
+    }
+    return current;
+  }
+
+  private RedBlackTreeNode findSuccessor(RedBlackTreeNode node) {
+    RedBlackTreeNode current = getRight(node);
+    while (current.getLeft() != null) {
+      current = getLeft(current);
+    }
+    return current;
   }
 
   private void selfBalance() {
@@ -123,9 +188,10 @@ public class RedBlackTree extends AVLTree {
 
   private boolean validateBlackNodes() {
     RedBlackTreeNode root = getRoot();
-    return root == null
-      ? true
-      : (countBlackNodes(getLeft(root)) == countBlackNodes(getRight(root)));
+    return (
+      root == null ||
+      (countBlackNodes(getLeft(root)) == countBlackNodes(getRight(root)))
+    );
   }
 
   private int countBlackNodes(RedBlackTreeNode node) {

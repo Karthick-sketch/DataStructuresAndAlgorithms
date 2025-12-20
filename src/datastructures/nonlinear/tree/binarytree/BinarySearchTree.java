@@ -64,33 +64,7 @@ public class BinarySearchTree extends BinaryTree<Integer> {
     BinaryTreeNode<Integer> child = root, parent = root;
     while (child != null) {
       if (value == child.getValue()) {
-        if (child.getLeft() != null && child.getRight() != null) {
-          BinaryTreeNode<Integer> current = child.getLeft(), previous = null;
-          while (current.getRight() != null) {
-            previous = current;
-            current = current.getRight();
-          }
-          child.setValue(current.getValue());
-          if (previous == null) {
-            child.setLeft(null);
-          } else {
-            previous.setRight(null);
-          }
-        } else {
-          BinaryTreeNode<Integer> current = null;
-          if (child.getLeft() != null) {
-            current = child.getLeft();
-          } else if (child.getRight() != null) {
-            current = child.getRight();
-          }
-          if (child == root) {
-            root = current;
-          } else if (child == parent.getLeft()) {
-            parent.setLeft(current);
-          } else {
-            parent.setRight(current);
-          }
-        }
+        delete(child, parent);
         return true;
       } else {
         parent = child;
@@ -98,6 +72,39 @@ public class BinarySearchTree extends BinaryTree<Integer> {
       }
     }
     return false;
+  }
+
+  private void delete(
+    BinaryTreeNode<Integer> child,
+    BinaryTreeNode<Integer> parent
+  ) {
+    if (child.getLeft() != null && child.getRight() != null) {
+      BinaryTreeNode<Integer> current = child.getLeft(), previous = null;
+      while (current.getRight() != null) {
+        previous = current;
+        current = current.getRight();
+      }
+      child.setValue(current.getValue());
+      if (previous == null) {
+        child.setLeft(null);
+      } else {
+        previous.setRight(null);
+      }
+    } else {
+      BinaryTreeNode<Integer> current = null;
+      if (child.getLeft() != null) {
+        current = child.getLeft();
+      } else if (child.getRight() != null) {
+        current = child.getRight();
+      }
+      if (child == root) {
+        root = current;
+      } else if (child == parent.getLeft()) {
+        parent.setLeft(current);
+      } else {
+        parent.setRight(current);
+      }
+    }
   }
 
   public int maximum() {
