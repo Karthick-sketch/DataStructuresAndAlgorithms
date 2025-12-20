@@ -6,12 +6,31 @@ import java.util.Arrays;
 public class RedBlackTreeOperations {
 
   public static void operations() {
-    // int[] values = { 10, 20, 30, 50, 40, 60, 70, 80, 4, 8 }; // max
-    // int[] values = { 60, 50, 40, 20, 30, 10, 8, 4, 80, 70 }; // min
-    int[] values = { 10, 20, 30, 50 };
+    // int[] values = Randomize.randomizeArray(15);
+    int[] values = {
+      85,
+      33,
+      47,
+      48,
+      81,
+      71,
+      19,
+      14,
+      24,
+      30,
+      57,
+      99,
+      98,
+      25,
+      93,
+    };
+
+    // 85, 33, 47, 48, 81, 71, 19, 14, 24, 30, 57, 99, 98, 25, 93
     RedBlackTree rbt = new RedBlackTree(values);
-    rbt.insert(40);
     System.out.println("Array:          " + Arrays.toString(values));
+    System.out.println("Red-Black Tree: " + rbt.get());
+    // delete 24
+    System.out.printf("Delete %d: %b\n", 24, rbt.delete(24));
     System.out.println("Red-Black Tree: " + rbt.get());
   }
 }

@@ -26,11 +26,15 @@ public class AVLTree extends BinarySearchTree {
 
   @Override
   public boolean delete(int value) {
-    boolean result = super.delete(value);
+    boolean result = deleteBST(value);
     if (result) {
       selfBalance(root, null);
     }
     return result;
+  }
+
+  protected boolean deleteBST(int value) {
+    return super.delete(value);
   }
 
   private void selfBalance(

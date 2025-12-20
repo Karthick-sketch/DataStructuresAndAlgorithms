@@ -21,6 +21,19 @@ public class RedBlackTree extends AVLTree {
   @Override
   public void insert(int value) {
     insert(new RedBlackTreeNode(value));
+    selfBalance();
+  }
+
+  @Override
+  public boolean delete(int value) {
+    boolean result = deleteBST(value);
+    if (result) {
+      selfBalance();
+    }
+    return result;
+  }
+
+  private void selfBalance() {
     selfBalance((RedBlackTreeNode) root, null, null, null);
     setRootBlack();
   }
@@ -34,8 +47,7 @@ public class RedBlackTree extends AVLTree {
     if (child == null) {
       return;
     }
-    selfBalance((RedBlackTreeNode) child.getLeft(), child, parent, grand);
-    selfBalance((RedBlackTreeNode) child.getRight(), child, parent, grand);
+    boolean adjusted = false;
     if (grand != null && parent.isRed() && child.isRed()) {
       if (grand.getLeft() == parent) {
         RedBlackTreeNode gRight = (RedBlackTreeNode) grand.getRight();
@@ -69,7 +81,14 @@ public class RedBlackTree extends AVLTree {
           // recolor
           color(grand, true);
         }
+        adjusted = true;
       }
+    }
+    if (adjusted) {
+      selfBalance();
+    } else {
+      selfBalance((RedBlackTreeNode) child.getLeft(), child, parent, grand);
+      selfBalance((RedBlackTreeNode) child.getRight(), child, parent, grand);
     }
   }
 
