@@ -51,8 +51,7 @@ public class RedBlackTree extends AVLTree {
             parent = child;
             child = getRight(child);
           }
-          current.setValue(child.getValue());
-          child.setValue(value);
+          swapValue(current, child);
         }
         if (child.isRed()) {
           super.delete(child, parent);
@@ -74,10 +73,14 @@ public class RedBlackTree extends AVLTree {
     RedBlackTreeNode parent,
     RedBlackTreeNode grand
   ) {
-    RedBlackTreeNode sibling = parent.getLeft() == child
-      ? getRight(parent)
-      : getLeft(parent);
-    if (sibling.isRed()) {}
+    RedBlackTreeNode current = getLeft(child);
+    if (current != null && current.isRed()) {
+      swapValue(current, child);
+      super.delete(current, child);
+    } else {
+      RedBlackTreeNode sibling = getChild(parent, p -> p.getLeft() != child);
+      if (sibling.isRed()) {}
+    }
   }
 
   private void selfBalance() {

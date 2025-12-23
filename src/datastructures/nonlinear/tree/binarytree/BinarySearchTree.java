@@ -1,5 +1,7 @@
 package datastructures.nonlinear.tree.binarytree;
 
+import java.util.function.Predicate;
+
 public class BinarySearchTree extends BinaryTree<Integer> {
 
   public BinarySearchTree() {
@@ -72,8 +74,7 @@ public class BinarySearchTree extends BinaryTree<Integer> {
             parent = child;
             child = child.getRight();
           }
-          current.setValue(child.getValue());
-          child.setValue(value);
+          swapValue(current, child);
         }
         delete(child, parent);
         return true;
@@ -89,9 +90,7 @@ public class BinarySearchTree extends BinaryTree<Integer> {
     BinaryTreeNode<Integer> child,
     BinaryTreeNode<Integer> parent
   ) {
-    BinaryTreeNode<Integer> current = child.getLeft() != null
-      ? child.getLeft()
-      : child.getRight();
+    BinaryTreeNode<Integer> current = getChild(child, c -> c.getLeft() != null);
     if (child == root) {
       root = current;
     } else if (child == parent.getLeft()) {
@@ -115,5 +114,19 @@ public class BinarySearchTree extends BinaryTree<Integer> {
       current = current.getLeft();
     }
     return current.getValue();
+  }
+
+  @SuppressWarnings("unchecked")
+  protected <T extends BinaryTreeNode<Integer>> T getChild(
+    T node,
+    Predicate<T> condition
+  ) {
+    return (T) (condition.test(node) ? node.getLeft() : node.getRight());
+  }
+
+  protected <T extends BinaryTreeNode<Integer>> void swapValue(T a, T b) {
+    int value = a.getValue();
+    a.setValue(b.getValue());
+    b.setValue(value);
   }
 }
