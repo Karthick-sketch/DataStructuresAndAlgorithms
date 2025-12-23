@@ -64,6 +64,17 @@ public class BinarySearchTree extends BinaryTree<Integer> {
     BinaryTreeNode<Integer> child = root, parent = root;
     while (child != null) {
       if (value == child.getValue()) {
+        if (child.getLeft() != null && child.getRight() != null) {
+          BinaryTreeNode<Integer> current = child;
+          parent = child;
+          child = child.getLeft();
+          while (child.getRight() != null) {
+            parent = child;
+            child = child.getRight();
+          }
+          current.setValue(child.getValue());
+          child.setValue(value);
+        }
         delete(child, parent);
         return true;
       } else {
@@ -74,33 +85,19 @@ public class BinarySearchTree extends BinaryTree<Integer> {
     return false;
   }
 
-  private void delete(
+  protected void delete(
     BinaryTreeNode<Integer> child,
     BinaryTreeNode<Integer> parent
   ) {
-    if (child.getLeft() != null && child.getRight() != null) {
-      BinaryTreeNode<Integer> current = child.getLeft(), previous = null;
-      while (current.getRight() != null) {
-        previous = current;
-        current = current.getRight();
-      }
-      child.setValue(current.getValue());
-      if (previous == null) {
-        child.setLeft(null);
-      } else {
-        previous.setRight(null);
-      }
+    BinaryTreeNode<Integer> current = child.getLeft() != null
+      ? child.getLeft()
+      : child.getRight();
+    if (child == root) {
+      root = current;
+    } else if (child == parent.getLeft()) {
+      parent.setLeft(current);
     } else {
-      BinaryTreeNode<Integer> current = child.getLeft() != null
-        ? child.getLeft()
-        : child.getRight();
-      if (child == root) {
-        root = current;
-      } else if (child == parent.getLeft()) {
-        parent.setLeft(current);
-      } else {
-        parent.setRight(current);
-      }
+      parent.setRight(current);
     }
   }
 

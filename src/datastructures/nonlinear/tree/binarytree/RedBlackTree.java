@@ -41,8 +41,21 @@ public class RedBlackTree extends AVLTree {
     RedBlackTreeNode child = getRoot(), parent = null, grand = null;
     while (child != null) {
       if (value == child.getValue()) {
+        if (child.getLeft() != null && child.getRight() != null) {
+          RedBlackTreeNode current = child;
+          grand = parent;
+          parent = child;
+          child = getLeft(child);
+          while (child.getRight() != null) {
+            grand = parent;
+            parent = child;
+            child = getRight(child);
+          }
+          current.setValue(child.getValue());
+          child.setValue(value);
+        }
         if (child.isRed()) {
-          deleteRedNode(child, parent, grand);
+          super.delete(child, parent);
         } else {
           deleteBlackNode(child, parent, grand);
         }
@@ -56,38 +69,6 @@ public class RedBlackTree extends AVLTree {
     return false;
   }
 
-  private void deleteRedNode(
-    RedBlackTreeNode child,
-    RedBlackTreeNode parent,
-    RedBlackTreeNode grand
-  ) {
-    if (child.getLeft() != null && child.getRight() != null) {
-      RedBlackTreeNode node = findPredecessor(child);
-      if (!node.isRed()) {
-        node = findSuccessor(child);
-      }
-      if (node.isRed()) {
-        int temp = child.getValue();
-        child.setValue(node.getValue());
-        node.setValue(temp);
-        delete(temp);
-      } else {
-        //
-      }
-    } else {
-      RedBlackTreeNode current = child.getLeft() != null
-        ? getLeft(child)
-        : getRight(child);
-      if (child == getRoot()) {
-        super.root = child;
-      } else if (getLeft(parent) == child) {
-        parent.setLeft(current);
-      } else {
-        parent.setRight(current);
-      }
-    }
-  }
-
   private void deleteBlackNode(
     RedBlackTreeNode child,
     RedBlackTreeNode parent,
@@ -97,22 +78,6 @@ public class RedBlackTree extends AVLTree {
       ? getRight(parent)
       : getLeft(parent);
     if (sibling.isRed()) {}
-  }
-
-  private RedBlackTreeNode findPredecessor(RedBlackTreeNode node) {
-    RedBlackTreeNode current = getLeft(node);
-    while (current.getRight() != null) {
-      current = getRight(current);
-    }
-    return current;
-  }
-
-  private RedBlackTreeNode findSuccessor(RedBlackTreeNode node) {
-    RedBlackTreeNode current = getRight(node);
-    while (current.getLeft() != null) {
-      current = getLeft(current);
-    }
-    return current;
   }
 
   private void selfBalance() {
