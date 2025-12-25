@@ -1,5 +1,6 @@
 package operations;
 
+// import datastructures.linear.linkedlist.LinkedList;
 import datastructures.nonlinear.tree.binarytree.RedBlackTree;
 import java.util.Arrays;
 
@@ -29,8 +30,22 @@ public class RedBlackTreeOperations {
     RedBlackTree rbt = new RedBlackTree(values);
     System.out.println("Array:          " + Arrays.toString(values));
     System.out.println("Red-Black Tree: " + rbt.get());
-    // delete 24
-    System.out.printf("Delete %d: %b\n", 24, rbt.delete(24));
+    // problem in deleting 19
+    System.out.printf("Delete %d: %b\n", 19, rbt.delete(19));
     System.out.println("Red-Black Tree: " + rbt.get());
+    // RedBlackTree rbt = new RedBlackTree();
+    // System.out.println("Array:          " + Arrays.toString(values));
+    // for (int i = 0; i < values.length; i++) {
+    //   rbt.insert(values);
+    //   System.out.println("Red-Black Tree: " + rbt.get());
+    //   System.out.printf("Delete %d: %b\n", values[i], rbt.delete(values[i]));
+    //   LinkedList<Integer> rbtValues = rbt.get();
+    //   System.out.printf("Red-Black Tree: %s\n\n", rbtValues);
+    //   rbt.clear();
+    //   if (rbtValues.size() != values.length - 1) {
+    //     System.out.println("Problem in deleting the " + values[i]);
+    //     break;
+    //   }
+    // }
   }
 }

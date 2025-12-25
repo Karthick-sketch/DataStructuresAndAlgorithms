@@ -41,23 +41,8 @@ public class RedBlackTree extends AVLTree {
     RedBlackTreeNode child = getRoot(), parent = null, grand = null;
     while (child != null) {
       if (value == child.getValue()) {
-        if (child.getLeft() != null && child.getRight() != null) {
-          RedBlackTreeNode current = child;
-          grand = parent;
-          parent = child;
-          child = getLeft(child);
-          while (child.getRight() != null) {
-            grand = parent;
-            parent = child;
-            child = getRight(child);
-          }
-          swapValue(current, child);
-        }
-        if (child.isRed()) {
-          super.delete(child, parent);
-        } else {
-          deleteBlackNode(child, parent, grand);
-        }
+        delete(child, parent, grand);
+        selfBalance();
         return true;
       } else {
         grand = parent;
@@ -68,18 +53,92 @@ public class RedBlackTree extends AVLTree {
     return false;
   }
 
+  private void delete(
+    RedBlackTreeNode child,
+    RedBlackTreeNode parent,
+    RedBlackTreeNode grand
+  ) {
+    if (child.getLeft() != null || child.getRight() != null) {
+      RedBlackTreeNode current = child;
+      grand = parent;
+      parent = child;
+      if (child.getLeft() != null) {
+        // in-order predecessor
+        child = getLeft(child);
+        while (child.getRight() != null) {
+          grand = parent;
+          parent = child;
+          child = getRight(child);
+        }
+      } else {
+        // in-order successor
+        child = getRight(child);
+        while (child.getLeft() != null) {
+          grand = parent;
+          parent = child;
+          child = getLeft(child);
+        }
+      }
+      swapValue(current, child);
+    }
+    if (child.getLeft() == null && child.getRight() == null) {
+      if (child.isRed()) {
+        super.delete(child, parent);
+      } else {
+        deleteBlackNode(child, parent, grand);
+      }
+    } else {
+      delete(child, parent, grand);
+    }
+  }
+
   private void deleteBlackNode(
     RedBlackTreeNode child,
     RedBlackTreeNode parent,
     RedBlackTreeNode grand
   ) {
-    RedBlackTreeNode current = getLeft(child);
-    if (current != null && current.isRed()) {
-      swapValue(current, child);
-      super.delete(current, child);
+    RedBlackTreeNode sibling = getChild(parent, p -> p.getLeft() != child);
+    if (parent.getLeft() == child) {
+      parent.setLeft(null);
     } else {
-      RedBlackTreeNode sibling = getChild(parent, p -> p.getLeft() != child);
-      if (sibling.isRed()) {}
+      parent.setRight(null);
+    }
+    if (parent.isRed()) {
+      parent.setRed(false);
+      sibling.setRed(true);
+    } else {
+      if (parent.getLeft() == sibling) {
+        if (sibling.isRed()) {
+          rotationLL(sibling, parent);
+          linkNodes(parent, grand, sibling);
+          color(sibling, false);
+        } else {
+          RedBlackTreeNode right = getRight(sibling);
+          if (right != null) {
+            rotationLR(right, sibling, parent);
+            rotationLL(right, parent);
+          } else {
+            rotationLL(sibling, parent);
+            color(sibling, true);
+          }
+        }
+      } else {
+        if (sibling.isRed()) {
+          rotationRR(sibling, parent);
+          linkNodes(parent, grand, sibling);
+          color(sibling, false);
+        } else {
+          RedBlackTreeNode left = getLeft(sibling);
+          if (left != null) {
+            rotationRL(left, sibling, parent);
+            rotationRR(left, parent);
+          } else {
+            rotationRR(sibling, parent);
+            color(sibling, true);
+          }
+        }
+      }
+      linkNodes(parent, grand, sibling);
     }
   }
 
