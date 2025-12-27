@@ -15,8 +15,10 @@ class Randomize {
   }
 
   static Integer[] randomizeIntegerArray(int length) {
-    return Arrays.stream(randomizeArray(length))
-      .boxed()
-      .toArray(Integer[]::new);
+    return toIntegerArray(randomizeArray(length));
+  }
+
+  static Integer[] toIntegerArray(int[] array) {
+    return Arrays.stream(array).boxed().toArray(Integer[]::new);
   }
 }
