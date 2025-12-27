@@ -3,7 +3,7 @@ package operations;
 import java.util.Arrays;
 import java.util.Random;
 
-class Randomize {
+class OperationHelper {
 
   static int[] randomizeArray(int length) {
     Random random = new Random();

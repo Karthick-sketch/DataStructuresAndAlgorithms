@@ -6,7 +6,7 @@ import java.util.Arrays;
 public class AVLTreeOperations {
 
   public static void operations() {
-    int[] values = Randomize.randomizeArray(15);
+    int[] values = OperationHelper.randomizeArray(15);
 
     AVLTree avl = new AVLTree(values);
     System.out.println("Array:      " + Arrays.toString(values));

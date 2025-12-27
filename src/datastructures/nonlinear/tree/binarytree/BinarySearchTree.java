@@ -18,19 +18,22 @@ public class BinarySearchTree extends BinaryTree<Integer> {
   }
 
   public void insert(int value) {
-    BinaryTreeNode<Integer> node = new BinaryTreeNode<Integer>(value);
+    insert(new BinaryTreeNode<>(value));
+  }
+
+  protected void insert(BinaryTreeNode<Integer> node) {
     if (root == null) {
       root = node;
     } else {
       BinaryTreeNode<Integer> current = root;
       while (true) {
-        if (value < current.getValue()) {
+        if (node.getValue() < current.getValue()) {
           if (current.getLeft() == null) {
             current.setLeft(node);
             break;
           }
           current = current.getLeft();
-        } else if (value > current.getValue()) {
+        } else if (node.getValue() > current.getValue()) {
           if (current.getRight() == null) {
             current.setRight(node);
             break;
@@ -58,36 +61,10 @@ public class BinarySearchTree extends BinaryTree<Integer> {
   }
 
   public boolean delete(int value) {
-    BinaryTreeNode<Integer> child = root, parent = root;
+    BinaryTreeNode<Integer> child = root, parent = null;
     while (child != null) {
       if (value == child.getValue()) {
-        if (child.getLeft() != null && child.getRight() != null) {
-          BinaryTreeNode<Integer> current = child.getLeft(), previous = null;
-          while (current.getRight() != null) {
-            previous = current;
-            current = current.getRight();
-          }
-          child.setValue(current.getValue());
-          if (previous == null) {
-            child.setLeft(null);
-          } else {
-            previous.setRight(null);
-          }
-        } else {
-          BinaryTreeNode<Integer> current = null;
-          if (child.getLeft() != null) {
-            current = child.getLeft();
-          } else if (child.getRight() != null) {
-            current = child.getRight();
-          }
-          if (child == root) {
-            root = current;
-          } else if (child == parent.getLeft()) {
-            parent.setLeft(current);
-          } else {
-            parent.setRight(current);
-          }
-        }
+        delete(child, parent);
         return true;
       } else {
         parent = child;
@@ -95,6 +72,52 @@ public class BinarySearchTree extends BinaryTree<Integer> {
       }
     }
     return false;
+  }
+
+  protected void delete(
+    BinaryTreeNode<Integer> child,
+    BinaryTreeNode<Integer> parent
+  ) {
+    if (child.getLeft() != null || child.getRight() != null) {
+      BinaryTreeNode<Integer> current = child;
+      parent = child;
+      if (child.getLeft() != null) {
+        // in-order predecessor
+        child = child.getLeft();
+        while (child.getRight() != null) {
+          parent = child;
+          child = child.getRight();
+        }
+      } else {
+        // in-order successor
+        child = child.getRight();
+        while (child.getLeft() != null) {
+          parent = child;
+          child = child.getLeft();
+        }
+      }
+      int value = current.getValue();
+      current.setValue(child.getValue());
+      child.setValue(value);
+    }
+    if (child.getLeft() == null && child.getRight() == null) {
+      deleteNode(child, parent);
+    } else {
+      delete(child, parent);
+    }
+  }
+
+  private void deleteNode(
+    BinaryTreeNode<Integer> child,
+    BinaryTreeNode<Integer> parent
+  ) {
+    if (child == root) {
+      root = null;
+    } else if (child == parent.getLeft()) {
+      parent.setLeft(null);
+    } else {
+      parent.setRight(null);
+    }
   }
 
   public int maximum() {

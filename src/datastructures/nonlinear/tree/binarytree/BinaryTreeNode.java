@@ -1,38 +1,38 @@
 package datastructures.nonlinear.tree.binarytree;
 
-public class BinaryTreeNode<BT> {
+class BinaryTreeNode<B> {
 
-  private BT value;
-  private BinaryTreeNode<BT> left;
-  private BinaryTreeNode<BT> right;
+  private B value;
+  private BinaryTreeNode<B> left;
+  private BinaryTreeNode<B> right;
 
-  public BinaryTreeNode(BT value) {
+  BinaryTreeNode(B value) {
     this.value = value;
     this.left = null;
     this.right = null;
   }
 
-  public void setValue(BT value) {
+  void setValue(B value) {
     this.value = value;
   }
 
-  public BT getValue() {
+  B getValue() {
     return value;
   }
 
-  public void setLeft(BinaryTreeNode<BT> left) {
+  void setLeft(BinaryTreeNode<B> left) {
     this.left = left;
   }
 
-  public BinaryTreeNode<BT> getLeft() {
+  BinaryTreeNode<B> getLeft() {
     return left;
   }
 
-  public void setRight(BinaryTreeNode<BT> right) {
+  void setRight(BinaryTreeNode<B> right) {
     this.right = right;
   }
 
-  public BinaryTreeNode<BT> getRight() {
+  BinaryTreeNode<B> getRight() {
     return right;
   }
 }

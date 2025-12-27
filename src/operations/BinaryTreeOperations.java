@@ -6,7 +6,7 @@ import java.util.Arrays;
 public class BinaryTreeOperations {
 
   public static void operations() {
-    Integer[] values = Randomize.randomizeIntegerArray(12);
+    Integer[] values = OperationHelper.randomizeIntegerArray(12);
     BinaryTree<Integer> bst = new BinaryTree<>(values);
 
     System.out.println("Array: " + Arrays.toString(values));

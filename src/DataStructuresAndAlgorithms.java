@@ -47,7 +47,8 @@ public class DataStructuresAndAlgorithms {
 
   private static void dataStructures() {
     System.out.println("0. Back\n1. Linked List\n2. Stack\n3. Queue\n4. Heap");
-    System.out.println("5. Binary Tree\n6. Binary Search Tree\n7. AVL Tree");
+    System.out.println("4. Heap\n5. Binary Tree\n6. Binary Search Tree");
+    System.out.println("7. AVL Tree\n8. Red-Black Tree");
     System.out.print("> ");
     input = scanner.nextInt();
     if (input == 0) {
@@ -67,6 +68,8 @@ public class DataStructuresAndAlgorithms {
         BinarySearchTreeOperations.operations();
       } else if (input == 7) {
         AVLTreeOperations.operations();
+      } else if (input == 8) {
+        RedBlackTreeOperations.operations();
       }
       dataStructures();
     }

@@ -24,9 +24,13 @@ public class AVLTree extends BinarySearchTree {
     selfBalance(root, null);
   }
 
+  protected boolean deleteBST(int value) {
+    return super.delete(value);
+  }
+
   @Override
   public boolean delete(int value) {
-    boolean result = super.delete(value);
+    boolean result = deleteBST(value);
     if (result) {
       selfBalance(root, null);
     }
@@ -45,36 +49,64 @@ public class AVLTree extends BinarySearchTree {
     int bf = balanceFactor(node);
     if (bf > 1) {
       BinaryTreeNode<Integer> left = node.getLeft();
-      // LR rotation
       if (balanceFactor(left) == -1) {
-        BinaryTreeNode<Integer> lRight = left.getRight();
-        node.setLeft(lRight);
-        left.setRight(lRight.getLeft());
-        lRight.setLeft(left);
+        // LR rotation
+        rotationLR(left.getRight(), left, node);
         left = node.getLeft();
       }
       // LL rotation
-      node.setLeft(left.getRight());
-      left.setRight(node);
-      setConnection(node, parent, left);
+      rotationLL(left, node);
+      linkNodes(node, parent, left);
     } else if (bf < -1) {
       BinaryTreeNode<Integer> right = node.getRight();
-      // RL rotation
       if (balanceFactor(right) == 1) {
-        BinaryTreeNode<Integer> rLeft = right.getLeft();
-        node.setRight(rLeft);
-        right.setLeft(rLeft.getRight());
-        rLeft.setRight(right);
+        // RL rotation
+        rotationRL(right.getLeft(), right, node);
         right = node.getRight();
       }
       // RR rotation
-      node.setRight(right.getLeft());
-      right.setLeft(node);
-      setConnection(node, parent, right);
+      rotationRR(right, node);
+      linkNodes(node, parent, right);
     }
   }
 
-  private void setConnection(
+  protected void rotationLR(
+    BinaryTreeNode<Integer> child,
+    BinaryTreeNode<Integer> parent,
+    BinaryTreeNode<Integer> grand
+  ) {
+    grand.setLeft(child);
+    parent.setRight(child.getLeft());
+    child.setLeft(parent);
+  }
+
+  protected void rotationLL(
+    BinaryTreeNode<Integer> child,
+    BinaryTreeNode<Integer> parent
+  ) {
+    parent.setLeft(child.getRight());
+    child.setRight(parent);
+  }
+
+  protected void rotationRL(
+    BinaryTreeNode<Integer> child,
+    BinaryTreeNode<Integer> parent,
+    BinaryTreeNode<Integer> grand
+  ) {
+    grand.setRight(child);
+    parent.setLeft(child.getRight());
+    child.setRight(parent);
+  }
+
+  protected void rotationRR(
+    BinaryTreeNode<Integer> child,
+    BinaryTreeNode<Integer> parent
+  ) {
+    parent.setRight(child.getLeft());
+    child.setLeft(parent);
+  }
+
+  protected void linkNodes(
     BinaryTreeNode<Integer> node,
     BinaryTreeNode<Integer> parent,
     BinaryTreeNode<Integer> child
