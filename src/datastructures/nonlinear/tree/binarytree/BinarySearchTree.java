@@ -1,7 +1,5 @@
 package datastructures.nonlinear.tree.binarytree;
 
-import java.util.function.Predicate;
-
 public class BinarySearchTree extends BinaryTree<Integer> {
 
   public BinarySearchTree() {
@@ -136,13 +134,5 @@ public class BinarySearchTree extends BinaryTree<Integer> {
       current = current.getLeft();
     }
     return current.getValue();
-  }
-
-  @SuppressWarnings("unchecked")
-  protected <T extends BinaryTreeNode<Integer>> T getChild(
-    T node,
-    Predicate<T> condition
-  ) {
-    return (T) (condition.test(node) ? node.getLeft() : node.getRight());
   }
 }
