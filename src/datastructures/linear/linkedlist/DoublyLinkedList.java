@@ -41,6 +41,13 @@ public class DoublyLinkedList<L> implements LinkedList<L> {
   }
 
   @Override
+  public void addAll(L[] values) {
+    for (L value : values) {
+      add(value);
+    }
+  }
+
+  @Override
   public void insert(L value, int index) {
     if (index >= 0 && index <= length) {
       DoublyNode<L> node = new DoublyNode<>(value);
@@ -80,7 +87,7 @@ public class DoublyLinkedList<L> implements LinkedList<L> {
   }
 
   @Override
-  public L delete(int index) {
+  public L remove(int index) {
     if (index >= 0 && index < length) {
       DoublyNode<L> temp = head;
       if (index == 0) {
@@ -99,6 +106,25 @@ public class DoublyLinkedList<L> implements LinkedList<L> {
   }
 
   @Override
+  public L remove(L value) {
+    DoublyNode<L> current = head, previous = null;
+    while (current != null) {
+      if (current.getValue().equals(value)) {
+        L obj = current.getValue();
+        if (previous == null) {
+          head = head.getNext();
+        } else {
+          previous.setNext(current.getNext());
+        }
+        return obj;
+      }
+      previous = current;
+      current = current.getNext();
+    }
+    throw new RuntimeException(value + " is not exist");
+  }
+
+  @Override
   public String toString() {
     if (head == null) {
       return "[]";
@@ -110,5 +136,11 @@ public class DoublyLinkedList<L> implements LinkedList<L> {
       temp = temp.getNext();
     }
     return values.toString() + temp.getValue() + "]";
+  }
+
+  @Override
+  public void clear() {
+    head = null;
+    length = 0;
   }
 }
