@@ -63,19 +63,9 @@ public class BinarySearchTree extends BinaryTree<Integer> {
   }
 
   public boolean delete(int value) {
-    BinaryTreeNode<Integer> child = root, parent = root;
+    BinaryTreeNode<Integer> child = root, parent = null;
     while (child != null) {
       if (value == child.getValue()) {
-        if (child.getLeft() != null && child.getRight() != null) {
-          BinaryTreeNode<Integer> current = child;
-          parent = child;
-          child = child.getLeft();
-          while (child.getRight() != null) {
-            parent = child;
-            child = child.getRight();
-          }
-          swapValue(current, child);
-        }
         delete(child, parent);
         return true;
       } else {
@@ -90,13 +80,45 @@ public class BinarySearchTree extends BinaryTree<Integer> {
     BinaryTreeNode<Integer> child,
     BinaryTreeNode<Integer> parent
   ) {
-    BinaryTreeNode<Integer> current = getChild(child, c -> c.getLeft() != null);
-    if (child == root) {
-      root = current;
-    } else if (child == parent.getLeft()) {
-      parent.setLeft(current);
+    if (child.getLeft() != null || child.getRight() != null) {
+      BinaryTreeNode<Integer> current = child;
+      parent = child;
+      if (child.getLeft() != null) {
+        // in-order predecessor
+        child = child.getLeft();
+        while (child.getRight() != null) {
+          parent = child;
+          child = child.getRight();
+        }
+      } else {
+        // in-order successor
+        child = child.getRight();
+        while (child.getLeft() != null) {
+          parent = child;
+          child = child.getLeft();
+        }
+      }
+      int value = current.getValue();
+      current.setValue(child.getValue());
+      child.setValue(value);
+    }
+    if (child.getLeft() == null && child.getRight() == null) {
+      deleteNode(child, parent);
     } else {
-      parent.setRight(current);
+      delete(child, parent);
+    }
+  }
+
+  private void deleteNode(
+    BinaryTreeNode<Integer> child,
+    BinaryTreeNode<Integer> parent
+  ) {
+    if (child == root) {
+      root = null;
+    } else if (child == parent.getLeft()) {
+      parent.setLeft(null);
+    } else {
+      parent.setRight(null);
     }
   }
 
@@ -122,11 +144,5 @@ public class BinarySearchTree extends BinaryTree<Integer> {
     Predicate<T> condition
   ) {
     return (T) (condition.test(node) ? node.getLeft() : node.getRight());
-  }
-
-  protected <T extends BinaryTreeNode<Integer>> void swapValue(T a, T b) {
-    int value = a.getValue();
-    a.setValue(b.getValue());
-    b.setValue(value);
   }
 }
