@@ -42,6 +42,7 @@ public class RedBlackTree extends AVLTree {
     while (child != null) {
       if (value == child.getValue()) {
         delete(child, parent, grand);
+        selfBalanceDeletion(getRoot(), null);
         selfBalance();
         return true;
       } else {
@@ -121,6 +122,7 @@ public class RedBlackTree extends AVLTree {
             rotationLL(sibling, parent);
             color(sibling, true);
           }
+          linkNodes(parent, grand, sibling);
         }
       } else {
         if (sibling.isRed()) {
@@ -136,17 +138,17 @@ public class RedBlackTree extends AVLTree {
             rotationRR(sibling, parent);
             color(sibling, true);
           }
+          linkNodes(parent, grand, sibling);
         }
       }
-      linkNodes(parent, grand, sibling);
     }
   }
 
   private void selfBalance() {
     selfBalance(getRoot(), null, null, null);
     colorRootBlack();
-    if (!validateBlackNodes()) {
-      throw new RuntimeException("Black nodes mismatch");
+    if (!validateBlackNodes(getRoot())) {
+      throw new RuntimeException("Double black");
     }
   }
 
@@ -204,6 +206,41 @@ public class RedBlackTree extends AVLTree {
     }
   }
 
+  private void selfBalanceDeletion(
+    RedBlackTreeNode node,
+    RedBlackTreeNode parent
+  ) {
+    if (node == null) {
+      return;
+    }
+    RedBlackTreeNode left = getLeft(node);
+    RedBlackTreeNode right = getRight(node);
+    selfBalanceDeletion(left, node);
+    selfBalanceDeletion(right, node);
+    int bleft = countBlackNodes(left);
+    int bright = countBlackNodes(right);
+    if (bleft < bright) {
+      if (left != null && left.isRed()) {
+        left.setRed(false);
+      } else {
+        rotationRR(right, node);
+        color(right, true);
+        linkNodes(node, parent, right);
+      }
+    } else if (bleft > bright) {
+      if (right != null && right.isRed()) {
+        right.setRed(false);
+      } else {
+        rotationLL(left, node);
+        color(left, true);
+        linkNodes(node, parent, left);
+      }
+    }
+    if (!validateBlackNodes(node)) {
+      selfBalanceDeletion(node, parent);
+    }
+  }
+
   private void color(RedBlackTreeNode node, boolean isRecolor) {
     node.setRed(isRecolor);
     getLeft(node).setRed(!isRecolor);
@@ -218,11 +255,10 @@ public class RedBlackTree extends AVLTree {
     }
   }
 
-  private boolean validateBlackNodes() {
-    RedBlackTreeNode root = getRoot();
+  private boolean validateBlackNodes(RedBlackTreeNode node) {
     return (
-      root == null ||
-      (countBlackNodes(getLeft(root)) == countBlackNodes(getRight(root)))
+      node == null ||
+      (countBlackNodes(getLeft(node)) == countBlackNodes(getRight(node)))
     );
   }
 
