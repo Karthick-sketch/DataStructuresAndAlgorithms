@@ -6,7 +6,7 @@ import java.util.Arrays;
 public class SortOperations {
 
   public static void operations() {
-    int[] arr = Randomize.randomizeArray(10);
+    int[] arr = OperationHelper.randomizeArray(10);
     System.out.println("Unsorted:\t" + Arrays.toString(arr));
     operations(arr, new BubbleSort(), "Bubble");
     operations(arr, new SelectionSort(), "Selection");

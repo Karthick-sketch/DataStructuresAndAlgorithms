@@ -111,6 +111,7 @@ public class SinglyLinkedList<L> implements LinkedList<L> {
         } else {
           previous.setNext(current.getNext());
         }
+        length--;
         return obj;
       }
       previous = current;

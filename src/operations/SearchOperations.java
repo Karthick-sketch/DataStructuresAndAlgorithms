@@ -16,7 +16,7 @@ public class SearchOperations {
   }
 
   private static void operations() {
-    int[] arr = Randomize.randomizeArray(10);
+    int[] arr = OperationHelper.randomizeArray(10);
     System.out.println("0. Back\n1. Linear Search");
     System.out.println("2. Jump Search\n3. Binary Search");
     System.out.print("> ");

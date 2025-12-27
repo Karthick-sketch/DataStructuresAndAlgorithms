@@ -7,8 +7,7 @@ public class DataStructuresAndAlgorithms {
   private static int input;
 
   public static void main(String[] args) {
-    // start();
-    RedBlackTreeOperations.operations();
+    start();
   }
 
   private static void start() {
