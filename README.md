@@ -15,6 +15,11 @@
 
 ## Non-linear Data Structures
 
+- Hash
+
+  - Linked Map
+  - Hash Table
+
 - Heap
 
   - Max Heap
