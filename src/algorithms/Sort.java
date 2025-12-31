@@ -1,6 +1,7 @@
 package algorithms;
 
 import datastructures.nonlinear.heap.Heap;
+import helper.Helper;
 
 public final class Sort {
 
@@ -12,9 +13,7 @@ public final class Sort {
     for (int i = 1; i < array.length; i++) {
       for (int j = 0; j < array.length - i; j++) {
         if (array[j] > array[j + 1]) {
-          int v = array[j];
-          array[j] = array[j + 1];
-          array[j + 1] = v;
+          Helper.swap(array, j, j + 1);
         }
       }
     }
@@ -28,9 +27,7 @@ public final class Sort {
           min = j;
         }
       }
-      int temp = array[min];
-      array[min] = array[i];
-      array[i] = temp;
+      Helper.swap(array, min, i);
     }
   }
 
@@ -105,15 +102,11 @@ public final class Sort {
     for (int j = start; j < end; j++) {
       if (array[j] < pivot) {
         i++;
-        int temp = array[i];
-        array[i] = array[j];
-        array[j] = temp;
+        Helper.swap(array, i, j);
       }
     }
     i++;
-    int temp = array[i];
-    array[i] = array[end];
-    array[end] = temp;
+    Helper.swap(array, i, end);
     return i;
   }
 
