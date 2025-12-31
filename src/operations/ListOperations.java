@@ -8,11 +8,11 @@ import datastructures.linear.list.List;
 public class ListOperations {
 
   public static void operations() {
-    System.out.println("Array List");
+    System.out.println("Array List:");
     operations(new ArrayList<>());
-    System.out.println("\nLinked List");
+    System.out.println("\nLinked List:");
     operations(new LinkedList<>());
-    System.out.println("\nDoubly Linked List");
+    System.out.println("\nDoubly Linked List:");
     operations(new DoublyLinkedList<>());
   }
 

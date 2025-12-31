@@ -5,6 +5,7 @@ import datastructures.linear.node.Node;
 public class LinkedList<L> implements List<L> {
 
   private Node<L> head;
+  private Node<L> tail;
   private int length;
 
   @Override
@@ -30,12 +31,9 @@ public class LinkedList<L> implements List<L> {
     if (head == null) {
       head = node;
     } else {
-      Node<L> temp = head;
-      while (temp.getNext() != null) {
-        temp = temp.getNext();
-      }
-      temp.setNext(node);
+      tail.setNext(node);
     }
+    tail = node;
     length++;
   }
 
@@ -66,6 +64,9 @@ public class LinkedList<L> implements List<L> {
       if (index == 0) {
         node.setNext(head);
         head = node;
+      } else if (index == length) {
+        tail.setNext(node);
+        tail = node;
       } else {
         Node<L> temp = head;
         for (int i = 1; i < index; i++) {
@@ -86,6 +87,9 @@ public class LinkedList<L> implements List<L> {
       Node<L> node = head;
       if (index == 0) {
         head = head.getNext();
+        if (head == null) {
+          tail = null;
+        }
       } else {
         Node<L> temp = head;
         for (int i = 1; i < index; i++) {
@@ -93,6 +97,9 @@ public class LinkedList<L> implements List<L> {
         }
         node = temp.getNext();
         temp.setNext(node.getNext());
+        if (node == tail) {
+          tail = temp;
+        }
       }
       length--;
       return node.getValue();
@@ -110,6 +117,9 @@ public class LinkedList<L> implements List<L> {
           head = head.getNext();
         } else {
           previous.setNext(current.getNext());
+        }
+        if (current == tail) {
+          tail = previous;
         }
         length--;
         return obj;
@@ -137,6 +147,7 @@ public class LinkedList<L> implements List<L> {
   @Override
   public void clear() {
     head = null;
+    tail = null;
     length = 0;
   }
 }
