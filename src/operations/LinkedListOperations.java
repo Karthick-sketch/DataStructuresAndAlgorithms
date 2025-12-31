@@ -25,7 +25,7 @@ public class LinkedListOperations {
     linkedList.insert(8, 2);
     System.out.println("Inserted value 8 at index 2");
     System.out.println(linkedList);
-    linkedList.update(6, 1);
+    linkedList.set(6, 1);
     System.out.println("Updated at index 1 value to 6");
     System.out.println(linkedList);
     System.out.println("Deleted at index 2: " + linkedList.remove(2));

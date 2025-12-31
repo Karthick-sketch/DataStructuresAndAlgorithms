@@ -47,6 +47,19 @@ public class SinglyLinkedList<L> implements LinkedList<L> {
   }
 
   @Override
+  public void set(L value, int index) {
+    if (index >= 0 && index < length) {
+      Node<L> temp = head;
+      for (int i = 1; i <= index; i++) {
+        temp = temp.getNext();
+      }
+      temp.setValue(value);
+    } else {
+      throw new IndexOutOfBoundsException(index);
+    }
+  }
+
+  @Override
   public void insert(L value, int index) {
     if (index >= 0 && index <= length) {
       Node<L> node = new Node<>(value);
@@ -62,19 +75,6 @@ public class SinglyLinkedList<L> implements LinkedList<L> {
         temp.setNext(node);
       }
       length++;
-    } else {
-      throw new IndexOutOfBoundsException(index);
-    }
-  }
-
-  @Override
-  public void update(L value, int index) {
-    if (index >= 0 && index < length) {
-      Node<L> temp = head;
-      for (int i = 1; i <= index; i++) {
-        temp = temp.getNext();
-      }
-      temp.setValue(value);
     } else {
       throw new IndexOutOfBoundsException(index);
     }

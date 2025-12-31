@@ -48,6 +48,19 @@ public class DoublyLinkedList<L> implements LinkedList<L> {
   }
 
   @Override
+  public void set(L value, int index) {
+    if (index >= 0 && index < length) {
+      DoublyNode<L> temp = head;
+      for (int i = 1; i <= index; i++) {
+        temp = temp.getNext();
+      }
+      temp.setValue(value);
+    } else {
+      throw new IndexOutOfBoundsException(index);
+    }
+  }
+
+  @Override
   public void insert(L value, int index) {
     if (index >= 0 && index <= length) {
       DoublyNode<L> node = new DoublyNode<>(value);
@@ -68,19 +81,6 @@ public class DoublyLinkedList<L> implements LinkedList<L> {
         node.setPrevious(temp);
       }
       length++;
-    } else {
-      throw new IndexOutOfBoundsException(index);
-    }
-  }
-
-  @Override
-  public void update(L value, int index) {
-    if (index >= 0 && index < length) {
-      DoublyNode<L> temp = head;
-      for (int i = 1; i <= index; i++) {
-        temp = temp.getNext();
-      }
-      temp.setValue(value);
     } else {
       throw new IndexOutOfBoundsException(index);
     }

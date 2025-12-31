@@ -5,8 +5,8 @@ public interface LinkedList<L> {
   L get(int index);
   void add(L value);
   void addAll(L[] values);
+  void set(L value, int index);
   void insert(L value, int index);
-  void update(L value, int index);
   L remove(int index);
   L remove(L value);
   void clear();
