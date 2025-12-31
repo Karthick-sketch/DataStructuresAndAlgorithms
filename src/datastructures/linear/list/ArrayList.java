@@ -11,6 +11,11 @@ public class ArrayList<L> implements List<L> {
     array = new Object[length];
   }
 
+  public ArrayList(L[] values) {
+    array = values;
+    length = values.length;
+  }
+
   public int size() {
     return position;
   }

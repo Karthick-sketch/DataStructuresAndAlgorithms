@@ -1,18 +1,15 @@
 package datastructures.nonlinear.hash;
 
-import java.util.ArrayList;
+import datastructures.linear.list.ArrayList;
+import datastructures.linear.list.List;
 
 public class HashTable<V> implements Map<Integer, V> {
 
-  private final int length;
+  private final int RANGE = 11;
   private final ArrayList<Entry<Integer, V>> hashTable;
+  private int length = RANGE;
 
   public HashTable() {
-    this(10);
-  }
-
-  public HashTable(int length) {
-    this.length = length;
     hashTable = new ArrayList<>();
     for (int i = 0; i < length; i++) {
       hashTable.add(null);
@@ -25,7 +22,7 @@ public class HashTable<V> implements Map<Integer, V> {
     int index = hashDivision(key);
     Entry<Integer, V> current = hashTable.get(index);
     if (current == null) {
-      hashTable.set(index, entry);
+      hashTable.set(entry, index);
     } else {
       while (current.getNext() != null) {
         current = current.getNext();
@@ -56,22 +53,48 @@ public class HashTable<V> implements Map<Integer, V> {
   }
 
   @Override
+  public List<Integer> getKeys() {
+    List<Integer> keys = new ArrayList<>();
+    for (int i = 0; i < length; i++) {
+      Entry<Integer, V> entry = hashTable.get(i);
+      if (entry != null) {
+        keys.add(entry.getKey());
+        entry = entry.getNext();
+      }
+    }
+    return keys;
+  }
+
+  @Override
+  public List<V> getValues() {
+    List<V> values = new ArrayList<>();
+    for (int i = 0; i < length; i++) {
+      Entry<Integer, V> entry = hashTable.get(i);
+      if (entry != null) {
+        values.add(entry.getValue());
+        entry = entry.getNext();
+      }
+    }
+    return values;
+  }
+
+  @Override
   public boolean find(Integer key) {
     return fetch(key) != null;
   }
 
   @Override
-  public void remove(Integer key) {
+  public V remove(Integer key) {
     int index = hashDivision(key);
     Entry<Integer, V> current = hashTable.get(index), previous = null;
     while (current != null) {
       if (current.getKey().equals(key)) {
         if (previous == null) {
-          hashTable.set(index, current.getNext());
+          hashTable.set(current.getNext(), index);
         } else {
           previous.setNext(current.getNext());
         }
-        return;
+        return current.getValue();
       }
       current = current.getNext();
     }

@@ -1,5 +1,8 @@
 package datastructures.nonlinear.hash;
 
+import datastructures.linear.list.ArrayList;
+import datastructures.linear.list.List;
+
 public class LinkedMap<K, V> implements Map<K, V> {
 
   private Entry<K, V> head;
@@ -44,12 +47,34 @@ public class LinkedMap<K, V> implements Map<K, V> {
   }
 
   @Override
+  public List<K> getKeys() {
+    List<K> keys = new ArrayList<>();
+    Entry<K, V> entry = head;
+    while (entry != null) {
+      keys.add(entry.getKey());
+      entry = entry.getNext();
+    }
+    return keys;
+  }
+
+  @Override
+  public List<V> getValues() {
+    List<V> values = new ArrayList<>();
+    Entry<K, V> entry = head;
+    while (entry != null) {
+      values.add(entry.getValue());
+      entry = entry.getNext();
+    }
+    return values;
+  }
+
+  @Override
   public boolean find(K key) {
     return fetch(key) != null;
   }
 
   @Override
-  public void remove(K key) {
+  public V remove(K key) {
     Entry<K, V> current = head, previous = null;
     while (current != null) {
       if (current.getKey().equals(key)) {
@@ -58,7 +83,7 @@ public class LinkedMap<K, V> implements Map<K, V> {
         } else {
           previous.setNext(current.getNext());
         }
-        return;
+        return current.getValue();
       }
       previous = current;
       current = current.getNext();

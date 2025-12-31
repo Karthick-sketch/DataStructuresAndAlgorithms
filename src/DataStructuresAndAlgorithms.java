@@ -7,7 +7,8 @@ public class DataStructuresAndAlgorithms {
   private static int input;
 
   public static void main(String[] args) {
-    start();
+    // start();
+    HashTableOperations.operations();
   }
 
   private static void start() {
