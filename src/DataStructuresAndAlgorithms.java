@@ -46,31 +46,37 @@ public class DataStructuresAndAlgorithms {
   }
 
   private static void dataStructures() {
-    System.out.println("0. Back\n1. Linked List\n2. Stack\n3. Queue\n4. Heap");
-    System.out.println("4. Heap\n5. Hash Table\n6. Binary Tree");
-    System.out.println("7. Binary Search Tree\n8. AVL Tree\n9. Red-Black Tree");
+    System.out.println(
+      "0. Back\n1. Array List\n2. Linked List\n3. Stack\n4. Queue"
+    );
+    System.out.println("5. Heap\n6. Hash Table\n7. Binary Tree");
+    System.out.println(
+      "8. Binary Search Tree\n9. AVL Tree\n10. Red-Black Tree"
+    );
     System.out.print("> ");
     input = scanner.nextInt();
     if (input == 0) {
       start();
     } else {
       if (input == 1) {
-        LinkedListOperations.operations();
+        ArrayListOperations.operations();
       } else if (input == 2) {
-        StackOperations.operations();
+        LinkedListOperations.operations();
       } else if (input == 3) {
-        QueueOperations.operations();
+        StackOperations.operations();
       } else if (input == 4) {
-        HeapOperations.operations();
+        QueueOperations.operations();
       } else if (input == 5) {
-        HashTableOperations.operations();
+        HeapOperations.operations();
       } else if (input == 6) {
-        BinaryTreeOperations.operations();
+        HashTableOperations.operations();
       } else if (input == 7) {
-        BinarySearchTreeOperations.operations();
+        BinaryTreeOperations.operations();
       } else if (input == 8) {
-        AVLTreeOperations.operations();
+        BinarySearchTreeOperations.operations();
       } else if (input == 9) {
+        AVLTreeOperations.operations();
+      } else if (input == 10) {
         RedBlackTreeOperations.operations();
       }
       dataStructures();
