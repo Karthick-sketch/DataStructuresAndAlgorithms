@@ -8,29 +8,29 @@ public class AVLTree extends BinarySearchTree {
 
   public AVLTree(int[] values) {
     super();
-    insert(values);
+    add(values);
   }
 
   @Override
-  public void insert(int[] values) {
+  public void add(int[] values) {
     for (int value : values) {
-      insert(value);
+      add(value);
     }
   }
 
   @Override
-  public void insert(int value) {
-    super.insert(value);
+  public void add(int value) {
+    super.add(value);
     selfBalance(root, null);
   }
 
-  protected boolean deleteBST(int value) {
-    return super.delete(value);
+  protected boolean removeBST(int value) {
+    return super.remove(value);
   }
 
   @Override
-  public boolean delete(int value) {
-    boolean result = deleteBST(value);
+  public boolean remove(int value) {
+    boolean result = removeBST(value);
     if (result) {
       selfBalance(root, null);
     }

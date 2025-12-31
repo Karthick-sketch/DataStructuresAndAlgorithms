@@ -8,7 +8,7 @@ public class RedBlackTree extends AVLTree {
 
   public RedBlackTree(int[] values) {
     super();
-    insert(values);
+    add(values);
   }
 
   private RedBlackTreeNode getRoot() {
@@ -24,21 +24,21 @@ public class RedBlackTree extends AVLTree {
   }
 
   @Override
-  public void insert(int[] values) {
+  public void add(int[] values) {
     for (int value : values) {
-      insert(value);
+      add(value);
     }
   }
 
   @Override
-  public void insert(int value) {
-    insert(new RedBlackTreeNode(value));
+  public void add(int value) {
+    add(new RedBlackTreeNode(value));
     selfBalance();
   }
 
   @Override
-  public boolean delete(int value) {
-    boolean result = deleteBST(value);
+  public boolean remove(int value) {
+    boolean result = removeBST(value);
     if (result) {
       selfBalanceDeletion(getRoot(), null);
       selfBalance();

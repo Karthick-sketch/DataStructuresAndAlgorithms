@@ -15,8 +15,8 @@ public class BinarySearchTreeOperations {
     System.out.println("Pre-order: " + bst.getPreOrder());
     System.out.println("Post-order: " + bst.getPostOrder());
 
-    System.out.printf("Search %d: %b\n", values[5], bst.search(values[5]));
-    System.out.printf("Delete %d: %b\n", values[8], bst.delete(values[8]));
+    System.out.printf("Search %d: %b\n", values[5], bst.find(values[5]));
+    System.out.printf("Delete %d: %b\n", values[8], bst.remove(values[8]));
     System.out.println(bst.get());
 
     System.out.println("Maximum: " + bst.maximum());

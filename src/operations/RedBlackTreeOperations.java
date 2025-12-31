@@ -23,8 +23,8 @@ public class RedBlackTreeOperations {
       System.out.println("Max Height: " + rbt.findMaxHeight());
       System.out.println("Min Height: " + rbt.findMinHeight());
 
-      System.out.printf("Search %d: %b\n", values[5], rbt.search(values[5]));
-      System.out.printf("Delete %d: %b\n", values[8], rbt.delete(values[8]));
+      System.out.printf("Search %d: %b\n", values[5], rbt.find(values[5]));
+      System.out.printf("Delete %d: %b\n", values[8], rbt.remove(values[8]));
       System.out.println(rbt.get());
 
       System.out.println("Maximum: " + rbt.maximum());
@@ -54,13 +54,13 @@ public class RedBlackTreeOperations {
     for (int window = 1; window <= n; window++) {
       // Starting index
       for (int start = 0; start < n; start++) {
-        rbt.insert(values);
+        rbt.add(values);
         expectedValues.addAll(OperationHelper.toIntegerArray(sortedValues));
         // Print window elements
         for (int offset = 0; offset < window; offset++) {
           int index = (start + offset) % n;
           expectedValues.remove(Integer.valueOf(sortedValues[index]));
-          boolean deleted = rbt.delete(sortedValues[index]);
+          boolean deleted = rbt.remove(sortedValues[index]);
           rbtValues = rbt.get();
           if (deleted && rbtValues.size() != expectedValues.size()) {
             System.out.println(
