@@ -2,9 +2,10 @@
 
 ## Linear Data Structures
 
-- Linked List
+- List
 
-  - Singly Linked List
+  - Array List
+  - Linked List
   - Doubly Linked List
 
 - Stack

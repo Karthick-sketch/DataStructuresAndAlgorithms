@@ -1,7 +1,7 @@
 package operations;
 
-import datastructures.linear.linkedlist.LinkedList;
-import datastructures.linear.linkedlist.SinglyLinkedList;
+import datastructures.linear.list.LinkedList;
+import datastructures.linear.list.List;
 import datastructures.nonlinear.tree.binarytree.RedBlackTree;
 import java.util.Arrays;
 
@@ -38,7 +38,7 @@ public class RedBlackTreeOperations {
   }
 
   private static boolean validate(RedBlackTree rbt, int[] values) {
-    LinkedList<Integer> list = rbt.get();
+    List<Integer> list = rbt.get();
     int[] sortedValues = new int[list.size()];
     for (int i = 0; i < sortedValues.length; i++) {
       sortedValues[i] = list.get(i);
@@ -48,8 +48,8 @@ public class RedBlackTreeOperations {
 
   private static boolean test(int[] values, int[] sortedValues) {
     RedBlackTree rbt = new RedBlackTree();
-    LinkedList<Integer> expectedValues = new SinglyLinkedList<>();
-    LinkedList<Integer> rbtValues = null;
+    List<Integer> expectedValues = new LinkedList<>();
+    List<Integer> rbtValues = null;
     int n = sortedValues.length;
     for (int window = 1; window <= n; window++) {
       // Starting index

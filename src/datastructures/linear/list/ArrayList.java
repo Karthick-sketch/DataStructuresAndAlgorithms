@@ -1,6 +1,6 @@
-package datastructures.linear;
+package datastructures.linear.list;
 
-public class ArrayList<T> {
+public class ArrayList<L> implements List<L> {
 
   private final int RANGE = 10;
   private Object[] array;
@@ -20,12 +20,12 @@ public class ArrayList<T> {
   }
 
   @SuppressWarnings("unchecked")
-  public T get(int index) {
+  public L get(int index) {
     validateIndex(index);
-    return (T) array[index];
+    return (L) array[index];
   }
 
-  public void add(T value) {
+  public void add(L value) {
     array[position] = (Object) value;
     position++;
     if (position + 1 >= length) {
@@ -33,22 +33,30 @@ public class ArrayList<T> {
     }
   }
 
-  public void set(T value, int index) {
+  @Override
+  public void addAll(L[] values) {
+    for (L value : values) {
+      add(value);
+    }
+  }
+
+  public void set(L value, int index) {
     validateIndex(index);
     array[index] = value;
   }
 
-  public void insert(T value, int index) {
+  public void insert(L value, int index) {
     for (int i = position; i > index; i--) {
       array[i] = array[i - 1];
     }
     array[index] = value;
+    position++;
   }
 
   @SuppressWarnings("unchecked")
-  public T remove(int index) {
+  public L remove(int index) {
     validateIndex(index);
-    T value = (T) array[index];
+    L value = (L) array[index];
     for (int i = index; i < position; i++) {
       array[i] = array[i + 1];
     }
@@ -60,7 +68,7 @@ public class ArrayList<T> {
     return value;
   }
 
-  public T remove(T value) {
+  public L remove(L value) {
     int index = -1;
     for (int i = 0; i < position; i++) {
       if (array[i].equals(value)) {
@@ -69,6 +77,25 @@ public class ArrayList<T> {
       }
     }
     return remove(index);
+  }
+
+  @Override
+  public void clear() {
+    position = 0;
+    length = RANGE;
+    array = new Object[length];
+  }
+
+  @Override
+  public String toString() {
+    if (position == 0) {
+      return "[]";
+    }
+    StringBuilder values = new StringBuilder("[");
+    for (int i = 0; i < position - 1; i++) {
+      values.append(array[i]).append(", ");
+    }
+    return values.toString() + array[position - 1] + "]";
   }
 
   private void validateIndex(int index) {

@@ -1,10 +1,10 @@
-package datastructures.linear.linkedlist;
+package datastructures.linear.list;
 
-import datastructures.linear.node.Node;
+import datastructures.linear.node.DoublyNode;
 
-public class SinglyLinkedList<L> implements LinkedList<L> {
+public class DoublyLinkedList<L> implements List<L> {
 
-  private Node<L> head;
+  private DoublyNode<L> head;
   private int length;
 
   @Override
@@ -15,7 +15,7 @@ public class SinglyLinkedList<L> implements LinkedList<L> {
   @Override
   public L get(int index) {
     if (index >= 0 && index < length) {
-      Node<L> node = head;
+      DoublyNode<L> node = head;
       for (int i = 0; i < index; i++) {
         node = node.getNext();
       }
@@ -26,15 +26,16 @@ public class SinglyLinkedList<L> implements LinkedList<L> {
 
   @Override
   public void add(L value) {
-    Node<L> node = new Node<>(value);
+    DoublyNode<L> node = new DoublyNode<>(value);
     if (head == null) {
       head = node;
     } else {
-      Node<L> temp = head;
+      DoublyNode<L> temp = head;
       while (temp.getNext() != null) {
         temp = temp.getNext();
       }
       temp.setNext(node);
+      node.setPrevious(temp);
     }
     length++;
   }
@@ -49,7 +50,7 @@ public class SinglyLinkedList<L> implements LinkedList<L> {
   @Override
   public void set(L value, int index) {
     if (index >= 0 && index < length) {
-      Node<L> temp = head;
+      DoublyNode<L> temp = head;
       for (int i = 1; i <= index; i++) {
         temp = temp.getNext();
       }
@@ -62,17 +63,22 @@ public class SinglyLinkedList<L> implements LinkedList<L> {
   @Override
   public void insert(L value, int index) {
     if (index >= 0 && index <= length) {
-      Node<L> node = new Node<>(value);
+      DoublyNode<L> node = new DoublyNode<>(value);
       if (index == 0) {
         node.setNext(head);
+        head.setPrevious(node);
         head = node;
       } else {
-        Node<L> temp = head;
+        DoublyNode<L> temp = head;
         for (int i = 1; i < index; i++) {
           temp = temp.getNext();
         }
-        node.setNext(temp.getNext());
+        if (temp.getNext() != null) {
+          node.setNext(temp.getNext());
+          temp.getNext().setPrevious(node);
+        }
         temp.setNext(node);
+        node.setPrevious(temp);
       }
       length++;
     } else {
@@ -83,26 +89,25 @@ public class SinglyLinkedList<L> implements LinkedList<L> {
   @Override
   public L remove(int index) {
     if (index >= 0 && index < length) {
-      Node<L> node = head;
+      DoublyNode<L> temp = head;
       if (index == 0) {
         head = head.getNext();
+        head.setPrevious(null);
       } else {
-        Node<L> temp = head;
-        for (int i = 1; i < index; i++) {
+        for (int i = 1; i <= index; i++) {
           temp = temp.getNext();
         }
-        node = temp.getNext();
-        temp.setNext(node.getNext());
+        temp.getPrevious().setNext(temp.getNext());
       }
       length--;
-      return node.getValue();
+      return temp.getValue();
     }
     throw new IndexOutOfBoundsException(index);
   }
 
   @Override
   public L remove(L value) {
-    Node<L> current = head, previous = null;
+    DoublyNode<L> current = head, previous = null;
     while (current != null) {
       if (current.getValue().equals(value)) {
         L obj = current.getValue();
@@ -126,7 +131,7 @@ public class SinglyLinkedList<L> implements LinkedList<L> {
       return "[]";
     }
     StringBuilder values = new StringBuilder("[");
-    Node<L> temp = head;
+    DoublyNode<L> temp = head;
     while (temp.getNext() != null) {
       values.append(temp.getValue()).append(", ");
       temp = temp.getNext();

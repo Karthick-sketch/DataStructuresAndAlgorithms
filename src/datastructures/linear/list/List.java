@@ -1,6 +1,6 @@
-package datastructures.linear.linkedlist;
+package datastructures.linear.list;
 
-public interface LinkedList<L> {
+public interface List<L> {
   int size();
   L get(int index);
   void add(L value);
