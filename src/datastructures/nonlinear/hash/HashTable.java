@@ -20,7 +20,7 @@ public class HashTable<V> implements Map<Integer, V> {
   }
 
   @Override
-  public void add(Integer key, V value) {
+  public void put(Integer key, V value) {
     Entry<Integer, V> entry = new Entry<>(key, value);
     int index = hashDivision(key);
     Entry<Integer, V> current = hashTable.get(index);
@@ -34,8 +34,7 @@ public class HashTable<V> implements Map<Integer, V> {
     }
   }
 
-  @Override
-  public V get(Integer key) {
+  private V fetch(Integer key) {
     int index = hashDivision(key);
     Entry<Integer, V> current = hashTable.get(index);
     while (current != null) {
@@ -44,16 +43,21 @@ public class HashTable<V> implements Map<Integer, V> {
       }
       current = current.getNext();
     }
-    throw new RuntimeException("key not found");
+    return null;
+  }
+
+  @Override
+  public V get(Integer key) {
+    V value = fetch(key);
+    if (value == null) {
+      throw new RuntimeException("key not found");
+    }
+    return value;
   }
 
   @Override
   public boolean find(Integer key) {
-    try {
-      return get(key) != null;
-    } catch (RuntimeException e) {
-      return false;
-    }
+    return fetch(key) != null;
   }
 
   @Override

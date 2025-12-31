@@ -5,7 +5,7 @@ public class LinkedMap<K, V> implements Map<K, V> {
   private Entry<K, V> head;
 
   @Override
-  public void add(K key, V value) {
+  public void put(K key, V value) {
     if (head == null) {
       head = new Entry<>(key, value);
     } else if (head.getKey().equals(key)) {
@@ -23,8 +23,7 @@ public class LinkedMap<K, V> implements Map<K, V> {
     }
   }
 
-  @Override
-  public V get(K key) {
+  private V fetch(K key) {
     Entry<K, V> current = head;
     while (current != null) {
       if (current.getKey().equals(key)) {
@@ -32,16 +31,21 @@ public class LinkedMap<K, V> implements Map<K, V> {
       }
       current = current.getNext();
     }
-    throw new RuntimeException("key not found");
+    return null;
+  }
+
+  @Override
+  public V get(K key) {
+    V value = fetch(key);
+    if (value == null) {
+      throw new RuntimeException("key not found");
+    }
+    return value;
   }
 
   @Override
   public boolean find(K key) {
-    try {
-      return get(key) != null;
-    } catch (RuntimeException e) {
-      return false;
-    }
+    return fetch(key) != null;
   }
 
   @Override

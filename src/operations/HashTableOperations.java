@@ -32,7 +32,7 @@ public class HashTableOperations {
     );
     // insert
     for (int i = 0; i < names.size(); i++) {
-      map.add(i + 1, names.get(i));
+      map.put(i + 1, names.get(i));
     }
     // fetch
     System.out.println("Get 1:   " + map.get(1));
