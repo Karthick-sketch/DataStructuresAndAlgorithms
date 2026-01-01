@@ -4,7 +4,6 @@ class Entry<K, V> {
 
   private K key;
   private V value;
-  private Entry<K, V> next;
 
   Entry(K key, V value) {
     this.key = key;
@@ -25,13 +24,5 @@ class Entry<K, V> {
 
   void setValue(V value) {
     this.value = value;
-  }
-
-  Entry<K, V> getNext() {
-    return next;
-  }
-
-  void setNext(Entry<K, V> next) {
-    this.next = next;
   }
 }

@@ -1,19 +1,24 @@
 package datastructures.nonlinear.hash;
 
 import datastructures.linear.list.ArrayList;
+import datastructures.linear.list.LinkedList;
 import datastructures.linear.list.List;
 
 public class HashTable<V> implements Map<Integer, V> {
 
   private final int RANGE = 11;
-  private final ArrayList<Entry<Integer, V>> hashTable;
+  private final ArrayList<List<Entry<Integer, V>>> hashTable;
   private int length = RANGE;
   private int elements = 0;
 
   public HashTable() {
     hashTable = new ArrayList<>();
+    setHashTable();
+  }
+
+  private void setHashTable() {
     for (int i = 0; i < length; i++) {
-      hashTable.add(null);
+      hashTable.add(new LinkedList<>());
     }
   }
 
@@ -23,50 +28,46 @@ public class HashTable<V> implements Map<Integer, V> {
 
   @Override
   public void put(Integer key, V value) {
-    Entry<Integer, V> entry = new Entry<>(key, value);
-    int index = hashDivision(key);
-    Entry<Integer, V> current = hashTable.get(index);
-    if (current == null) {
-      hashTable.set(entry, index);
+    Entry<Integer, V> entry = fetch(key);
+    if (entry != null) {
+      entry.setValue(value);
     } else {
-      while (current.getNext() != null) {
-        current = current.getNext();
-      }
-      current.setNext(entry);
+      int index = hashDivision(key);
+      List<Entry<Integer, V>> list = hashTable.get(index);
+      list.add(new Entry<>(key, value));
+      elements++;
+      checkRehash();
     }
-    elements++;
-    checkRehash();
   }
 
-  private V fetch(Integer key) {
+  private Entry<Integer, V> fetch(Integer key) {
     int index = hashDivision(key);
-    Entry<Integer, V> current = hashTable.get(index);
-    while (current != null) {
-      if (current.getKey().equals(key)) {
-        return current.getValue();
+    List<Entry<Integer, V>> list = hashTable.get(index);
+    for (int i = 0; i < list.size(); i++) {
+      Entry<Integer, V> entry = list.get(i);
+      if (entry.getKey().equals(key)) {
+        return entry;
       }
-      current = current.getNext();
     }
     return null;
   }
 
   @Override
   public V get(Integer key) {
-    V value = fetch(key);
-    if (value == null) {
+    Entry<Integer, V> entry = fetch(key);
+    if (entry == null) {
       throw new RuntimeException("key not found");
     }
-    return value;
+    return entry.getValue();
   }
 
   @Override
   public List<Integer> getKeys() {
     List<Integer> keys = new ArrayList<>();
     for (int i = 0; i < length; i++) {
-      Entry<Integer, V> entry = hashTable.get(i);
-      if (entry != null) {
-        keys.add(entry.getKey());
-        entry = entry.getNext();
+      List<Entry<Integer, V>> list = hashTable.get(i);
+      for (int j = 0; j < list.size(); j++) {
+        keys.add(list.get(j).getKey());
       }
     }
     return keys;
@@ -74,15 +75,14 @@ public class HashTable<V> implements Map<Integer, V> {
 
   @Override
   public List<V> getValues() {
-    List<V> values = new ArrayList<>();
+    List<V> keys = new ArrayList<>();
     for (int i = 0; i < length; i++) {
-      Entry<Integer, V> entry = hashTable.get(i);
-      if (entry != null) {
-        values.add(entry.getValue());
-        entry = entry.getNext();
+      List<Entry<Integer, V>> list = hashTable.get(i);
+      for (int j = 0; j < list.size(); j++) {
+        keys.add(list.get(j).getValue());
       }
     }
-    return values;
+    return keys;
   }
 
   @Override
@@ -92,21 +92,15 @@ public class HashTable<V> implements Map<Integer, V> {
 
   @Override
   public V remove(Integer key) {
-    int index = hashDivision(key);
-    Entry<Integer, V> current = hashTable.get(index), previous = null;
-    while (current != null) {
-      if (current.getKey().equals(key)) {
-        if (previous == null) {
-          hashTable.set(current.getNext(), index);
-        } else {
-          previous.setNext(current.getNext());
-        }
-        elements--;
-        return current.getValue();
-      }
-      current = current.getNext();
+    Entry<Integer, V> entry = fetch(key);
+    if (entry == null) {
+      throw new RuntimeException("key not found");
     }
-    throw new RuntimeException("key not found");
+    int index = hashDivision(key);
+    List<Entry<Integer, V>> list = hashTable.get(index);
+    list.remove(entry);
+    elements--;
+    return entry.getValue();
   }
 
   private int hashDivision(Integer key) {
@@ -114,26 +108,27 @@ public class HashTable<V> implements Map<Integer, V> {
   }
 
   private void checkRehash() {
-    if (loadFactor() > 0.7) {
+    if (loadFactor() > 0.7f) {
       rehash();
     }
   }
 
-  private double loadFactor() {
-    return elements / length;
+  private float loadFactor() {
+    return (float) elements / length;
   }
 
   private void rehash() {
     List<Entry<Integer, V>> entries = new ArrayList<>();
     for (int i = 0; i < length; i++) {
-      Entry<Integer, V> entry = hashTable.get(i);
-      if (entry != null) {
-        entries.add(entry);
-        entry = entry.getNext();
+      List<Entry<Integer, V>> list = hashTable.get(i);
+      for (int j = 0; j < list.size(); j++) {
+        entries.add(list.get(j));
       }
     }
-    hashTable.clear();
+    elements = 0;
     length += RANGE;
+    hashTable.clear();
+    setHashTable();
     for (int i = 0; i < entries.size(); i++) {
       Entry<Integer, V> entry = entries.get(i);
       put(entry.getKey(), entry.getValue());
