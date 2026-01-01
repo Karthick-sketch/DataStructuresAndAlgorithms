@@ -144,4 +144,9 @@ public class DoublyLinkedList<L> implements List<L> {
     head = null;
     length = 0;
   }
+
+  @Override
+  public boolean isEmpty() {
+    return length == 0;
+  }
 }

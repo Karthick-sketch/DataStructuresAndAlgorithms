@@ -10,4 +10,5 @@ public interface List<L> {
   L remove(int index);
   L remove(L value);
   void clear();
+  boolean isEmpty();
 }

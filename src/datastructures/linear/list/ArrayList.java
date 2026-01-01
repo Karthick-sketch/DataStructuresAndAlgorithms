@@ -16,20 +16,24 @@ public class ArrayList<L> implements List<L> {
     length = values.length;
   }
 
+  @Override
   public int size() {
     return position;
   }
 
+  @Override
   public boolean isEmpty() {
     return position == 0;
   }
 
+  @Override
   @SuppressWarnings("unchecked")
   public L get(int index) {
     validateIndex(index);
     return (L) array[index];
   }
 
+  @Override
   public void add(L value) {
     array[position] = (Object) value;
     position++;
@@ -45,11 +49,13 @@ public class ArrayList<L> implements List<L> {
     }
   }
 
+  @Override
   public void set(L value, int index) {
     validateIndex(index);
     array[index] = value;
   }
 
+  @Override
   public void insert(L value, int index) {
     for (int i = position; i > index; i--) {
       array[i] = array[i - 1];
@@ -58,6 +64,7 @@ public class ArrayList<L> implements List<L> {
     position++;
   }
 
+  @Override
   @SuppressWarnings("unchecked")
   public L remove(int index) {
     validateIndex(index);
@@ -73,6 +80,7 @@ public class ArrayList<L> implements List<L> {
     return value;
   }
 
+  @Override
   public L remove(L value) {
     int index = -1;
     for (int i = 0; i < position; i++) {

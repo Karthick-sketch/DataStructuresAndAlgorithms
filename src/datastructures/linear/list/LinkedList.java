@@ -150,4 +150,9 @@ public class LinkedList<L> implements List<L> {
     tail = null;
     length = 0;
   }
+
+  @Override
+  public boolean isEmpty() {
+    return length == 0;
+  }
 }
