@@ -46,5 +46,8 @@ public class HashTableOperations {
     // search
     System.out.println("Find 7:  " + map.find(7));
     System.out.println("Find 14: " + map.find(14));
+    // clear
+    map.clear();
+    System.out.println("Cleared: " + map.getKeys());
   }
 }

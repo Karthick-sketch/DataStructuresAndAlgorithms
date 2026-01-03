@@ -9,4 +9,5 @@ public interface Map<K, V> {
   List<V> getValues();
   boolean find(K key);
   V remove(K key);
+  void clear();
 }

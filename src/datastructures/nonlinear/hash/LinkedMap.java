@@ -71,4 +71,9 @@ public class LinkedMap<K, V> implements Map<K, V> {
     list.remove(entry);
     return entry.getValue();
   }
+
+  @Override
+  public void clear() {
+    list.clear();
+  }
 }

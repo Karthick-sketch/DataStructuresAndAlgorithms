@@ -103,6 +103,14 @@ public class HashTable<V> implements Map<Integer, V> {
     return entry.getValue();
   }
 
+  @Override
+  public void clear() {
+    elements = 0;
+    length = RANGE;
+    hashTable.clear();
+    setHashTable();
+  }
+
   private int hashDivision(Integer key) {
     return key % length;
   }
