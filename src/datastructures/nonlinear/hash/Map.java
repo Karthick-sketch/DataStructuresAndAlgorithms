@@ -7,6 +7,7 @@ public interface Map<K, V> {
   V get(K key);
   List<K> getKeys();
   List<V> getValues();
+  int size();
   boolean find(K key);
   V remove(K key);
   void clear();

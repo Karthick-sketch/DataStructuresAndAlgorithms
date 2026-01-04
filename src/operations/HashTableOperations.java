@@ -14,7 +14,7 @@ public class HashTableOperations {
     operations(new HashTable<>());
   }
 
-  private static void operations(Map<Integer, String> map) {
+  private static void operations(Map<String, String> map) {
     List<String> names = List.of(
       "Tanjiro",
       "Nezuko",
@@ -30,22 +30,34 @@ public class HashTableOperations {
       "Sanemi",
       "Gyomei"
     );
+    List<String> breathing = List.of(
+      "Hinokami Kagura",
+      "Blood Demon Art",
+      "Thunder Breathing",
+      "Beast Breathing",
+      "Water Breathing",
+      "Insect Breathing",
+      "Flame Breathing",
+      "Sound Breathing",
+      "Mist Breathing",
+      "Love Breathing",
+      "Serpent Breathing",
+      "Wind Breathing",
+      "Stone Breathing"
+    );
     // insert
     for (int i = 0; i < names.size(); i++) {
-      map.put(i + 1, names.get(i));
+      map.put(names.get(i), breathing.get(i));
     }
     // fetch
-    System.out.println("Get 1:   " + map.get(1));
-    System.out.println("Get 2:   " + map.get(2));
-    System.out.println("Get 3:   " + map.get(3));
-    System.out.println("Get 4:   " + map.get(4));
-    System.out.println("Get 10:  " + map.get(10));
-    System.out.println("Get 11:  " + map.get(11));
-    System.out.println("Get 12:  " + map.get(12));
-    System.out.println("Get 13:  " + map.get(13));
+    int[] fetchKeys = { 0, 1, 2, 3, 9, 10, 11, 12 };
+    for (int k : fetchKeys) {
+      String key = names.get(k);
+      System.out.println(key + " : " + map.get(key));
+    }
     // search
-    System.out.println("Find 7:  " + map.find(7));
-    System.out.println("Find 14: " + map.find(14));
+    System.out.println("Find Nezuko:  " + map.find("Nezuko"));
+    System.out.println("Find Muzan: " + map.find("Muzan"));
     // clear
     map.clear();
     System.out.println("Cleared: " + map.getKeys());

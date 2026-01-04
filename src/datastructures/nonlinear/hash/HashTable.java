@@ -4,9 +4,9 @@ import datastructures.linear.list.ArrayList;
 import datastructures.linear.list.LinkedList;
 import datastructures.linear.list.List;
 
-public class HashTable<V> implements Map<Integer, V> {
+public class HashTable<K, V> implements Map<K, V> {
 
-  private final ArrayList<List<Entry<Integer, V>>> hashTable;
+  private final ArrayList<List<Entry<K, V>>> hashTable;
   private final int RANGE = 11;
 
   private int length = RANGE;
@@ -23,31 +23,32 @@ public class HashTable<V> implements Map<Integer, V> {
     }
   }
 
+  @Override
   public int size() {
     return elements;
   }
 
   @Override
-  public void put(Integer key, V value) {
-    Entry<Integer, V> entry = fetch(key);
+  public void put(K key, V value) {
+    Entry<K, V> entry = fetch(key);
     if (entry != null) {
       entry.setValue(value);
     } else {
-      List<Entry<Integer, V>> list = getList(key);
+      List<Entry<K, V>> list = getList(key);
       list.add(new Entry<>(key, value));
       elements++;
       checkRehash();
     }
   }
 
-  private List<Entry<Integer, V>> getList(Integer key) {
+  private List<Entry<K, V>> getList(K key) {
     return hashTable.get(hashFunction(key));
   }
 
-  private Entry<Integer, V> fetch(Integer key) {
-    List<Entry<Integer, V>> list = getList(key);
+  private Entry<K, V> fetch(K key) {
+    List<Entry<K, V>> list = getList(key);
     for (int i = 0; i < list.size(); i++) {
-      Entry<Integer, V> entry = list.get(i);
+      Entry<K, V> entry = list.get(i);
       if (entry.getKey().equals(key)) {
         return entry;
       }
@@ -56,8 +57,8 @@ public class HashTable<V> implements Map<Integer, V> {
   }
 
   @Override
-  public V get(Integer key) {
-    Entry<Integer, V> entry = fetch(key);
+  public V get(K key) {
+    Entry<K, V> entry = fetch(key);
     if (entry == null) {
       throw new RuntimeException("key not found");
     }
@@ -65,8 +66,8 @@ public class HashTable<V> implements Map<Integer, V> {
   }
 
   @Override
-  public List<Integer> getKeys() {
-    List<Integer> keys = new ArrayList<>();
+  public List<K> getKeys() {
+    List<K> keys = new ArrayList<>();
     for (int i = 0; i < length; i++) {
       hashTable.get(i).forEach(entry -> keys.add(entry.getKey()));
     }
@@ -83,17 +84,17 @@ public class HashTable<V> implements Map<Integer, V> {
   }
 
   @Override
-  public boolean find(Integer key) {
+  public boolean find(K key) {
     return fetch(key) != null;
   }
 
   @Override
-  public V remove(Integer key) {
-    Entry<Integer, V> entry = fetch(key);
+  public V remove(K key) {
+    Entry<K, V> entry = fetch(key);
     if (entry == null) {
       throw new RuntimeException("key not found");
     }
-    List<Entry<Integer, V>> list = getList(key);
+    List<Entry<K, V>> list = getList(key);
     list.remove(entry);
     elements--;
     return entry.getValue();
@@ -111,16 +112,43 @@ public class HashTable<V> implements Map<Integer, V> {
     setHashTable();
   }
 
-  private int hashFunction(Integer key) {
+  private int hashFunction(K key) {
     return compressionMap(hashCode(key));
   }
 
-  private int hashCode(Integer key) {
-    return key;
+  private int hashCode(Object key) {
+    if (key == null) {
+      return 0;
+    } else if (key instanceof Byte b) {
+      return b;
+    } else if (key instanceof Short s) {
+      return s;
+    } else if (key instanceof Integer i) {
+      return i;
+    } else if (key instanceof Character c) {
+      return c;
+    } else if (key instanceof Long l) {
+      return (int) (l ^ (l >>> 32));
+    } else if (key instanceof Float f) {
+      return Float.floatToIntBits(f);
+    } else if (key instanceof Double d) {
+      long bits = Double.doubleToLongBits(d);
+      return (int) (bits ^ (bits >>> 32));
+    } else if (key instanceof Boolean b) {
+      return b ? 1 : 0;
+    } else if (key instanceof String s) {
+      int code = 0;
+      for (char c : s.toCharArray()) {
+        code = ((code << 5) - code) + c;
+      }
+      return code;
+    } else {
+      return key.hashCode();
+    }
   }
 
-  private int compressionMap(Integer code) {
-    return code % length;
+  private int compressionMap(int code) {
+    return (code & Integer.MAX_VALUE) % length;
   }
 
   private float loadFactor() {
@@ -134,7 +162,7 @@ public class HashTable<V> implements Map<Integer, V> {
   }
 
   private void rehash() {
-    List<Entry<Integer, V>> entries = new ArrayList<>();
+    List<Entry<K, V>> entries = new ArrayList<>();
     for (int i = 0; i < length; i++) {
       hashTable.get(i).forEach(entry -> entries.add(entry));
     }

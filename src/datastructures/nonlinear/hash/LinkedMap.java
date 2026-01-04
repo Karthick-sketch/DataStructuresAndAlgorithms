@@ -9,6 +9,11 @@ public class LinkedMap<K, V> implements Map<K, V> {
   private List<Entry<K, V>> list = new LinkedList<>();
 
   @Override
+  public int size() {
+    return list.size();
+  }
+
+  @Override
   public void put(K key, V value) {
     Entry<K, V> entry = fetch(key);
     if (entry != null) {
