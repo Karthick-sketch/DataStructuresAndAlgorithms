@@ -117,9 +117,9 @@ public class HashTable<K, V> implements Map<K, V> {
   }
 
   private int hashCode(Object key) {
-    if (key == null) {
-      return 0;
-    } else if (key instanceof Byte b) {
+    if (key == null) return 0;
+
+    if (key instanceof Byte b) {
       return b;
     } else if (key instanceof Short s) {
       return s;
@@ -166,24 +166,35 @@ public class HashTable<K, V> implements Map<K, V> {
     for (int i = 0; i < length; i++) {
       hashTable.get(i).forEach(entry -> entries.add(entry));
     }
-    clear(nearestPrimeNumber(length));
+    clear(nearestPrimeNumber(length * 2));
     entries.forEach(entry -> put(entry.getKey(), entry.getValue()));
   }
 
   private int nearestPrimeNumber(int seed) {
-    int len = seed * 2;
-    for (int i = len, j = len; j > seed; i++, j--) {
-      if (isPrimeNumber(i)) {
-        return i;
-      } else if (isPrimeNumber(j)) {
-        return j;
+    if (seed <= 2) return 2;
+
+    // Make seed odd (except 2)
+    if (seed % 2 == 0) seed++;
+
+    for (int offset = 0;; offset += 2) {
+      int higher = seed + offset;
+      int lower = seed - offset;
+
+      if (isPrimeNumber(higher)) {
+        return higher;
+      }
+      if (lower >= 3 && isPrimeNumber(lower)) {
+        return lower;
       }
     }
-    return len;
   }
 
   private boolean isPrimeNumber(int number) {
-    for (int i = 2; i < number; i++) {
+    if (number < 2) return false;
+    if (number == 2) return true;
+    if (number % 2 == 0) return false;
+
+    for (int i = 3; i * i <= number; i += 2) {
       if (number % i == 0) {
         return false;
       }
