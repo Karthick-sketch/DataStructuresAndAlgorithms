@@ -1,8 +1,12 @@
 package datastructures.linear.list;
 
+import java.util.Arrays;
+import java.util.function.Consumer;
+
 public class ArrayList<L> implements List<L> {
 
   private final int RANGE = 10;
+
   private Object[] array;
   private int length = RANGE;
   private int position = 0;
@@ -12,8 +16,9 @@ public class ArrayList<L> implements List<L> {
   }
 
   public ArrayList(L[] values) {
-    array = values;
     length = values.length;
+    position = values.length;
+    array = Arrays.copyOf(values, length);
   }
 
   @Override
@@ -109,6 +114,14 @@ public class ArrayList<L> implements List<L> {
       values.append(array[i]).append(", ");
     }
     return values.toString() + array[position - 1] + "]";
+  }
+
+  @Override
+  @SuppressWarnings("unchecked")
+  public void forEach(Consumer<L> action) {
+    for (int i = 0; i < position; i++) {
+      action.accept((L) array[i]);
+    }
   }
 
   private void validateIndex(int index) {

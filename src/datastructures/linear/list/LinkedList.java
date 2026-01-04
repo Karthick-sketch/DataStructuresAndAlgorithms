@@ -1,12 +1,19 @@
 package datastructures.linear.list;
 
 import datastructures.linear.node.Node;
+import java.util.function.Consumer;
 
 public class LinkedList<L> implements List<L> {
 
   private Node<L> head;
   private Node<L> tail;
   private int length;
+
+  public LinkedList() {}
+
+  public LinkedList(L[] values) {
+    addAll(values);
+  }
 
   @Override
   public int size() {
@@ -154,5 +161,14 @@ public class LinkedList<L> implements List<L> {
   @Override
   public boolean isEmpty() {
     return length == 0;
+  }
+
+  @Override
+  public void forEach(Consumer<L> action) {
+    Node<L> current = head;
+    while (current != null) {
+      action.accept(current.getValue());
+      current = current.getNext();
+    }
   }
 }

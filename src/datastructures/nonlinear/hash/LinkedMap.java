@@ -40,20 +40,14 @@ public class LinkedMap<K, V> implements Map<K, V> {
   @Override
   public List<K> getKeys() {
     List<K> keys = new ArrayList<>();
-    for (int i = 0; i < list.size(); i++) {
-      Entry<K, V> entry = list.get(i);
-      keys.add(entry.getKey());
-    }
+    list.forEach(entry -> keys.add(entry.getKey()));
     return keys;
   }
 
   @Override
   public List<V> getValues() {
     List<V> values = new ArrayList<>();
-    for (int i = 0; i < list.size(); i++) {
-      Entry<K, V> entry = list.get(i);
-      values.add(entry.getValue());
-    }
+    list.forEach(entry -> values.add(entry.getValue()));
     return values;
   }
 

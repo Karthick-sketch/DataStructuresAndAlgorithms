@@ -1,11 +1,18 @@
 package datastructures.linear.list;
 
 import datastructures.linear.node.DoublyNode;
+import java.util.function.Consumer;
 
 public class DoublyLinkedList<L> implements List<L> {
 
   private DoublyNode<L> head;
   private int length;
+
+  public DoublyLinkedList() {}
+
+  public DoublyLinkedList(L[] values) {
+    addAll(values);
+  }
 
   @Override
   public int size() {
@@ -148,5 +155,14 @@ public class DoublyLinkedList<L> implements List<L> {
   @Override
   public boolean isEmpty() {
     return length == 0;
+  }
+
+  @Override
+  public void forEach(Consumer<L> action) {
+    DoublyNode<L> current = head;
+    while (current != null) {
+      action.accept(current.getValue());
+      current = current.getNext();
+    }
   }
 }

@@ -68,24 +68,18 @@ public class HashTable<V> implements Map<Integer, V> {
   public List<Integer> getKeys() {
     List<Integer> keys = new ArrayList<>();
     for (int i = 0; i < length; i++) {
-      List<Entry<Integer, V>> list = hashTable.get(i);
-      for (int j = 0; j < list.size(); j++) {
-        keys.add(list.get(j).getKey());
-      }
+      hashTable.get(i).forEach(entry -> keys.add(entry.getKey()));
     }
     return keys;
   }
 
   @Override
   public List<V> getValues() {
-    List<V> keys = new ArrayList<>();
+    List<V> values = new ArrayList<>();
     for (int i = 0; i < length; i++) {
-      List<Entry<Integer, V>> list = hashTable.get(i);
-      for (int j = 0; j < list.size(); j++) {
-        keys.add(list.get(j).getValue());
-      }
+      hashTable.get(i).forEach(entry -> values.add(entry.getValue()));
     }
-    return keys;
+    return values;
   }
 
   @Override
@@ -134,7 +128,7 @@ public class HashTable<V> implements Map<Integer, V> {
   }
 
   private void checkRehash() {
-    if (loadFactor() > 1.0f) {
+    if (loadFactor() >= 1.0f) {
       rehash();
     }
   }
@@ -142,16 +136,10 @@ public class HashTable<V> implements Map<Integer, V> {
   private void rehash() {
     List<Entry<Integer, V>> entries = new ArrayList<>();
     for (int i = 0; i < length; i++) {
-      List<Entry<Integer, V>> list = hashTable.get(i);
-      for (int j = 0; j < list.size(); j++) {
-        entries.add(list.get(j));
-      }
+      hashTable.get(i).forEach(entry -> entries.add(entry));
     }
     clear(nearestPrimeNumber(length));
-    for (int i = 0; i < entries.size(); i++) {
-      Entry<Integer, V> entry = entries.get(i);
-      put(entry.getKey(), entry.getValue());
-    }
+    entries.forEach(entry -> put(entry.getKey(), entry.getValue()));
   }
 
   private int nearestPrimeNumber(int seed) {

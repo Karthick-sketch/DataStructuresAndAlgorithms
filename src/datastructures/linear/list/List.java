@@ -1,5 +1,7 @@
 package datastructures.linear.list;
 
+import java.util.function.Consumer;
+
 public interface List<L> {
   int size();
   L get(int index);
@@ -11,4 +13,5 @@ public interface List<L> {
   L remove(L value);
   void clear();
   boolean isEmpty();
+  void forEach(Consumer<L> action);
 }
