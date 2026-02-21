@@ -1,19 +1,26 @@
 package operations;
 
-import datastructures.nonlinear.heap.AdjacencyMatrixGraph;
+import datastructures.nonlinear.graph.AdjacencyMatrixGraph;
+import datastructures.nonlinear.graph.Vertex;
 
 public class AdjacencyMatrixGraphOperations {
 
   public static void operations() {
-    AdjacencyMatrixGraph<Integer> amg = new AdjacencyMatrixGraph<>(4);
-    amg.add(1, 2);
-    amg.add(1, 3);
-    amg.add(1, 4);
-    amg.add(2, 1);
-    amg.add(2, 3);
-    amg.add(3, 1);
-    amg.add(3, 2);
-    amg.add(4, 1);
+    AdjacencyMatrixGraph<Character> amg = new AdjacencyMatrixGraph<>(4);
+    amg.addVertex(new Vertex<>('A'));
+    amg.addVertex(new Vertex<>('B'));
+    amg.addVertex(new Vertex<>('C'));
+    amg.addVertex(new Vertex<>('D'));
+
+    amg.addEdge(0, 1);
+    amg.addEdge(0, 2);
+    amg.addEdge(0, 3);
+    amg.addEdge(1, 0);
+    amg.addEdge(1, 2);
+    amg.addEdge(2, 0);
+    amg.addEdge(2, 1);
+    amg.addEdge(3, 0);
+
     amg.print();
   }
 }

@@ -3,7 +3,6 @@
 ## Linear Data Structures
 
 - Linked List
-
   - Singly Linked List
   - Doubly Linked List
 
@@ -16,7 +15,6 @@
 ## Non-linear Data Structures
 
 - Heap
-
   - Max Heap
   - Min Heap
 
@@ -26,10 +24,13 @@
   - AVL Tree
   - Red-Black Tree
 
+- Graphs
+  - Adjacency Matrix
+  - Adjacency List
+
 # Algorithms
 
 - Sort
-
   - Bubble Sort
   - Selection Sort
   - Insertion Sort
@@ -38,7 +39,6 @@
   - Heap Sort
 
 - Search
-
   - Linear Search
   - Jump Search
   - Binary Search
