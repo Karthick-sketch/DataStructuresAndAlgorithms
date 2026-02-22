@@ -1,8 +1,7 @@
 package operations;
 
-import algorithms.search.*;
-import algorithms.sort.InsertionSort;
-import algorithms.sort.Sort;
+import algorithms.Search;
+import algorithms.Sort;
 import java.util.Arrays;
 import java.util.Scanner;
 
@@ -23,21 +22,19 @@ public class SearchOperations {
     int ip = scanner.nextInt();
     if (ip != 0) {
       if (ip >= 1 && ip <= 3) {
-        Search search;
+        int index;
         if (ip == 1) {
           System.out.print("Elements: " + Arrays.toString(arr) + "\n> ");
-          search = new LinearSearch();
+          index = Search.linearSearch(arr, scanner.nextInt());
         } else {
-          Sort sort = new InsertionSort();
-          sort.sort(arr);
+          Sort.insertionSort(arr);
           System.out.print("Elements: " + Arrays.toString(arr) + "\n> ");
           if (ip == 2) {
-            search = new JumpSearch();
+            index = Search.jumpSearch(arr, scanner.nextInt());
           } else {
-            search = new BinarySearch();
+            index = Search.binarySearch(arr, scanner.nextInt());
           }
         }
-        int index = search.search(arr, scanner.nextInt());
         System.out.println(index == -1 ? "Not found" : "Index: " + index);
       }
       operations();
