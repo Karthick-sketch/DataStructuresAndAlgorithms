@@ -2,9 +2,9 @@
 
 ## Linear Data Structures
 
-- Linked List
-
-  - Singly Linked List
+- List
+  - Array List
+  - Linked List
   - Doubly Linked List
 
 - Stack
@@ -16,7 +16,6 @@
 ## Non-linear Data Structures
 
 - Heap
-
   - Max Heap
   - Min Heap
 
@@ -29,7 +28,6 @@
 # Algorithms
 
 - Sort
-
   - Bubble Sort
   - Selection Sort
   - Insertion Sort
@@ -38,7 +36,6 @@
   - Heap Sort
 
 - Search
-
   - Linear Search
   - Jump Search
   - Binary Search

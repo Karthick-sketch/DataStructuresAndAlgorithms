@@ -1,11 +1,18 @@
-package datastructures.linear.linkedlist;
+package datastructures.linear.list;
 
 import datastructures.linear.node.DoublyNode;
+import java.util.function.Consumer;
 
-public class DoublyLinkedList<L> implements LinkedList<L> {
+public class DoublyLinkedList<L> implements List<L> {
 
   private DoublyNode<L> head;
   private int length;
+
+  public DoublyLinkedList() {}
+
+  public DoublyLinkedList(L[] values) {
+    addAll(values);
+  }
 
   @Override
   public int size() {
@@ -48,6 +55,19 @@ public class DoublyLinkedList<L> implements LinkedList<L> {
   }
 
   @Override
+  public void set(L value, int index) {
+    if (index >= 0 && index < length) {
+      DoublyNode<L> temp = head;
+      for (int i = 1; i <= index; i++) {
+        temp = temp.getNext();
+      }
+      temp.setValue(value);
+    } else {
+      throw new IndexOutOfBoundsException(index);
+    }
+  }
+
+  @Override
   public void insert(L value, int index) {
     if (index >= 0 && index <= length) {
       DoublyNode<L> node = new DoublyNode<>(value);
@@ -74,19 +94,6 @@ public class DoublyLinkedList<L> implements LinkedList<L> {
   }
 
   @Override
-  public void update(L value, int index) {
-    if (index >= 0 && index < length) {
-      DoublyNode<L> temp = head;
-      for (int i = 1; i <= index; i++) {
-        temp = temp.getNext();
-      }
-      temp.setValue(value);
-    } else {
-      throw new IndexOutOfBoundsException(index);
-    }
-  }
-
-  @Override
   public L remove(int index) {
     if (index >= 0 && index < length) {
       DoublyNode<L> temp = head;
@@ -107,7 +114,8 @@ public class DoublyLinkedList<L> implements LinkedList<L> {
 
   @Override
   public L remove(L value) {
-    DoublyNode<L> current = head, previous = null;
+    DoublyNode<L> current = head,
+      previous = null;
     while (current != null) {
       if (current.getValue().equals(value)) {
         L obj = current.getValue();
@@ -143,5 +151,19 @@ public class DoublyLinkedList<L> implements LinkedList<L> {
   public void clear() {
     head = null;
     length = 0;
+  }
+
+  @Override
+  public boolean isEmpty() {
+    return length == 0;
+  }
+
+  @Override
+  public void forEach(Consumer<L> action) {
+    DoublyNode<L> current = head;
+    while (current != null) {
+      action.accept(current.getValue());
+      current = current.getNext();
+    }
   }
 }
