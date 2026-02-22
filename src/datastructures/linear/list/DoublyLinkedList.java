@@ -114,7 +114,7 @@ public class DoublyLinkedList<L> implements List<L> {
 
   @Override
   public L remove(L value) {
-    DoublyNode<L> current = head,
+    DoublyNode<L> current = head;
     DoublyNode<L> previous = null;
     while (current != null) {
       if (current.getValue().equals(value)) {

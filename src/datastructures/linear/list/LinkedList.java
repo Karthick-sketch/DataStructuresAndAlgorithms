@@ -116,7 +116,7 @@ public class LinkedList<L> implements List<L> {
 
   @Override
   public L remove(L value) {
-    Node<L> current = head,
+    Node<L> current = head;
     Node<L> previous = null;
     while (current != null) {
       if (current.getValue().equals(value)) {
