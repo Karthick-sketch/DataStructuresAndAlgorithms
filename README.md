@@ -3,7 +3,6 @@
 ## Linear Data Structures
 
 - List
-
   - Array List
   - Linked List
   - Doubly Linked List
@@ -22,7 +21,6 @@
   - Hash Table
 
 - Heap
-
   - Max Heap
   - Min Heap
 
@@ -35,7 +33,6 @@
 # Algorithms
 
 - Sort
-
   - Bubble Sort
   - Selection Sort
   - Insertion Sort
@@ -44,7 +41,6 @@
   - Heap Sort
 
 - Search
-
   - Linear Search
   - Jump Search
   - Binary Search
