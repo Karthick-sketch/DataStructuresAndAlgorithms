@@ -21,6 +21,9 @@ public class AdjacencyMatrixGraphOperations {
     amg.addEdge(2, 1);
     amg.addEdge(3, 0);
 
+    System.out.println("A -> B: " + amg.checkEdge(0, 1));
+    System.out.println("C -> D: " + amg.checkEdge(2, 3));
+
     amg.print();
   }
 }

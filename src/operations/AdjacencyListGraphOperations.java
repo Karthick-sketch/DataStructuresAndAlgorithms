@@ -21,6 +21,9 @@ public class AdjacencyListGraphOperations {
     alg.addEdge(2, 1);
     alg.addEdge(3, 0);
 
+    System.out.println("A -> B: " + alg.checkEdge(0, 1));
+    System.out.println("C -> D: " + alg.checkEdge(2, 3));
+
     alg.print();
   }
 }
