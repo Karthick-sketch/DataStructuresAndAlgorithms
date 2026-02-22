@@ -1,8 +1,8 @@
 package datastructures.nonlinear.tree.binarytree;
 
 import datastructures.linear.Stack;
-import datastructures.linear.linkedlist.LinkedList;
-import datastructures.linear.linkedlist.SinglyLinkedList;
+import datastructures.linear.list.LinkedList;
+import datastructures.linear.list.List;
 
 public class BinaryTree<B> {
 
@@ -92,8 +92,8 @@ public class BinaryTree<B> {
     }
   }
 
-  public LinkedList<B> get() {
-    LinkedList<B> list = new SinglyLinkedList<>();
+  public List<B> get() {
+    List<B> list = new LinkedList<>();
     Stack<BinaryTreeNode<B>> stack = new Stack<>();
     BinaryTreeNode<B> current = root;
     while (current != null || !stack.isEmpty()) {
@@ -108,13 +108,13 @@ public class BinaryTree<B> {
     return list;
   }
 
-  public LinkedList<B> getInOrder() {
-    LinkedList<B> list = new SinglyLinkedList<>();
+  public List<B> getInOrder() {
+    List<B> list = new LinkedList<>();
     inOrder(root, list);
     return list;
   }
 
-  private void inOrder(BinaryTreeNode<B> current, LinkedList<B> list) {
+  private void inOrder(BinaryTreeNode<B> current, List<B> list) {
     if (current == null) {
       return;
     }
@@ -123,13 +123,13 @@ public class BinaryTree<B> {
     inOrder(current.getRight(), list);
   }
 
-  public LinkedList<B> getPreOrder() {
-    LinkedList<B> list = new SinglyLinkedList<>();
+  public List<B> getPreOrder() {
+    List<B> list = new LinkedList<>();
     preOrder(root, list);
     return list;
   }
 
-  private void preOrder(BinaryTreeNode<B> current, LinkedList<B> list) {
+  private void preOrder(BinaryTreeNode<B> current, List<B> list) {
     if (current == null) {
       return;
     }
@@ -138,13 +138,13 @@ public class BinaryTree<B> {
     preOrder(current.getRight(), list);
   }
 
-  public LinkedList<B> getPostOrder() {
-    LinkedList<B> list = new SinglyLinkedList<>();
+  public List<B> getPostOrder() {
+    List<B> list = new LinkedList<>();
     postOrder(root, list);
     return list;
   }
 
-  private void postOrder(BinaryTreeNode<B> current, LinkedList<B> list) {
+  private void postOrder(BinaryTreeNode<B> current, List<B> list) {
     if (current == null) {
       return;
     }
