@@ -1,6 +1,8 @@
 package datastructures.nonlinear.graph;
 
 import java.util.LinkedList;
+import java.util.List;
+import java.util.Queue;
 
 public class AdjacencyListGraph<V> implements Graph<V> {
 
@@ -10,6 +12,18 @@ public class AdjacencyListGraph<V> implements Graph<V> {
   public AdjacencyListGraph() {
     vertices = new LinkedList<>();
     graph = new LinkedList<>();
+  }
+
+  public void print() {
+    for (int i = 0; i < graph.size(); i++) {
+      System.out.print(vertices.get(i).getValue() + " -> ");
+      graph
+        .get(i)
+        .forEach(vertex -> {
+          System.out.print(vertex.getValue() + " -> ");
+        });
+      System.out.println();
+    }
   }
 
   @Override
@@ -31,15 +45,21 @@ public class AdjacencyListGraph<V> implements Graph<V> {
     return vertexList.contains(vertices.get(destination));
   }
 
-  public void print() {
-    for (int i = 0; i < graph.size(); i++) {
-      System.out.print(vertices.get(i).getValue() + " -> ");
+  @Override
+  public List<Vertex<V>> breadthFirstSearch(Vertex<V> vertex) {
+    List<Vertex<V>> list = new LinkedList<>(List.of(vertex));
+    Queue<Vertex<V>> queue = new LinkedList<>(List.of(vertex));
+    do {
+      Vertex<V> vrtx = queue.poll();
       graph
-        .get(i)
-        .forEach(vertex -> {
-          System.out.print(vertex.getValue() + " -> ");
+        .get(vertices.indexOf(vrtx))
+        .forEach(v -> {
+          if (!list.contains(v)) {
+            list.add(v);
+            queue.add(v);
+          }
         });
-      System.out.println();
-    }
+    } while (!queue.isEmpty());
+    return list;
   }
 }
