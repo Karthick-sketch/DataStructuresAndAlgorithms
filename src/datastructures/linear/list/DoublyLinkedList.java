@@ -94,6 +94,18 @@ public class DoublyLinkedList<L> implements List<L> {
   }
 
   @Override
+  public boolean contains(L value) {
+    DoublyNode<L> current = head;
+    while (current != null) {
+      if (current.getValue().equals(value)) {
+        return true;
+      }
+      current = current.getNext();
+    }
+    return false;
+  }
+
+  @Override
   public L remove(int index) {
     if (index >= 0 && index < length) {
       DoublyNode<L> temp = head;

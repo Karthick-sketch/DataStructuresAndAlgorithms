@@ -30,6 +30,7 @@ public class ListOperations {
     System.out.println(list);
     list.set(6, 1);
     System.out.println("Updated at index 1 value to 6");
+    System.out.println("List contains 6: " + list.contains(6));
     System.out.println(list);
     System.out.println("Deleted at index 2: " + list.remove(2));
     System.out.println(list);
