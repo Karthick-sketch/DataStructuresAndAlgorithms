@@ -10,4 +10,6 @@ public interface Graph<V> {
   boolean checkEdge(int source, int destination);
 
   List<Vertex<V>> breadthFirstSearch(Vertex<V> vertex);
+
+  List<Vertex<V>> depthFirstSearch(Vertex<V> vertex);
 }

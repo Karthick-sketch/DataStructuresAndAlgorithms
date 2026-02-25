@@ -1,5 +1,6 @@
 package datastructures.nonlinear.graph;
 
+import datastructures.linear.Stack;
 import datastructures.linear.list.LinkedList;
 import datastructures.linear.list.List;
 import datastructures.linear.queue.Queue;
@@ -60,6 +61,26 @@ public class AdjacencyListGraph<V> implements Graph<V> {
           }
         });
     } while (!queue.isEmpty());
+    return list;
+  }
+
+  @Override
+  public List<Vertex<V>> depthFirstSearch(Vertex<V> vertex) {
+    List<Vertex<V>> list = new LinkedList<>(vertex);
+    Stack<Vertex<V>> stack = new Stack<>(vertex);
+    do {
+      Vertex<V> vrtx = stack.pop();
+      LinkedList<Vertex<V>> vrtxList = graph.get(vertices.indexOf(vrtx));
+      for (int i = 0; i < vrtxList.size(); i++) {
+        Vertex<V> v = vrtxList.get(i);
+        if (!list.contains(v)) {
+          stack.push(vrtx);
+          stack.push(v);
+          list.add(v);
+          break;
+        }
+      }
+    } while (!stack.isEmpty());
     return list;
   }
 }

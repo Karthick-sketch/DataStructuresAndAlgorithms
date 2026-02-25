@@ -8,10 +8,11 @@ public class AdjacencyMatrixGraphOperations {
   public static void operations() {
     AdjacencyMatrixGraph<Character> amg = new AdjacencyMatrixGraph<>(8);
     Vertex<Character> vertexA = new Vertex<>('A');
+    Vertex<Character> vertexC = new Vertex<>('C');
     Vertex<Character> vertexE = new Vertex<>('E');
     amg.addVertex(vertexA);
     amg.addVertex(new Vertex<>('B'));
-    amg.addVertex(new Vertex<>('C'));
+    amg.addVertex(vertexC);
     amg.addVertex(new Vertex<>('D'));
     amg.addVertex(vertexE);
     amg.addVertex(new Vertex<>('F'));
@@ -43,6 +44,11 @@ public class AdjacencyMatrixGraphOperations {
     amg.print();
 
     System.out.println("BFS: A -> " + amg.breadthFirstSearch(vertexA));
+    System.out.println("BFS: C -> " + amg.breadthFirstSearch(vertexC));
     System.out.println("BFS: E -> " + amg.breadthFirstSearch(vertexE));
+
+    System.out.println("\nDFS: A -> " + amg.depthFirstSearch(vertexA));
+    System.out.println("DFS: C -> " + amg.depthFirstSearch(vertexC));
+    System.out.println("DFS: E -> " + amg.depthFirstSearch(vertexE));
   }
 }

@@ -8,10 +8,11 @@ public class AdjacencyListGraphOperations {
   public static void operations() {
     AdjacencyListGraph<Character> alg = new AdjacencyListGraph<>();
     Vertex<Character> vertexA = new Vertex<>('A');
+    Vertex<Character> vertexC = new Vertex<>('C');
     Vertex<Character> vertexE = new Vertex<>('E');
     alg.addVertex(vertexA);
     alg.addVertex(new Vertex<>('B'));
-    alg.addVertex(new Vertex<>('C'));
+    alg.addVertex(vertexC);
     alg.addVertex(new Vertex<>('D'));
     alg.addVertex(vertexE);
     alg.addVertex(new Vertex<>('F'));
@@ -43,6 +44,11 @@ public class AdjacencyListGraphOperations {
     alg.print();
 
     System.out.println("BFS: A -> " + alg.breadthFirstSearch(vertexA));
+    System.out.println("BFS: C -> " + alg.breadthFirstSearch(vertexC));
     System.out.println("BFS: E -> " + alg.breadthFirstSearch(vertexE));
+
+    System.out.println("\nDFS: A -> " + alg.depthFirstSearch(vertexA));
+    System.out.println("DFS: C -> " + alg.depthFirstSearch(vertexC));
+    System.out.println("DFS: E -> " + alg.depthFirstSearch(vertexE));
   }
 }

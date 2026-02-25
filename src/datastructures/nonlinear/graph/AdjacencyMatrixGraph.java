@@ -1,5 +1,6 @@
 package datastructures.nonlinear.graph;
 
+import datastructures.linear.Stack;
 import datastructures.linear.list.ArrayList;
 import datastructures.linear.list.List;
 import datastructures.linear.queue.Queue;
@@ -59,6 +60,28 @@ public class AdjacencyMatrixGraph<V> implements Graph<V> {
         }
       }
     } while (!queue.isEmpty());
+    return list;
+  }
+
+  @Override
+  public List<Vertex<V>> depthFirstSearch(Vertex<V> vertex) {
+    List<Vertex<V>> list = new ArrayList<>(vertex);
+    Stack<Vertex<V>> stack = new Stack<>(vertex);
+    do {
+      Vertex<V> vrtx = stack.pop();
+      int iVrtx = vertices.indexOf(vrtx);
+      for (int j = 0; j < matrix[iVrtx].length; j++) {
+        if (matrix[iVrtx][j] == 1) {
+          Vertex<V> v = vertices.get(j);
+          if (!list.contains(v)) {
+            stack.push(vrtx);
+            stack.push(v);
+            list.add(v);
+            break;
+          }
+        }
+      }
+    } while (!stack.isEmpty());
     return list;
   }
 }
