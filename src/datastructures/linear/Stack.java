@@ -6,6 +6,14 @@ public class Stack<S> {
 
   private Node<S> top;
 
+  public Stack() {}
+
+  public Stack(S[] values) {
+    for (S value : values) {
+      push(value);
+    }
+  }
+
   public void push(S value) {
     Node<S> node = new Node<>(value);
     node.setNext(top);

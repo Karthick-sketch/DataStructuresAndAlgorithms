@@ -27,11 +27,6 @@ public class ArrayList<L> implements List<L> {
   }
 
   @Override
-  public boolean isEmpty() {
-    return position == 0;
-  }
-
-  @Override
   @SuppressWarnings("unchecked")
   public L get(int index) {
     validateIndex(index);
@@ -70,6 +65,21 @@ public class ArrayList<L> implements List<L> {
   }
 
   @Override
+  public int indexOf(L value) {
+    for (int i = 0; i < position; i++) {
+      if (array[i].equals(value)) {
+        return i;
+      }
+    }
+    return -1;
+  }
+
+  @Override
+  public boolean contains(L value) {
+    return indexOf(value) > -1;
+  }
+
+  @Override
   @SuppressWarnings("unchecked")
   public L remove(int index) {
     validateIndex(index);
@@ -102,6 +112,11 @@ public class ArrayList<L> implements List<L> {
     position = 0;
     length = RANGE;
     array = new Object[length];
+  }
+
+  @Override
+  public boolean isEmpty() {
+    return position == 0;
   }
 
   @Override
