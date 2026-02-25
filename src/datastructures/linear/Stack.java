@@ -8,7 +8,8 @@ public class Stack<S> {
 
   public Stack() {}
 
-  public Stack(S[] values) {
+  @SafeVarargs
+  public Stack(S... values) {
     for (S value : values) {
       push(value);
     }

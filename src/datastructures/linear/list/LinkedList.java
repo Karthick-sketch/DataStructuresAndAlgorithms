@@ -11,7 +11,8 @@ public class LinkedList<L> implements List<L> {
 
   public LinkedList() {}
 
-  public LinkedList(L[] values) {
+  @SafeVarargs
+  public LinkedList(L... values) {
     addAll(values);
   }
 

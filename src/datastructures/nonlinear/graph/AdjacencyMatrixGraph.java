@@ -1,24 +1,22 @@
 package datastructures.nonlinear.graph;
 
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Queue;
+import datastructures.linear.list.ArrayList;
+import datastructures.linear.list.List;
+import datastructures.linear.queue.Queue;
 
 public class AdjacencyMatrixGraph<V> implements Graph<V> {
 
   private int[][] matrix;
-  private LinkedList<Vertex<V>> vertices;
+  private ArrayList<Vertex<V>> vertices;
 
   public AdjacencyMatrixGraph(int length) {
     matrix = new int[length][length];
-    vertices = new LinkedList<>();
+    vertices = new ArrayList<>();
   }
 
   public void print() {
     System.out.print("  ");
-    for (Vertex<V> vertex : vertices) {
-      System.out.print(vertex.getValue() + " ");
-    }
+    vertices.forEach(vertex -> System.out.print(vertex.getValue() + " "));
     System.out.println();
     for (int i = 0; i < matrix.length; i++) {
       System.out.print(vertices.get(i).getValue() + " ");
@@ -46,17 +44,17 @@ public class AdjacencyMatrixGraph<V> implements Graph<V> {
 
   @Override
   public List<Vertex<V>> breadthFirstSearch(Vertex<V> vertex) {
-    List<Vertex<V>> list = new LinkedList<>(List.of(vertex));
-    Queue<Vertex<V>> queue = new LinkedList<>(List.of(vertex));
+    List<Vertex<V>> list = new ArrayList<>(vertex);
+    Queue<Vertex<V>> queue = new Queue<>(vertex);
     do {
-      Vertex<V> vrtx = queue.poll();
+      Vertex<V> vrtx = queue.dequeue();
       int iVrtx = vertices.indexOf(vrtx);
       for (int j = 0; j < matrix[iVrtx].length; j++) {
         if (matrix[iVrtx][j] == 1) {
           Vertex<V> v = vertices.get(j);
           if (!list.contains(v)) {
             list.add(v);
-            queue.add(v);
+            queue.enqueue(v);
           }
         }
       }

@@ -1,6 +1,6 @@
 package datastructures.nonlinear.graph;
 
-import java.util.List;
+import datastructures.linear.list.List;
 
 public interface Graph<V> {
   void addVertex(Vertex<V> vertex);

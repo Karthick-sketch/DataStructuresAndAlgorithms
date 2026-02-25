@@ -1,8 +1,8 @@
 package datastructures.nonlinear.graph;
 
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Queue;
+import datastructures.linear.list.LinkedList;
+import datastructures.linear.list.List;
+import datastructures.linear.queue.Queue;
 
 public class AdjacencyListGraph<V> implements Graph<V> {
 
@@ -47,16 +47,16 @@ public class AdjacencyListGraph<V> implements Graph<V> {
 
   @Override
   public List<Vertex<V>> breadthFirstSearch(Vertex<V> vertex) {
-    List<Vertex<V>> list = new LinkedList<>(List.of(vertex));
-    Queue<Vertex<V>> queue = new LinkedList<>(List.of(vertex));
+    List<Vertex<V>> list = new LinkedList<>(vertex);
+    Queue<Vertex<V>> queue = new Queue<>(vertex);
     do {
-      Vertex<V> vrtx = queue.poll();
+      Vertex<V> vrtx = queue.dequeue();
       graph
         .get(vertices.indexOf(vrtx))
         .forEach(v -> {
           if (!list.contains(v)) {
             list.add(v);
-            queue.add(v);
+            queue.enqueue(v);
           }
         });
     } while (!queue.isEmpty());
