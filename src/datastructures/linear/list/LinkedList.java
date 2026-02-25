@@ -89,15 +89,20 @@ public class LinkedList<L> implements List<L> {
   }
 
   @Override
-  public boolean contains(L value) {
+  public int indexOf(L value) {
     Node<L> current = head;
-    while (current != null) {
+    for (int i = 0; current != null; i++) {
       if (current.getValue().equals(value)) {
-        return true;
+        return i;
       }
       current = current.getNext();
     }
-    return false;
+    return -1;
+  }
+
+  @Override
+  public boolean contains(L value) {
+    return indexOf(value) > -1;
   }
 
   @Override

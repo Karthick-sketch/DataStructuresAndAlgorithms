@@ -65,13 +65,18 @@ public class ArrayList<L> implements List<L> {
   }
 
   @Override
-  public boolean contains(L value) {
+  public int indexOf(L value) {
     for (int i = 0; i < position; i++) {
       if (array[i].equals(value)) {
-        return true;
+        return i;
       }
     }
-    return false;
+    return -1;
+  }
+
+  @Override
+  public boolean contains(L value) {
+    return indexOf(value) > -1;
   }
 
   @Override
