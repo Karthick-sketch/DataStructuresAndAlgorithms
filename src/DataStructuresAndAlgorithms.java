@@ -11,22 +11,23 @@ public class DataStructuresAndAlgorithms {
   }
 
   private static void start() {
-    System.out.println("0. Exit\n1. Algorithms\n2. Data Structures");
-    System.out.print("> ");
-    input = scanner.nextInt();
-    switch (input) {
-      case 0:
-        exit();
-        break;
-      case 1:
-        algorithms();
-        break;
-      case 2:
-        dataStructures();
-        break;
-      default:
-        start();
-    }
+    TrieOperations.operations();
+    // System.out.println("0. Exit\n1. Algorithms\n2. Data Structures");
+    // System.out.print("> ");
+    // input = scanner.nextInt();
+    // switch (input) {
+    //   case 0:
+    //     exit();
+    //     break;
+    //   case 1:
+    //     algorithms();
+    //     break;
+    //   case 2:
+    //     dataStructures();
+    //     break;
+    //   default:
+    //     start();
+    // }
   }
 
   private static void algorithms() {
