@@ -71,6 +71,44 @@ public class Trie {
     return words;
   }
 
+  public List<String> suggest(String word) {
+    if (word.isEmpty()) {
+      return get();
+    }
+
+    if (isNotWord(word)) {
+      return null;
+    }
+
+    word = word.toUpperCase();
+    List<String> suggestedWords = new LinkedList<>();
+    StringBuilder wordBuilder = new StringBuilder();
+    List<TrieNode> children = root.getChildren();
+    TrieNode child = null;
+    for (int i = 0; i < word.length(); i++) {
+      char character = word.charAt(i);
+      boolean found = false;
+      for (int j = 0; j < children.size() && !found; j++) {
+        child = children.get(j);
+        if (child.getCharacter() == character) {
+          wordBuilder.append(child.getCharacter());
+          children = child.getChildren();
+          found = true;
+        }
+      }
+      if (!found) {
+        return suggestedWords;
+      }
+    }
+    if (child.isEnd()) {
+      suggestedWords.add(wordBuilder.toString());
+    }
+    children.forEach(node ->
+      get(node, suggestedWords, new StringBuilder(wordBuilder))
+    );
+    return suggestedWords;
+  }
+
   public boolean remove(String word) {
     if (isNotWord(word)) {
       return false;

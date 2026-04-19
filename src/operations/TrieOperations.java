@@ -32,6 +32,12 @@ public class TrieOperations {
     System.out.println(trie.get());
     System.out.println();
 
+    String keyword = "faste";
+    System.out.println(
+      "Suggestion for '" + keyword + "' -> " + trie.suggest(keyword)
+    );
+    System.out.println();
+
     System.out.println("Delete 'fast' -> " + trie.remove("fast"));
     System.out.println(trie.get());
     System.out.println("Delete 'faster' -> " + trie.remove("faster"));
