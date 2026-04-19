@@ -1,5 +1,6 @@
 package datastructures.nonlinear.tree.trie;
 
+import datastructures.linear.list.LinkedList;
 import datastructures.linear.list.List;
 
 public class Trie {
@@ -56,6 +57,16 @@ public class Trie {
     return node != null && node.isEnd();
   }
 
+  public List<String> get() {
+    List<String> words = new LinkedList<>();
+    root
+      .getAlphabets()
+      .forEach(node -> {
+        get(node, words, new StringBuilder());
+      });
+    return words;
+  }
+
   // ----- private methods ----------------------------------------
 
   private boolean isNotWord(String word) {
@@ -74,5 +85,17 @@ public class Trie {
       }
     }
     return null;
+  }
+
+  private void get(TrieNode current, List<String> words, StringBuilder word) {
+    word.append(current.getCharacter());
+    if (current.isEnd()) {
+      words.add(word.toString());
+    }
+    current
+      .getAlphabets()
+      .forEach(node -> {
+        get(node, words, new StringBuilder(word));
+      });
   }
 }

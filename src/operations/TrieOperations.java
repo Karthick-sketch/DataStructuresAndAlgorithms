@@ -19,5 +19,11 @@ public class TrieOperations {
     System.out.println("fastes -> " + trie.find("fastes"));
     System.out.println("fastest -> " + trie.find("fastest"));
     System.out.println("slow -> " + trie.find("slow"));
+
+    trie.get().forEach(System.out::println);
+
+    trie.add("slow");
+    System.out.println("slow -> " + trie.find("slow"));
+    trie.get().forEach(System.out::println);
   }
 }
