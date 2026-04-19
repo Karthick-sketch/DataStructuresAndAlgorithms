@@ -42,7 +42,7 @@ public class Trie {
   }
 
   public boolean find(String word) {
-    if (isNotWord(word)) {
+    if (isNotWord(word) || isEmpty()) {
       return false;
     }
 
@@ -61,6 +61,10 @@ public class Trie {
 
   public List<String> get() {
     List<String> words = new LinkedList<>();
+    if (isEmpty()) {
+      return words;
+    }
+
     root
       .getChildren()
       .forEach(node -> {
@@ -74,12 +78,12 @@ public class Trie {
       return get();
     }
 
-    if (isNotWord(word)) {
-      return null;
+    List<String> suggestedWords = new LinkedList<>();
+    if (isNotWord(word) || isEmpty()) {
+      return suggestedWords;
     }
 
     word = word.toUpperCase();
-    List<String> suggestedWords = new LinkedList<>();
     StringBuilder wordBuilder = new StringBuilder();
     List<TrieNode> children = root.getChildren();
     TrieNode child = null;
@@ -108,7 +112,7 @@ public class Trie {
   }
 
   public boolean remove(String word) {
-    if (isNotWord(word)) {
+    if (isNotWord(word) || isEmpty()) {
       return false;
     }
 
@@ -149,13 +153,21 @@ public class Trie {
       parent = stack.pop();
       parent.getChildren().remove(child);
       child = parent;
-      if (child.getChildren().size() > 0) {
+      if (child.isEnd() || child.getChildren().size() > 0) {
         return true;
       }
     }
 
     root.getChildren().remove(child);
     return true;
+  }
+
+  public void clear() {
+    root.getChildren().clear();
+  }
+
+  public boolean isEmpty() {
+    return root.getChildren().isEmpty();
   }
 
   // ----- private methods ----------------------------------------
