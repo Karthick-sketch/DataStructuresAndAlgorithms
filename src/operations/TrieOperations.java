@@ -6,9 +6,9 @@ public class TrieOperations {
 
   public static void operations() {
     Trie trie = new Trie();
-    trie.add("fast");
-    trie.add("faster");
     trie.add("fastest");
+    trie.add("faster");
+    trie.add("fast");
 
     System.out.println("f -> " + trie.find("f"));
     System.out.println("fa -> " + trie.find("fa"));

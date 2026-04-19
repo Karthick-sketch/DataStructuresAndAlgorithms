@@ -20,9 +20,10 @@ public class Trie {
 
     word = word.toUpperCase();
     TrieNode current = root;
+    TrieNode node = null;
     for (int i = 0; i < word.length(); i++) {
       List<TrieNode> alphabets = current.getAlphabets();
-      TrieNode node = getTrieNode(word.charAt(i), alphabets);
+      node = getTrieNode(word.charAt(i), alphabets);
       if (node != null) {
         current = node;
       } else {
@@ -32,9 +33,11 @@ public class Trie {
           alphabets = node.getAlphabets();
         }
         // last character of the word
-        node.setEnd(true);
         break;
       }
+    }
+    if (node != null) {
+      node.setEnd(true);
     }
   }
 
