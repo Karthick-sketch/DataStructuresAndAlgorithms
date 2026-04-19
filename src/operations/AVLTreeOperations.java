@@ -19,8 +19,8 @@ public class AVLTreeOperations {
     System.out.println("Max Height: " + avl.findMaxHeight());
     System.out.println("Min Height: " + avl.findMinHeight());
 
-    System.out.printf("Search %d: %b\n", values[5], avl.search(values[5]));
-    System.out.printf("Delete %d: %b\n", values[8], avl.delete(values[8]));
+    System.out.printf("Search %d: %b\n", values[5], avl.find(values[5]));
+    System.out.printf("Delete %d: %b\n", values[8], avl.remove(values[8]));
     System.out.println(avl.get());
 
     System.out.println("Maximum: " + avl.maximum());

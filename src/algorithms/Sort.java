@@ -65,9 +65,7 @@ public final class Sort {
   private static void merge(int[] left, int[] right, int[] array) {
     int lSize = array.length / 2;
     int rSize = array.length - lSize;
-    int i = 0,
-      l = 0,
-      r = 0;
+    int i = 0, l = 0, r = 0;
     for (; l < lSize && r < rSize; i++) {
       if (left[l] < right[r]) {
         array[i] = left[l];

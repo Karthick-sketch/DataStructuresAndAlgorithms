@@ -17,16 +17,16 @@ public class BinaryTree<B> {
 
   public BinaryTree(B[] values) {
     this();
-    insert(values);
+    add(values);
   }
 
-  public void insert(B[] values) {
+  public void add(B[] values) {
     for (B value : values) {
-      insert(value);
+      add(value);
     }
   }
 
-  public void insert(B value) {
+  public void add(B value) {
     BinaryTreeNode<B> node = new BinaryTreeNode<>(value);
     if (root == null) {
       root = node;

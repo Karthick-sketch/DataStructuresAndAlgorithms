@@ -8,20 +8,20 @@ public class BinarySearchTree extends BinaryTree<Integer> {
 
   public BinarySearchTree(int[] values) {
     super();
-    insert(values);
+    add(values);
   }
 
-  public void insert(int[] values) {
+  public void add(int[] values) {
     for (int value : values) {
-      insert(value);
+      add(value);
     }
   }
 
-  public void insert(int value) {
-    insert(new BinaryTreeNode<>(value));
+  public void add(int value) {
+    add(new BinaryTreeNode<>(value));
   }
 
-  protected void insert(BinaryTreeNode<Integer> node) {
+  protected void add(BinaryTreeNode<Integer> node) {
     if (root == null) {
       root = node;
     } else {
@@ -46,7 +46,7 @@ public class BinarySearchTree extends BinaryTree<Integer> {
     }
   }
 
-  public boolean search(int value) {
+  public boolean find(int value) {
     BinaryTreeNode<Integer> current = root;
     while (current != null) {
       if (value == current.getValue()) {
@@ -60,11 +60,11 @@ public class BinarySearchTree extends BinaryTree<Integer> {
     return false;
   }
 
-  public boolean delete(int value) {
+  public boolean remove(int value) {
     BinaryTreeNode<Integer> child = root, parent = null;
     while (child != null) {
       if (value == child.getValue()) {
-        delete(child, parent);
+        remove(child, parent);
         return true;
       } else {
         parent = child;
@@ -74,7 +74,7 @@ public class BinarySearchTree extends BinaryTree<Integer> {
     return false;
   }
 
-  protected void delete(
+  protected void remove(
     BinaryTreeNode<Integer> child,
     BinaryTreeNode<Integer> parent
   ) {
@@ -101,13 +101,13 @@ public class BinarySearchTree extends BinaryTree<Integer> {
       child.setValue(value);
     }
     if (child.getLeft() == null && child.getRight() == null) {
-      deleteNode(child, parent);
+      removeNode(child, parent);
     } else {
-      delete(child, parent);
+      remove(child, parent);
     }
   }
 
-  private void deleteNode(
+  private void removeNode(
     BinaryTreeNode<Integer> child,
     BinaryTreeNode<Integer> parent
   ) {
