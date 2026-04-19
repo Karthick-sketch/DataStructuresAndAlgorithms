@@ -50,6 +50,7 @@ public class DataStructuresAndAlgorithms {
     System.out.println("0. Back\n1. List\n2. Stack\n3. Queue");
     System.out.println("4. Heap\n5. Hash Table\n6. Binary Tree");
     System.out.println("7. Binary Search Tree\n8. AVL Tree\n9. Red-Black Tree");
+    System.out.println("10. Tries");
     System.out.print("> ");
     input = scanner.nextInt();
     if (input == 0) {
@@ -73,6 +74,8 @@ public class DataStructuresAndAlgorithms {
         AVLTreeOperations.operations();
       } else if (input == 9) {
         RedBlackTreeOperations.operations();
+      } else if (input == 9) {
+        TrieOperations.operations();
       }
       dataStructures();
     }

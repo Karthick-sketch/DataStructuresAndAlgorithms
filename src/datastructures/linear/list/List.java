@@ -9,6 +9,8 @@ public interface List<L> {
   void addAll(L[] values);
   void set(L value, int index);
   void insert(L value, int index);
+  int indexOf(L value);
+  boolean contains(L value);
   L remove(int index);
   L remove(L value);
   void clear();

@@ -25,10 +25,12 @@
   - Min Heap
 
 - Trees
-  - Binary Tree
-  - Binary Search Tree
-  - AVL Tree
-  - Red-Black Tree
+  - Binary Trees
+    - Binary Tree
+    - Binary Search Tree
+    - AVL Tree
+    - Red-Black Tree
+  - Tries
 
 # Algorithms
 

@@ -7,6 +7,14 @@ public class Queue<Q> {
   private Node<Q> first;
   private Node<Q> last;
 
+  public Queue() {}
+
+  public Queue(Q[] values) {
+    for (Q value : values) {
+      enqueue(value);
+    }
+  }
+
   public void enqueue(Q value) {
     Node<Q> node = new Node<>(value);
     if (first == null) {
