@@ -10,11 +10,14 @@ public class TrieOperations {
     trie.add("faster");
     trie.add("fastest");
 
+    System.out.println("f -> " + trie.find("f"));
+    System.out.println("fa -> " + trie.find("fa"));
+    System.out.println("fas -> " + trie.find("fas"));
     System.out.println("fast -> " + trie.find("fast"));
-    System.out.println("slow -> " + trie.find("slow"));
+    System.out.println("faste -> " + trie.find("faste"));
     System.out.println("faster -> " + trie.find("faster"));
-    System.out.println("slower -> " + trie.find("slower"));
+    System.out.println("fastes -> " + trie.find("fastes"));
     System.out.println("fastest -> " + trie.find("fastest"));
-    System.out.println("slowest -> " + trie.find("slowest"));
+    System.out.println("slow -> " + trie.find("slow"));
   }
 }

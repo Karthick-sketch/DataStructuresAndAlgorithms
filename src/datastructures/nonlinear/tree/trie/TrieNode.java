@@ -3,17 +3,17 @@ package datastructures.nonlinear.tree.trie;
 import datastructures.linear.list.LinkedList;
 import datastructures.linear.list.List;
 
-public class TrieNode {
+class TrieNode {
 
   private char character;
   private boolean end;
   private List<TrieNode> alphabets;
 
-  public TrieNode() {
+  TrieNode() {
     initiate('\0');
   }
 
-  public TrieNode(char character) {
+  TrieNode(char character) {
     initiate(character);
   }
 
@@ -23,27 +23,27 @@ public class TrieNode {
     this.alphabets = new LinkedList<>();
   }
 
-  public char getCharacter() {
+  char getCharacter() {
     return character;
   }
 
-  public void setCharacter(char character) {
+  void setCharacter(char character) {
     this.character = character;
   }
 
-  public boolean isEnd() {
+  boolean isEnd() {
     return end;
   }
 
-  public void setEnd(boolean end) {
+  void setEnd(boolean end) {
     this.end = end;
   }
 
-  public List<TrieNode> getAlphabets() {
+  List<TrieNode> getAlphabets() {
     return alphabets;
   }
 
-  public void setAlphabets(List<TrieNode> alphabets) {
+  void setAlphabets(List<TrieNode> alphabets) {
     this.alphabets = alphabets;
   }
 }
