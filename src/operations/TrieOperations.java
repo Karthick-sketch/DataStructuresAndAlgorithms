@@ -38,15 +38,15 @@ public class TrieOperations {
     );
     System.out.println();
 
-    System.out.println("Delete 'fast' -> " + trie.remove("fast"));
+    System.out.println("Remove 'fast' -> " + trie.remove("fast"));
     System.out.println(trie.get());
-    System.out.println("Delete 'faster' -> " + trie.remove("faster"));
+    System.out.println("Remove 'faster' -> " + trie.remove("faster"));
     System.out.println(trie.get());
-    System.out.println("Delete 'fastest' -> " + trie.remove("fastest"));
+    System.out.println("Remove 'fastest' -> " + trie.remove("fastest"));
     System.out.println(trie.get());
-    System.out.println("Delete 'slow' -> " + trie.remove("slow"));
+    System.out.println("Remove 'slow' -> " + trie.remove("slow"));
     System.out.println(trie.get());
-    System.out.println("Delete 'slower' -> " + trie.remove("slower"));
+    System.out.println("Remove 'slower' -> " + trie.remove("slower"));
     System.out.println(trie.get());
   }
 }

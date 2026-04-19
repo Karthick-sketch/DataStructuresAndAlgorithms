@@ -46,4 +46,24 @@ class TrieNode {
   void setChildren(List<TrieNode> children) {
     this.children = children;
   }
+
+  void addChild(TrieNode child) {
+    for (int i = 0; i < children.size(); i++) {
+      if (children.get(i).getCharacter() > child.getCharacter()) {
+        children.insert(child, i);
+        return;
+      }
+    }
+    children.add(child);
+  }
+
+  TrieNode getChild(char character) {
+    for (int i = 0; i < children.size(); i++) {
+      TrieNode child = children.get(i);
+      if (child.getCharacter() == character) {
+        return child;
+      }
+    }
+    return null;
+  }
 }

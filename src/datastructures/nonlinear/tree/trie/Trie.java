@@ -23,21 +23,20 @@ public class Trie {
     TrieNode current = root;
     TrieNode node = null;
     for (int i = 0; i < word.length(); i++) {
-      List<TrieNode> children = current.getChildren();
-      node = getTrieNode(word.charAt(i), children);
+      node = current.getChild(word.charAt(i));
       if (node != null) {
         current = node;
       } else {
         for (int j = i; j < word.length(); j++) {
           node = new TrieNode(word.charAt(j));
-          children.add(node);
-          children = node.getChildren();
+          current.addChild(node);
+          current = node;
         }
-        // last character of the word
         break;
       }
     }
     if (node != null) {
+      // last character of the word
       node.setEnd(true);
     }
   }
@@ -51,8 +50,7 @@ public class Trie {
     TrieNode current = root;
     TrieNode node = null;
     for (int i = 0; i < word.length(); i++) {
-      List<TrieNode> children = current.getChildren();
-      node = getTrieNode(word.charAt(i), children);
+      node = current.getChild(word.charAt(i));
       if (node == null) {
         return false;
       }
@@ -168,16 +166,6 @@ public class Trie {
     }
     System.out.println("Not a word");
     return true;
-  }
-
-  private TrieNode getTrieNode(char character, List<TrieNode> children) {
-    for (int i = 0; i < children.size(); i++) {
-      TrieNode current = children.get(i);
-      if (character == current.getCharacter()) {
-        return current;
-      }
-    }
-    return null;
   }
 
   private void get(TrieNode current, List<String> words, StringBuilder word) {
