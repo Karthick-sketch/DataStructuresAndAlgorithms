@@ -10,7 +10,8 @@ public class DoublyLinkedList<L> implements List<L> {
 
   public DoublyLinkedList() {}
 
-  public DoublyLinkedList(L[] values) {
+  @SafeVarargs
+  public DoublyLinkedList(L... values) {
     addAll(values);
   }
 

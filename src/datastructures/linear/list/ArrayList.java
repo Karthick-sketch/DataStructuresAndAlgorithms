@@ -15,7 +15,8 @@ public class ArrayList<L> implements List<L> {
     array = new Object[length];
   }
 
-  public ArrayList(L[] values) {
+  @SafeVarargs
+  public ArrayList(L... values) {
     length = values.length;
     position = values.length;
     array = Arrays.copyOf(values, length);
@@ -35,11 +36,11 @@ public class ArrayList<L> implements List<L> {
 
   @Override
   public void add(L value) {
-    array[position] = (Object) value;
-    position++;
-    if (position + 1 >= length) {
+    if (position >= length) {
       extend();
     }
+    array[position] = (Object) value;
+    position++;
   }
 
   @Override

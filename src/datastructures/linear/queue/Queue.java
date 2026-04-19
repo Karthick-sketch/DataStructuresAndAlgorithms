@@ -9,7 +9,8 @@ public class Queue<Q> {
 
   public Queue() {}
 
-  public Queue(Q[] values) {
+  @SafeVarargs
+  public Queue(Q... values) {
     for (Q value : values) {
       enqueue(value);
     }

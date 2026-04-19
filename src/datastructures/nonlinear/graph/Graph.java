@@ -1,0 +1,15 @@
+package datastructures.nonlinear.graph;
+
+import datastructures.linear.list.List;
+
+public interface Graph<V> {
+  void addVertex(Vertex<V> vertex);
+
+  void addEdge(int source, int destination);
+
+  boolean checkEdge(int source, int destination);
+
+  List<Vertex<V>> breadthFirstSearch(Vertex<V> vertex);
+
+  List<Vertex<V>> depthFirstSearch(Vertex<V> vertex);
+}

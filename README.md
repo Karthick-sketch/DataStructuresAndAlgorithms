@@ -27,6 +27,10 @@
     - Red-Black Tree
   - Tries
 
+- Graphs
+  - Adjacency Matrix
+  - Adjacency List
+
 # Algorithms
 
 - Sort
