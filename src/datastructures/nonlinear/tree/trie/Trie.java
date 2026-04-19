@@ -1,5 +1,6 @@
 package datastructures.nonlinear.tree.trie;
 
+import datastructures.linear.Stack;
 import datastructures.linear.list.LinkedList;
 import datastructures.linear.list.List;
 
@@ -22,15 +23,15 @@ public class Trie {
     TrieNode current = root;
     TrieNode node = null;
     for (int i = 0; i < word.length(); i++) {
-      List<TrieNode> alphabets = current.getAlphabets();
-      node = getTrieNode(word.charAt(i), alphabets);
+      List<TrieNode> children = current.getChildren();
+      node = getTrieNode(word.charAt(i), children);
       if (node != null) {
         current = node;
       } else {
         for (int j = i; j < word.length(); j++) {
           node = new TrieNode(word.charAt(j));
-          alphabets.add(node);
-          alphabets = node.getAlphabets();
+          children.add(node);
+          children = node.getChildren();
         }
         // last character of the word
         break;
@@ -50,8 +51,8 @@ public class Trie {
     TrieNode current = root;
     TrieNode node = null;
     for (int i = 0; i < word.length(); i++) {
-      List<TrieNode> alphabets = current.getAlphabets();
-      node = getTrieNode(word.charAt(i), alphabets);
+      List<TrieNode> children = current.getChildren();
+      node = getTrieNode(word.charAt(i), children);
       if (node == null) {
         return false;
       }
@@ -63,11 +64,62 @@ public class Trie {
   public List<String> get() {
     List<String> words = new LinkedList<>();
     root
-      .getAlphabets()
+      .getChildren()
       .forEach(node -> {
         get(node, words, new StringBuilder());
       });
     return words;
+  }
+
+  public boolean remove(String word) {
+    if (isNotWord(word)) {
+      return false;
+    }
+
+    word = word.toUpperCase();
+    Stack<TrieNode> stack = new Stack<>();
+    TrieNode parent = root;
+    TrieNode child = null;
+    for (int i = 0; i < word.length(); i++) {
+      char character = word.charAt(i);
+      List<TrieNode> children = parent.getChildren();
+      boolean found = false;
+      for (int j = 0; j < children.size() && !found; j++) {
+        child = children.get(j);
+        if (child.getCharacter() == character) {
+          stack.push(child);
+          parent = child;
+          found = true;
+        }
+      }
+      if (!found) {
+        return false;
+      }
+    }
+
+    if (stack.isEmpty()) {
+      return false;
+    }
+
+    child = stack.pop();
+    if (!child.isEnd()) {
+      return false;
+    } else if (child.getChildren().size() > 0) {
+      child.setEnd(false);
+      return true;
+    }
+
+    while (!stack.isEmpty()) {
+      parent = stack.pop();
+      parent.getChildren().remove(child);
+      child = parent;
+      if (child.getChildren().size() > 0) {
+        return true;
+      }
+    }
+
+    root.getChildren().remove(child);
+    return true;
   }
 
   // ----- private methods ----------------------------------------
@@ -80,9 +132,9 @@ public class Trie {
     return true;
   }
 
-  private TrieNode getTrieNode(char character, List<TrieNode> alphabets) {
-    for (int i = 0; i < alphabets.size(); i++) {
-      TrieNode current = alphabets.get(i);
+  private TrieNode getTrieNode(char character, List<TrieNode> children) {
+    for (int i = 0; i < children.size(); i++) {
+      TrieNode current = children.get(i);
       if (character == current.getCharacter()) {
         return current;
       }
@@ -96,7 +148,7 @@ public class Trie {
       words.add(word.toString());
     }
     current
-      .getAlphabets()
+      .getChildren()
       .forEach(node -> {
         get(node, words, new StringBuilder(word));
       });

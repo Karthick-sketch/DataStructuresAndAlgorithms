@@ -7,7 +7,7 @@ class TrieNode {
 
   private char character;
   private boolean end;
-  private List<TrieNode> alphabets;
+  private List<TrieNode> children;
 
   TrieNode() {
     initiate('\0');
@@ -20,7 +20,7 @@ class TrieNode {
   private void initiate(char character) {
     this.character = character;
     this.end = false;
-    this.alphabets = new LinkedList<>();
+    this.children = new LinkedList<>();
   }
 
   char getCharacter() {
@@ -39,11 +39,11 @@ class TrieNode {
     this.end = end;
   }
 
-  List<TrieNode> getAlphabets() {
-    return alphabets;
+  List<TrieNode> getChildren() {
+    return children;
   }
 
-  void setAlphabets(List<TrieNode> alphabets) {
-    this.alphabets = alphabets;
+  void setChildren(List<TrieNode> children) {
+    this.children = children;
   }
 }
